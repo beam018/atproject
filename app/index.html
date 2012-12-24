@@ -19,47 +19,49 @@
         <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
 
     </head>
-    <body class="container">
-        <header class="main-header" id="main-header">
-            <a href="#" class="pull-left" id="home">
-                <img src="/images/allodst_logo.png" alt="">
-            </a>
-            <nav>
-                <ul class="nav nav-pills">
-                    <li>
-                        <a href="#about" id="about">
-                            О команде
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="#projects" id="projects">
-                            Проекты
-                        </a>
-                    </li>
-                    
-                    <li class="career">
-                        <a href="#career" id="career">
-                            Вакансии
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu" id="dropdown"></ul>
-                    </li>
-                    
-                    <li>
-                        <a href="#contacts" id="contacts">
-                            Контакты
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        
-        <div class="content" id="content"></div>
-        
-        <footer class="main-footer">
-            @mail.ru
-        </footer>
+    <body>
+        <div class="container">
+            <header class="main-header" id="main-header">
+                <a href="#" class="pull-left" id="home">
+                    <img src="/images/allodst_logo.png" alt="">
+                </a>
+                <nav>
+                    <ul class="nav nav-pills">
+                        <li>
+                            <a href="#about" id="about">
+                                О команде
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="#projects" id="projects">
+                                Проекты
+                            </a>
+                        </li>
+                        
+                        <li class="career">
+                            <a href="#career" id="career">
+                                Вакансии
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu" id="dropdown"></ul>
+                        </li>
+                        
+                        <li>
+                            <a href="#contacts" id="contacts">
+                                Контакты
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+            
+            <div class="content" id="content"></div>
+            
+            <footer class="main-footer">
+                @mail.ru
+            </footer>
+        </div>
 
     <script type="text/x-handlebars-template" id="dropdown-item-template">
         <li><a href="#career/type={{id}}">{{name}}<span class="pull-right">{{length model}}</span></a></li>
