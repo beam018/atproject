@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Allods Team</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        
+        <link rel="stylesheet" href="styles/main.css">
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
+        <script src="scripts/vendor/modernizr.min.js"></script>
+        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+
+    </head>
+    <body class="container">
+        <header class="main-header" id="main-header">
+            <a href="#" class="pull-left" id="home">
+                <img src="/images/allodst_logo.png" alt="">
+            </a>
+            <nav>
+                <ul class="nav nav-pills">
+                    <li>
+                        <a href="#about" id="about">
+                            О команде
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="#projects" id="projects">
+                            Проекты
+                        </a>
+                    </li>
+                    
+                    <li class="career">
+                        <a href="#career" id="career">
+                            Вакансии
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" id="dropdown"></ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#contacts" id="contacts">
+                            Контакты
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="content" id="content"></div>
+        
+        <footer class="main-footer">
+            @mail.ru
+        </footer>
+
+    <script type="text/x-handlebars-template" id="dropdown-item-template">
+        <li><a href="#career/type={{id}}">{{name}}</a></li>
+    </script>
+
+    <script type="text/x-handlebars-template" id="slider-template">
+        <div>
+        {{#each model}}
+            <li data-image="{{image}}" data-id="{{id}}"></li>
+        {{/each}}
+        </div>
+
+        <span class="left"></span>
+        <span class="right"></span>
+
+        {{#each model}}
+            <img src="{{image}}" alt="">
+        {{/each}}
+    </script>
+
+    <script type="text/x-handlebars-template" id="project-template">
+        <img src="{{thumb}}" alt="">
+        <div class="carousel-caption">
+            {{name}}
+        </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="tab-template">
+        <a href="#tab{{id}}">{{name}}</a>
+    </script>
+
+    <script type="text/x-handlebars-template" id="post-template">
+        {{{content}}}
+    </script>
+
+    <script type="text/x-handlebars-template" id="job-list-template">
+        <a href="#career/type={{id}}" class="job-preview">
+            <img src="{{image}}" alt="">
+            <span class="carousel-caption">
+                {{name}}
+                <span class="pull-right">{{length model}}</span>
+            </span>
+        </a>
+    </script>
+
+    <script type="text/x-handlebars-template" id="jobs-template">
+        <ul class="breadcrumb">
+          <li><a href="#career">Вакансии</a> <span class="divider">></span></li>
+          <li class="active"><a href="#career/type={{id}}">{{name}}</a></li>
+        </ul>
+
+        <div>{{{content}}}</div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Название</td>
+                    <th>Город</td>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each model}}
+                <tr>
+                    <td>
+                        <a href="#career/type={{../id}}/job={{id}}" class="target-job" data-id="{{id}}">
+                            {{name}}
+                        </a>
+                    </td>
+                    <td>{{city}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
+
+    <script type="text/x-handlebars-template" id="job-template">
+        <div class="no-flow job-nav">
+            <ul class="breadcrumb pull-left">
+              <li><a href="#career">Вакансии</a> <span class="divider">></span></li>
+              <li><a href="#career/type={{parent.id}}">{{parent.name}}</a> <span class="divider">></span></li>
+              <li class="active"><a href="#career/type={{parent.id}}/job={{model.id}}">{{model.name}}</a></li>
+            </ul>
+
+            <button class="pull-right btn btn-primary">Отправить заявку</button>
+        </div>
+
+        <div class="job-info">
+            {{{model.content}}}
+            <div id="yashare"></div> 
+        </div>
+
+        <h4>Отправить заявку на вакансию {{model.name}}</h4>
+        <form class="form-horizontal job-form">
+          <div class="control-group">
+            <label class="control-label" for="inputName">Имя</label>
+            <div class="controls">
+              <input type="text" id="inputName" placeholder="Имя">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputSurname">Фамилия</label>
+            <div class="controls">
+              <input type="text" id="inputSurname" placeholder="Фамилия">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputPhone">Телефон</label>
+            <div class="controls">
+              <input type="text" id="inputPhone" placeholder="Телефон">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputEmail">Email</label>
+            <div class="controls">
+              <input type="text" id="inputEmail" placeholder="Email">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputResume">Резюме</label>
+            <div class="controls">
+              <input type="file" id="inputResume">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputMore">Дополнительно</label>
+            <div class="controls">
+              <textarea id="inputMore" placeholder="Дополнительно"></textarea>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <button type="submit" class="btn btn-large btn-primary">Отправить</button>
+            </div>
+          </div>
+        </form>
+    </script>
+
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="scripts/vendor/jquery.min.js"><\/script>')</script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    
+    <!-- build:js scripts/plugins.js -->
+    <script src="scripts/vendor/bootstrap/bootstrap-affix.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-alert.js"></script>
+    <!--<script src="scripts/vendor/bootstrap/bootstrap-dropdown.js"></script>-->
+    <script src="scripts/vendor/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-modal.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-transition.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-button.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-popover.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-typeahead.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-carousel.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-scrollspy.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-collapse.js"></script>
+    <script src="scripts/vendor/bootstrap/bootstrap-tab.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/amd-app.js -->
+    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

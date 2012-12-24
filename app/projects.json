@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Lorem Ipsum",
+    "thumb": "http://lorempixel.com/g/600/400",
+    "id": 0,
+    "model": [
+      {
+        "name": "slide1",
+        "image": "/images/932x510-1.jpg",
+        "thumb": "http://lorempixel.com/g/600/400"
+      },
+      {
+        "name": "slide2",
+        "image": "/images/932x510-2.jpg",
+        "thumb": "http://lorempixel.com/g/600/400"
+      },
+      {
+        "name": "slide3",
+        "image": "/images/932x510-3.jpg",
+        "thumb": "http://lorempixel.com/g/600/400"
+      }
+    ]
+  },
+  {
+    "name": "Lorem Ipsum",
+    "thumb": "http://lorempixel.com/g/600/400",
+    "id": 1,
+    "model": [
+      {
+        "name": "slide1",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      },
+      {
+        "name": "slide2",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      },
+      {
+        "name": "slide3",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      }
+    ]
+  },
+  {
+    "name": "Lorem Ipsum",
+    "thumb": "http://lorempixel.com/g/600/400",
+    "id": 2,
+    "model": [
+      {
+        "name": "slide1",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      },
+      {
+        "name": "slide2",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      },
+      {
+        "name": "slide3",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      }
+    ]
+  },
+  {
+    "name": "Lorem Ipsum",
+    "thumb": "http://lorempixel.com/g/600/400",
+    "id": 3,
+    "model": [
+      {
+        "name": "slide1",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      },
+      {
+        "name": "slide2",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      },
+      {
+        "name": "slide3",
+        "image": "http://lorempixel.com/g/932/510",
+        "thumb": "http://lorempixel.com/g/600/400"
+      }
+    ]
+  }
+]
