@@ -62,7 +62,7 @@
         </footer>
 
     <script type="text/x-handlebars-template" id="dropdown-item-template">
-        <li><a href="#career/type={{id}}">{{name}}</a></li>
+        <li><a href="#career/type={{id}}">{{name}}<span class="pull-right">{{length model}}</span></a></li>
     </script>
 
     <script type="text/x-handlebars-template" id="slider-template">
@@ -142,8 +142,6 @@
               <li><a href="#career/type={{parent.id}}">{{parent.name}}</a> <span class="divider">></span></li>
               <li class="active"><a href="#career/type={{parent.id}}/job={{model.id}}">{{model.name}}</a></li>
             </ul>
-
-            <button class="pull-right btn btn-primary">Отправить заявку</button>
         </div>
 
         <div class="job-info">

@@ -36,7 +36,7 @@ define('switchTab', [], function(){
 require(['switchTab', 'app'], function(switchTab, app) {
   'use strict';
 
-  $('#main-header a').on('click', function(){
+  $('a').on('click', function(){
     var $content = $('#content');
     if($content.hasClass('content-unfix')){
       $content.removeClass('content-unfix');
