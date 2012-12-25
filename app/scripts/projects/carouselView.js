@@ -6,64 +6,109 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
     className: 'at-carousel',
     id: 'at-carousel',
     template: $('#slider-template'),
-    render: function(data){
-      var html = '';
 
-      if(data){
-        var templateSource = this.template.html();
-        var template = handlebars.compile(templateSource);
-        html = template(data);
+    events: {
+      'click #at-carousel li': 'navTo',
+      'click #at-carousel span.left': 'navLeft',
+      'click #at-carousel span.right': 'navRight'
+    },
+
+    initialize: function(collection){
+      this.collection = collection;
+
+      this.rendered = false;
+    },
+
+    render: function(){
+      if(!this.collection){
+        console.error('data don\'t passed');
       }
 
-      this.$el.html(html);
-      var first = this.$el.find('li').first();
+      if(!this.rendered){
+        var templateSource = this.template.html();
+        var template = handlebars.compile(templateSource);
+        var html = template({model: this.collection});
 
-      first.addClass('active');
-      this.$el.css('background-image', 'url(' + first.data('image') + ')');
+        this.$el.html(html);
 
+        this.rendered = true;
+
+        this.layer = this.$el.find('#at-layer');
+        this.bar = this.$el.find('#at-bar');
+        this.arrows = this.$el.find('span.arrow');
+      }
+
+      var slide = this.$el.find('li').first();
+      this.slideTo(slide);
+    },
+
+    changeSlide: function(slide){
+      this.layer.hide();
+      this.bar.hide();
+      this.arrows.hide();
+
+      this.layer.css(
+        'background-image',
+        'url(' + slide.data('image') + ')'
+      );
+      
       var self = this;
-      this.$el.find('li').on('click', function(){
-        var $this = $(this);
+      this.layer.fadeIn(500, function(){
+        self.$el.css(
+          'background-image',
+          'url(' + slide.data('image') + ')'
+        );
 
-        $this.addClass('active').siblings('.active').removeClass('active');
-        self.$el.css('background-image', 'url(' + $this.data('image') + ')');
+        self.bar.show();
+        self.arrows.show();
       });
+    },
 
-      this.$el.find('.left').on('click', function(){
-        var item = self.$el
-          .find('li.active')
-          .prev('li')
-          .first();
-
-        if(!item.data('image')){
-          item = self.$el.find('li').last();
-        }
-
-        item
+    setNav: function(item){
+      item
           .addClass('active')
           .siblings('li.active')
           .removeClass('active');
+    },
 
-        self.$el.css('background-image', 'url(' + item.data('image') + ')');
-      });
+    slideTo: function(slide){
+      this.changeSlide(slide);
+      this.setNav(slide);
+    },
 
-      this.$el.find('.right').on('click', function(){
-        var item = self.$el
-          .find('li.active')
-          .next('li')
-          .first();
+    renderCurent: function(id){
+      var slide = this.$el.find('#project-' + id);
+      this.slideTo(slide);
+    },
 
-        if(!item.data('image')){
-          item = self.$el.find('li').first();
-        }
+    navTo: function(e){
+      this.slideTo($(e.target));
+    },
 
-        item
-          .addClass('active')
-          .siblings('li.active')
-          .removeClass('active');
+    navLeft: function(){
+      var item = this.$el
+        .find('li.active')
+        .prev('li')
+        .first();
 
-        self.$el.css('background-image', 'url(' + item.data('image') + ')');
-      });
+      if(!item.data('image')){
+        item = this.$el.find('li').last();
+      }
+
+      this.slideTo(item);
+    },
+
+    navRight: function(){
+      var item = this.$el
+        .find('li.active')
+        .next('li')
+        .first();
+
+      if(!item.data('image')){
+        item = this.$el.find('li').first();
+      }
+
+      this.slideTo(item);
     }
   });
 

@@ -10,8 +10,10 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
       var template = handlebars.compile(templateSource);
       var html = template(this.model.toJSON());
 
+      this.$el
+        .attr('id', 'tab' + this.model.toJSON().id)
+        .data('data-spy', 'scroll');
       this.$el.html(html);
-      this.$el.attr('id', 'tab' + this.model.toJSON().id);
       return this;
     }
   });

@@ -51,6 +51,8 @@ define([
         this.renderPost(item);
       }, this);
 
+      this.$el.append($('<div class="career-wrapper"></div>'));
+
       this.$el.append(this.jobListView.el);
     },
 

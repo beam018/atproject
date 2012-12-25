@@ -57,7 +57,7 @@ define([
 
       activateCurrentProject: function(id){
         $.fn.switchTab($('#projects'));
-        projectsView.render(id);
+        projectsView.renderCurent(id);
       },
 
       activateCareer: function(){

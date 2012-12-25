@@ -51,7 +51,7 @@ input, textarea
 textarea
   height: 6em
 
-.posts-container
+.career-wrapper
   border-bottom: 1px solid #000
   padding: 0 0 1em 0
   margin: 0 0 1em 0
@@ -64,20 +64,24 @@ textarea
   height: 510px
   margin: 0 0 .5em 0
   list-style-type: none
-  +transition(background 0.3s ease-in-out)
   background-repeat: no-repeat
   +background-size(cover)
   text-align: center
   display: block
   position: relative
 
-  div
+  .at-bar
     position: relative
     top: 486px
     background: #fff
     display: inline-block
     +border-radius(50% 50% 0 0)
     padding: .3em .3em 0 .3em
+
+  .at-layer
+    height: 100%
+    width: 100%
+    +background-size(cover)
 
   li
     +border-radius(50%)
@@ -97,17 +101,6 @@ textarea
 
   span
     display: block
-    // color: #fff
-
-    // $arrowSize: 50px
-    // width: $arrowSize
-    // font: $arrowSize "PT Sans"
-    // line-height: $arrowSize
-
-    // font-weight: bold
-    // +border-radius(50%)
-    // border: 3px solid #fff
-    // background-color: #000
 
     position: absolute
     opacity: 0.5
@@ -131,3 +124,6 @@ textarea
   .right
     border-left: 38px solid #fff
     right: 20px
+
+.tab-pane
+  max-height: 180px

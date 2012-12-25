@@ -9,26 +9,21 @@ define([
   var ProjectsView = Backbone.View.extend({
     el: $('#content'),
     
-    initialize: function(data){
-      this.collection = new Projects(data);
-      this.carouselView = new CarouselView();
+    initialize: function(collection){
+      this.collection = new Projects(collection);
+      this.container = $('<div class="row-fluid projects-row"></div>');
+
+      _.each(this.collection.toJSON(), function(item){
+        this.container.append(this.renderProject(item));
+      }, this);
     },
 
-    render: function(id){
-      var container = $('<div class="row-fluid projects-row"></div>');
-      var data = this.collection.toJSON()
-      _.each(data, function(item){
-        container.append(this.renderProject(item));
-      }, this);
+    render: function(){
+      this.carouselView = new CarouselView(this.collection.toJSON());
+      this.carouselView.render();
 
-      if(!id){
-        id = 0;
-      }
-      this.carouselView.render(data[id]);
       this.$el.html(this.carouselView.el);
-      $('#myCarousel').find('.item').first().addClass('active');
-
-      this.$el.append(container);
+      this.$el.append(this.container);
     },
 
     renderProject: function(item){
@@ -37,6 +32,16 @@ define([
       
       return projectView.el;
     },
+
+    renderCurent: function(id){
+      if(!this.carouselView){
+        this.render();
+        this.carouselView.renderCurent(id);
+      }
+      else{
+        this.carouselView.renderCurent(id);
+      }
+    }
   });
 
   return ProjectsView;

@@ -68,22 +68,19 @@
     </script>
 
     <script type="text/x-handlebars-template" id="slider-template">
-        <div>
-        {{#each model}}
-            <li data-image="{{image}}" data-id="{{id}}"></li>
-        {{/each}}
+        <div class="at-layer" id="at-layer">
+            <div class="at-bar" id="at-bar">
+            {{#each model}}
+                <li data-image="{{image}}" id="project-{{id}}"></li>
+            {{/each}}
+            </div>
+            
+            <span class="arrow left"></span>
+            <span class="arrow right"></span>
         </div>
-
-        <span class="left"></span>
-        <span class="right"></span>
-
-        {{#each model}}
-            <img src="{{image}}" alt="">
-        {{/each}}
     </script>
 
     <script type="text/x-handlebars-template" id="project-template">
-        <img src="{{thumb}}" alt="">
         <div class="carousel-caption">
             {{name}}
         </div>

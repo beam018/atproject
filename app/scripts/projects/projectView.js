@@ -13,7 +13,7 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
       this.$el
         .html(html)
         .attr('href', '#projects/' + this.model.id)
-        .attr('data-id', this.model.id);
+        .css('background', 'url(' + this.model.thumb + ')');
     }
   });
 

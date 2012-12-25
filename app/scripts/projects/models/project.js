@@ -4,7 +4,7 @@ define(['backbone', 'projects/models/slideImage'], function(Backbone, SlideImage
   var Project = Backbone.Model.extend({
     name: '',
     thumb: '',
-    model: SlideImage,
+    image: '',
     idAttribute: 'id'
   });
 
