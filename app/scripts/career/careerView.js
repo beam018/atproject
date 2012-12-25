@@ -44,23 +44,20 @@ define([
     },
 
     render: function(){
+      this.$el.append(this.jobListView.el);
+      
       this.$tabs.html('');
-
       _.each(this.tabsCollection.models, function(item){
         this.renderTab(item);
         this.renderPost(item);
       }, this);
-
-      this.$el.append($('<div class="career-wrapper"></div>'));
-
-      this.$el.append(this.jobListView.el);
     },
 
     renderTab: function(item){
       var tabView = new TabView({model: item});
       this.$tabs.append(tabView.render().el);
 
-      this.$el.html(this.$tabs);
+      this.$el.append(this.$tabs);
     },
 
     renderPost: function(item){
