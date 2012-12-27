@@ -69,14 +69,8 @@
 
     <script type="text/x-handlebars-template" id="slider-template">
         <div class="at-layer" id="at-layer">
-            <div class="at-bar" id="at-bar">
-            {{#each model}}
-                <li data-image="{{image}}" id="project-{{id}}"></li>
-            {{/each}}
-            </div>
-            
-            <span class="arrow left"></span>
-            <span class="arrow right"></span>
+            <a href="#projects/{{leftId}}" class="arrow left"></a>
+            <a href="#projects/{{rightId}}" class="arrow right"></a>
         </div>
     </script>
 
@@ -84,6 +78,7 @@
         <div class="carousel-caption">
             {{name}}
         </div>
+        <img src="{{image}}" alt="" class="hide">
     </script>
 
     <script type="text/x-handlebars-template" id="tab-template">

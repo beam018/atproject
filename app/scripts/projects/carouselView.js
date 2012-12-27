@@ -2,19 +2,16 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
   'use strict';
 
   var CarouselView = Backbone.View.extend({
-    tagName: 'ul',
+    tagName: 'div',
     className: 'at-carousel',
+    $content: $('#content'),
     id: 'at-carousel',
     template: $('#slider-template'),
-
-    events: {
-      'click #at-carousel li': 'navTo',
-      'click #at-carousel span.left': 'navLeft',
-      'click #at-carousel span.right': 'navRight'
-    },
+    projectsUrl: '#projects/',
 
     initialize: function(collection){
       this.collection = collection;
+      this.data = collection.toJSON();
 
       this.rendered = false;
     },
@@ -22,93 +19,138 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
     render: function(){
       if(!this.collection){
         console.error('data don\'t passed');
+        return;
       }
+
+      var id = this.collection.first().id;
 
       if(!this.rendered){
         var templateSource = this.template.html();
         var template = handlebars.compile(templateSource);
-        var html = template({model: this.collection});
+
+        var self = this;
+
+        var context = {
+          leftId: self.navLeft(id),
+
+          rightId: self.navRight(id)
+        };
+
+        var html = template(context);
 
         this.$el.html(html);
 
         this.rendered = true;
 
         this.layer = this.$el.find('#at-layer');
-        this.bar = this.$el.find('#at-bar');
-        this.arrows = this.$el.find('span.arrow');
+        this.arrows = this.$el.find('a.arrow');
       }
 
-      var slide = this.$el.find('li').first();
-      this.slideTo(slide);
+      this.slideTo(id);
     },
 
-    changeSlide: function(slide){
+    slideTo: function(id){
+      this.changeSlide(id);
+      this.updateArrows(id);
+      this.setNav(id);
+    },
+
+    changeSlide: function(id){
       this.layer.hide();
-      this.bar.hide();
       this.arrows.hide();
+
+      var slideData = this.collection.get(id).attributes;
 
       this.layer.css(
         'background-image',
-        'url(' + slide.data('image') + ')'
+        'url(' + slideData.image + ')'
       );
       
       var self = this;
       this.layer.fadeIn(500, function(){
         self.$el.css(
           'background-image',
-          'url(' + slide.data('image') + ')'
+          'url(' + slideData.image + ')'
         );
 
-        self.bar.show();
         self.arrows.show();
       });
     },
 
-    setNav: function(item){
-      item
-          .addClass('active')
-          .siblings('li.active')
-          .removeClass('active');
-    },
+    setNav: function(id){
+      id = parseInt(id, 10);
+      if (isNaN(id)){
+        console.error('id must be number');
+        return;
+      }
 
-    slideTo: function(slide){
-      this.changeSlide(slide);
-      this.setNav(slide);
+      this.$content
+        .find('#project-' + id)
+        .addClass('active-project')
+        .siblings('.active-project')
+        .removeClass('active-project');
     },
 
     renderCurent: function(id){
-      var slide = this.$el.find('#project-' + id);
-      this.slideTo(slide);
-    },
-
-    navTo: function(e){
-      this.slideTo($(e.target));
-    },
-
-    navLeft: function(){
-      var item = this.$el
-        .find('li.active')
-        .prev('li')
-        .first();
-
-      if(!item.data('image')){
-        item = this.$el.find('li').last();
+      id = parseInt(id, 10);
+      if (isNaN(id)){
+        console.error('id must be number');
+        return;
       }
 
-      this.slideTo(item);
-    },
-
-    navRight: function(){
-      var item = this.$el
-        .find('li.active')
-        .next('li')
-        .first();
-
-      if(!item.data('image')){
-        item = this.$el.find('li').first();
+      if(!_.find(this.collection.toJSON(), function(item){
+        return item.id === id;
+      })){
+        console.warn('id ' + id + ' not found');
+        id = this.collection.first().id;
       }
 
-      this.slideTo(item);
+      this.slideTo(id);
+    },
+
+    navLeft: function(id){
+      if(typeof id === 'undefined'){
+        console.error('id don\'t passed');
+        return;
+      }
+
+      var newId = 0;
+
+      if(id <= this.collection.first().id){
+        newId = this.collection.last().id;
+      }
+      else {
+        newId = --id;
+      }
+
+      this.$el.find('a.left').attr('href', this.projectsUrl + newId);
+
+      return newId;
+    },
+
+    navRight: function(id){
+      if(typeof id === 'undefined'){
+        console.error('id don\'t passed');
+        return;
+      }
+
+      var newId = 0;
+
+      if(id >= this.collection.last().id){
+        newId = this.collection.first().id;
+      }
+      else {
+        newId = ++id;
+      }
+
+      this.$el.find('a.right').attr('href', this.projectsUrl + newId);
+
+      return newId;
+    },
+
+    updateArrows: function(id){
+      this.navLeft(id);
+      this.navRight(id);
     }
   });
 

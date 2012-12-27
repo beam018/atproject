@@ -17,13 +17,15 @@
 
 .projects-set
   position: relative
-  color: #fff
-  overflow: hidden
   height: 100px
-  cursor: pointer
+  color: #fff
 
-.projects-row
-  height: 28%
+  &:hover
+    font-weight: bold
+
+
+.active-project
+  +box-shadow(0 0 5px 2px #08C)
 
 .job-preview-list
   text-align: center
@@ -70,36 +72,12 @@ textarea
   display: block
   position: relative
 
-  .at-bar
-    position: relative
-    top: 486px
-    background: #fff
-    display: inline-block
-    +border-radius(50% 50% 0 0)
-    padding: .3em .3em 0 .3em
-
   .at-layer
     height: 100%
     width: 100%
     +background-size(cover)
 
-  li
-    +border-radius(50%)
-    height: .5em
-    width: .5em
-    display: inline-block
-    margin: 0 .1em 0 .1em
-    cursor: pointer
-    background: #acacac
-    border: 1px solid #acacac
-
-  .active
-    background: #fff
-
-  img
-    display: none
-
-  span
+  a
     display: block
 
     position: absolute

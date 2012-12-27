@@ -19,7 +19,7 @@ define([
     },
 
     render: function(){
-      this.carouselView = new CarouselView(this.collection.toJSON());
+      this.carouselView = new CarouselView(this.collection);
       this.carouselView.render();
 
       this.$el.html(this.carouselView.el);
