@@ -44,7 +44,7 @@ define([
     },
 
     render: function(){
-      this.$el.append(this.jobListView.el);
+      this.$el.html(this.jobListView.el);
       
       this.$tabs.html('');
       _.each(this.tabsCollection.models, function(item){

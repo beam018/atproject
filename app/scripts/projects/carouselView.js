@@ -57,7 +57,6 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
 
     changeSlide: function(id){
       this.layer.hide();
-      this.arrows.hide();
 
       var slideData = this.collection.get(id).attributes;
 
@@ -72,8 +71,6 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
           'background-image',
           'url(' + slideData.image + ')'
         );
-
-        self.arrows.show();
       });
     },
 
