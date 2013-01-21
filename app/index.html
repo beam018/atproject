@@ -64,7 +64,7 @@
         </div>
 
     <script type="text/x-handlebars-template" id="dropdown-item-template">
-        <li><a href="#career/type={{id}}"><span class="pull-left">{{name}}</span><span class="pull-right">{{length model}}</span></a></li>
+        <li><a href="#career/type={{item.id}}"><span class="pull-left">{{item.name}}</span><span class="pull-right">{{count}}</span></a></li>
     </script>
 
     <script type="text/x-handlebars-template" id="slider-template">
@@ -78,11 +78,11 @@
         <div class="carousel-caption">
             {{name}}
         </div>
-        <img src="{{image}}" alt="" class="hide">
+        <img src="/media/{{image}}" alt="" class="hide">
     </script>
 
     <script type="text/x-handlebars-template" id="tab-template">
-        <a href="#tab{{id}}">{{name}}</a>
+        <a href="#tab{{id}}">{{caption}}</a>
     </script>
 
     <script type="text/x-handlebars-template" id="post-template">
@@ -90,11 +90,11 @@
     </script>
 
     <script type="text/x-handlebars-template" id="job-list-template">
-        <a href="#career/type={{id}}" class="job-preview">
-            <img src="{{image}}" alt="">
+        <a href="#career/type={{item.id}}" class="job-preview">
+            <img src="/media/{{item.thumb}}" alt="">
             <span class="carousel-caption">
-                {{name}}
-                <span class="pull-right">{{length model}}</span>
+                {{item.name}}
+                <span class="pull-right">{{count}}</span>
             </span>
         </a>
     </script>
@@ -102,10 +102,10 @@
     <script type="text/x-handlebars-template" id="jobs-template">
         <ul class="breadcrumb">
           <li><a href="#career">Вакансии</a> <span class="divider">></span></li>
-          <li class="active"><a href="#career/type={{id}}">{{name}}</a></li>
+          <li class="active"><a href="#career/type={{category.id}}">{{category.name}}</a></li>
         </ul>
 
-        <div>{{{content}}}</div>
+        <div>{{{category.content}}}</div>
 
         <table class="table table-hover">
             <thead>
@@ -115,14 +115,14 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each model}}
+                {{#each jobs}}
                 <tr>
                     <td>
-                        <a href="#career/type={{../id}}/job={{id}}" class="target-job" data-id="{{id}}">
+                        <a href="#career/job={{id}}" class="target-job">
                             {{name}}
                         </a>
                     </td>
-                    <td>{{city}}</td>
+                    <td>{{{ getCityById ../cities city }}}</td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -133,17 +133,29 @@
         <div class="no-flow job-nav">
             <ul class="breadcrumb pull-left">
               <li><a href="#career">Вакансии</a> <span class="divider">></span></li>
-              <li><a href="#career/type={{parent.id}}">{{parent.name}}</a> <span class="divider">></span></li>
-              <li class="active"><a href="#career/type={{parent.id}}/job={{model.id}}">{{model.name}}</a></li>
+              <li><a href="#career/type={{category.id}}">{{category.name}}</a> <span class="divider">></span></li>
+              <li class="active"><a href="#career/job={{job.id}}">{{job.name}}</a></li>
             </ul>
         </div>
 
         <div class="job-info">
-            {{{model.content}}}
+            {{{job.top_content}}}
+
+            {{#if job.skills}}
+                <h4>Требования:</h4>
+                {{{job.skills}}}
+            {{/if}}
+
+            {{#if job.desired_skills}}
+                <h4>Приветсвуется:</h4>
+                {{{job.desired_skills}}}
+            {{/if}}
+
+            {{{job.bottom_content}}}
             <div id="yashare"></div> 
         </div>
 
-        <h4>Отправить заявку на вакансию {{model.name}}</h4>
+        <h4>Отправить заявку на вакансию {{job.name}}</h4>
         <form class="form-horizontal job-form">
           <div class="control-group">
             <label class="control-label" for="inputName">Имя</label>

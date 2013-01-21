@@ -1,8 +1,8 @@
-define(['backbone', 'career/models/jobs'], function(Backbone, Jobs){
+define(['backbone', 'career/models/job'], function(Backbone, Job){
   'use strict';
 
   var JobsList = Backbone.Collection.extend({
-    model: Jobs
+    model: Job
   });
 
   return JobsList;

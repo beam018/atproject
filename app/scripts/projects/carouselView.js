@@ -62,14 +62,14 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
 
       this.layer.css(
         'background-image',
-        'url(' + slideData.image + ')'
+        'url(/media/' + slideData.image + ')'
       );
       
       var self = this;
       this.layer.fadeIn(500, function(){
         self.$el.css(
           'background-image',
-          'url(' + slideData.image + ')'
+          'url(/media/' + slideData.image + ')'
         );
       });
     },

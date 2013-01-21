@@ -1,25 +1,27 @@
 define([
 
-    'config',
     'handlebars',
     'backbone',
     'career/tabView',
     'career/postView',
     'career/collections/tabs',
     'career/collections/jobsList',
+    'career/collections/jobCategories',
+    'career/collections/cities',
     'career/jobsListView',
     'career/jobsView',
     'career/jobView'
 
   ], function(
 
-      config,
       handlebars,
       Backbone,
       TabView,
       PostView,
       Tabs,
       JobsList,
+      JobCategories,
+      Cities,
       JobsListView,
       JobsView,
       JobView
@@ -28,19 +30,41 @@ define([
 
   'use strict';
 
+  handlebars.registerHelper('getCityById', function(iterator, id){
+    if(!iterator){
+      return '';
+    }
+
+    if(!_.isNumber(id)){
+      return '';
+    }
+
+    var result = iterator[id];
+    if(_.isUndefined(result)){
+      return '';
+    }
+
+    return new handlebars.SafeString(result.city_name);
+  });
+
   var CareerView = Backbone.View.extend({
     el: $('#content'),
     $tabs: $('<ul id="myTab" class="nav nav-tabs"></ul>'),
     $posts: $('<div id="myTabContent" class="tab-content posts-container"></div>'),
 
-    initialize: function(tabsData, jobsData){
-      this.tabsCollection = new Tabs(tabsData);
-      this.jobsCollection = new JobsList(jobsData);
+    initialize: function(resources){
+      this.tabsCollection = new Tabs(resources.tabs);
+      this.jobsCollection = new JobsList(resources.jobs);
+      this.jobCategoriesCollection = new JobCategories(resources.jobCategories);
+      this.citiesCollection = new Cities(resources.cities);
 
       this.jobsView = new JobsView();
       this.jobView = new JobView();
 
-      this.jobListView = new JobsListView(this.jobsCollection);
+      this.jobListView = new JobsListView(
+        this.jobCategoriesCollection,
+        this.jobsCollection
+      );
     },
 
     render: function(){
@@ -68,14 +92,49 @@ define([
     },
 
     showJobs: function(id){
-      var data = this.jobsCollection.get(id);
-      
-      this.jobsView.render(data.toJSON());
+      id = parseInt(id, 10);
+      if(isNaN(id)){
+        console.error('bad id');
+
+        this.$el.html('');
+        return;
+      }
+
+      var category = this.jobCategoriesCollection.get(id).toJSON();
+      var jobs = _.map(this.jobsCollection.where({category: id}), function(item){
+        return item.toJSON();
+      });
+      var cities = [];
+      this.citiesCollection.each(function(item){
+        cities[item.id] = item.toJSON();
+      });
+
+      var data = {
+        category: category,
+        jobs: jobs,
+        cities: cities
+      };
+
+      this.jobsView.render(data);
       this.$el.html(this.jobsView.el);
     },
 
-    showJob: function(parentId, id){
-      this.jobView.render(this.jobsCollection, parentId, id);
+    showJob: function(id){
+      id = parseInt(id, 10);
+      if(isNaN(id)){
+        console.error('bad id');
+        return;
+      }
+
+      var job = this.jobsCollection.get(id).toJSON();
+      var category = this.jobCategoriesCollection.get(job.category).toJSON();
+      var city = this.citiesCollection.get(job.city).toJSON();
+
+      this.jobView.render({
+        job: job,
+        category: category,
+        city: city
+      });
       this.$el.html(this.jobView.el);
       this.$el.addClass('content-unfix');
 

@@ -4,7 +4,11 @@ define(['backbone'], function(Backbone){
   var Job = Backbone.Model.extend({
     name: '',
     city: '',
-    content: '',
+    top_content: '',
+    skills: '',
+    desired_skills: '',
+    bottom_content: '',
+    category: '',
     idAttribute: 'id'
   });
 

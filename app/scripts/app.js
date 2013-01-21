@@ -14,11 +14,17 @@ define([
     var templateSource = $('#dropdown-item-template').html();
     var template = handlebars.compile(templateSource);
 
-    _.each(resources.jobs, function(item){
-      dropdown.append(template(item));
+    var jobs = _.groupBy(resources.jobs, 'category');
+    _.each(resources.jobCategories, function(item){
+      var count = jobs[item.id] ? jobs[item.id].length : 0;
+
+      dropdown.append(template({
+        item: item,
+        count: count
+      }));
     });
 
-    var careerView = new CareerView(resources.tabs, resources.jobs);
+    var careerView = new CareerView(resources);
     var projectsView = new ProjectsView(resources.projects);
 
     var Router = Backbone.Router.extend({
@@ -30,24 +36,24 @@ define([
         'projects/:id': 'activateCurrentProject',
         'career': 'activateCareer',
         'career/type=:id': 'showJobsByID',
-        'career/type=:parentId/job=:id': 'showJob'
+        'career/job=:id': 'showJob'
       },
 
       content: $('#content'),
 
       activateHome: function(){
         $.fn.switchTab();
-        this.content.html(resources.loadRes('home.json').content);
+        this.content.html(resources.loadRes('home/', 'html'));
       },
 
       activateAbout: function(){
         $.fn.switchTab($('#about'));
-        this.content.html(resources.loadRes('about.json').content);
+        this.content.html(resources.loadRes('about/', 'html'));
       },
 
       activateContacts: function(){
         $.fn.switchTab($('#contacts'));
-        this.content.html(resources.loadRes('contacts.json').content);
+        this.content.html(resources.loadRes('contacts/', 'html'));
       },
 
       activateProjects: function(){
@@ -76,9 +82,9 @@ define([
         careerView.showJobs(id);
       },
 
-      showJob: function(parentId, id){
+      showJob: function(id){
         $.fn.switchTab($('#career'));
-        careerView.showJob(parentId, id);
+        careerView.showJob(id);
       }
     });
 

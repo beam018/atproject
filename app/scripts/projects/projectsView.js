@@ -27,7 +27,9 @@ define([
     },
 
     renderProject: function(item){
-      var projectView = new ProjectView({model: item});
+      var projectView = new ProjectView({
+        model: item
+      });
       projectView.render();
       
       return projectView.el;
