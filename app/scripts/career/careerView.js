@@ -128,12 +128,10 @@ define([
 
       var job = this.jobsCollection.get(id).toJSON();
       var category = this.jobCategoriesCollection.get(job.category).toJSON();
-      var city = this.citiesCollection.get(job.city).toJSON();
 
       this.jobView.render({
         job: job,
-        category: category,
-        city: city
+        category: category
       });
       this.$el.html(this.jobView.el);
       this.$el.addClass('content-unfix');

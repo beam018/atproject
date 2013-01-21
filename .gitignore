@@ -3,3 +3,4 @@ dist
 .sass-cache
 npm-debug.log
 .idea
+.htaccess
