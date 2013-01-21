@@ -22,6 +22,10 @@ define(['backbone', 'handlebars'], function(Backbone, handlebars){
         return;
       }
 
+      if(!this.collection.length){
+        this.$el.html('');
+        return;
+      }
       var id = this.collection.first().id;
 
       if(!this.rendered){
