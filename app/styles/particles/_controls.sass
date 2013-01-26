@@ -1,0 +1,13 @@
+.slider-control
+  background: url(/images/arrows.png) no-repeat
+  width: $sliderControlWidth
+  height: $sliderControlHeight
+  display: inline-block
+
+.slider-control__left
+  +transform(translate($sliderControlLeftOffset, $sliderControlTop))
+  background-position: 0 0
+  
+.slider-control__right
+  +transform(translate($sliderControlRightOffset, $sliderControlTop))
+  background-position: 0 100%

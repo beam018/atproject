@@ -1,0 +1,47 @@
+@mixin headerSelectedElement
+  background: $red
+  +background-image(linear-gradient($red, $darkRed))
+  border: 1px solid $lightRed
+  +single-box-shadow(rgba($black, 0.15), 0, 0, 2em, 0, inset)
+  color: $white
+
+.header
+  border: 1px solid $black
+  overflow: hidden
+  background: $black
+  +background-image(linear-gradient($black, $darkGray))
+  font-size: .875em
+  margin: 0 0 $headerBottomOffset 0
+
+.logo
+  display: block
+  float: left
+
+.logo-image
+  display: block
+  height: $headerHeight - 2px
+  width: $headerElementWidth - 2px
+  +headerSelectedElement
+
+.nav
+  float: right
+
+  a
+    display: inline-block
+    width: $headerElementWidth
+    padding: 0 0 0 1px
+    background: $darkGray
+    +background-image(linear-gradient($darkGray, $black))
+    text-decoration: none
+
+  span
+    display: block
+    background: $black
+    +background-image(linear-gradient($black, $darkGray))
+    text-align: center
+    line-height: $headerHeight
+    text-transform: uppercase
+    
+    &.active
+      +headerSelectedElement
+      line-height: $headerHeight - 2px

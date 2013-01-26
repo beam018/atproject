@@ -1,0 +1,51 @@
+@font-face
+  font-family: 'Lucida Sans'
+  src: url('/fonts/LucidaSans.eot')
+  src: local('☺'), url('/fonts/LucidaSans.woff') format('woff'), url('/fonts/LucidaSans.ttf') format('truetype'), url('/fonts/LucidaSans.svg') format('svg')
+  font-weight: normal
+  font-style: normal
+
+body
+  width: $mainWidth
+  margin: 0 auto 0 auto
+  font-family: "Lucida Sans", "Lucida Console", "Monaco", "Bitstream Vera Sans Mono", monospace
+
+a
+  +link-colors($yellow)
+
+.container
+  display: block
+
+  > div
+    border: 1px solid $darkGray
+    +border-radius(4px)
+    background: #fff
+    position: relative
+
+  .rounded
+    +border-radius(7px)
+
+.with-shadow
+  padding-bottom: $shadowHeight
+  background: url(/images/shadow.png) no-repeat bottom center
+  +background-size(100% $shadowRealHeight + $insurance)
+
+.grid-row
+  overflow: hidden
+  text-align: center
+
+  *
+    display: inline-block
+
+@mixin grid($n)
+  width: ($mainWidth / $n) - 2*$em - 2px
+  margin: 0 1*$em 0 1*$em
+
+.grid2
+  +grid(2)
+
+.grid3
+  +grid(3)
+
+.grid6
+  +grid(6)

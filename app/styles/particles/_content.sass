@@ -1,0 +1,29 @@
+.content
+  height: $contentHeight
+  overflow: hidden
+
+.content__fullsize
+  height: auto
+
+.single
+  height: $contentHeight - $shadowHeight - 2px
+
+.slide
+  height: $slideHeight
+
+.slider-row
+  div
+    height: $sliderRowHeight
+
+  .active
+    .caption
+      background: $lightRed
+      color: $white
+
+.caption
+  display: block
+  background: $darkGray
+  position: absolute
+  bottom: 0
+  width: 100%
+  line-height: $sliderCaptionHeight

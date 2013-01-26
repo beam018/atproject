@@ -1,5 +1,7 @@
 module.exports = function( grunt ) {
   'use strict';
+
+  grunt.loadNpmTasks('grunt-jade');
   //
   // Grunt configuration:
   //
@@ -51,6 +53,16 @@ module.exports = function( grunt ) {
       all: ['test/**/*.html']
     },
 
+    jade: {
+      html: {
+        src: ['app/templates/*.jade'],
+        dest: 'app/',
+        options: {
+          client: false
+        }
+      }
+    },
+
     // default watch configuration
     watch: {
       coffee: {
@@ -71,7 +83,11 @@ module.exports = function( grunt ) {
           'app/images/**/*'
         ],
         tasks: 'reload'
-      }
+      },
+      jade: {
+        files: 'app/templates/*.jade',
+        tasks: 'jade reload'
+      },
     },
 
     // default lint configuration, change this to match your setup:
@@ -185,5 +201,8 @@ module.exports = function( grunt ) {
 
   // Alias the `test` task to run the `mocha` task instead
   grunt.registerTask('test', 'server:phantom mocha');
+
+  grunt.renameTask('server', 'original-server');
+  grunt.registerTask('server', 'jade original-server');
 
 };

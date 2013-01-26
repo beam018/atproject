@@ -4,3 +4,9 @@ dist
 npm-debug.log
 .idea
 .htaccess
+app/base.html
+app/single.html
+app/slider.html
+static
+media
+node_modules
