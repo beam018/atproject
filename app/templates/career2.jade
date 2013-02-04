@@ -1,0 +1,86 @@
+extends career
+
+block nav
+  nav.nav
+    li 
+      a(href='/slider.html')
+        span О нас
+
+    li
+      a(href='/slider2.html')
+        span Проекты
+
+    li
+      a(href='/career.html')
+        span.active Вакансии
+      ul
+        li 
+          a(href='/career2.html') Дизайн
+          div 3
+        li
+          a(href='/career2.html') Арт
+          div 2
+        li
+          a(href='/career2.html') Технологии
+          div 2
+        li
+          a(href='/career2.html') QA
+          div 5
+        li
+          a(href='/career2.html') Реклама и PR
+        li
+          a(href='/career2.html') Другое
+
+    li
+      a(href='/slider3.html')
+        span Контакты
+
+block breadcrumbs
+  div.crumbs
+    div.crumb 
+      a(href="/career.html") Вакансии
+      span
+
+    div.crumb.active
+      a(href="#") Дизайн
+      span
+
+block careerContent
+  h1 Дизайн
+
+  h3 Открытые вакансии
+
+  p Игровой процес первичен. Прежде всего, мы хотим сконцентрироваться на весельи от игры. Все аспекты игры - дизайн, квесты и история сосредоточены на том, чтобы игровой процесс был веселым и интерестным.
+
+  table
+    thead
+      tr
+        td(width="367") Название должности
+        td(width="270") Проект
+        td Город
+
+    tbody
+      tr
+        td 
+          span.dot
+          a(href="/career3.html") Дизайнер интерфейсов
+        td SkyForge
+        td Москва
+
+      tr
+        td
+          span.dot
+          a(href="/career3.html") Дизайнер игровой механники
+        td Allods Online
+        td Воронеж
+
+      tr
+        td
+          span.dot
+          a(href="/career3.html") Дизайнер игровой механники 
+        td Allods Adventure
+        td Москва
+
+  div.back__absolute
+    < 
+    a(href="/career.html") Вернуться назад

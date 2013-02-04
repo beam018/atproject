@@ -25,18 +25,43 @@ html.no-js
       a.logo(href='#')
         img.logo-image(src='/images/logo.png', alt='', width='137', height='50')
 
-      nav.nav
-        a(href='#about')
-          span О нас
-        a(href='#projects')
-          span Проекты
-        a(href='#career')
-          span Вакансии
-        a(href='#contacts')
-          span Контакты
+      block nav
+        nav.nav
+          li 
+            a(href='/slider.html')
+              span О нас
 
-    div.content
-      block content
+          li
+            a(href='/slider2.html')
+              span Проекты
+
+          li
+            a(href='/career.html')
+              span Вакансии
+            ul
+              li 
+                a(href='/career2.html') Дизайн
+                div 3
+              li
+                a(href='/career2.html') Арт
+                div 2
+              li
+                a(href='/career2.html') Технологии
+                div 2
+              li
+                a(href='/career2.html') QA
+                div 5
+              li
+                a(href='/career2.html') Реклама и PR
+              li
+                a(href='/career2.html') Другое
+
+          li
+            a(href='/slider3.html')
+              span Контакты
+
+    block content
+      div.content
 
     footer.footer
       div.social

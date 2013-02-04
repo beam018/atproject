@@ -12,6 +12,7 @@ body
 
 a
   +link-colors($yellow)
+  text-decoration: none
 
 .container
   display: block
@@ -20,10 +21,21 @@ a
     border: 1px solid $darkGray
     +border-radius(4px)
     background: #fff
+    +background-image(radial-gradient(color-stops(#fff, $lightestGray), center center))
     position: relative
+    width: 100%
+    +box-sizing(border-box)
+    overflow: hidden
 
   .rounded
     +border-radius(7px)
+
+  .rounded__crumbs
+    +border-radius(0 7px 7px 7px)
+
+  .colored
+    background: $gray
+    +background-image(radial-gradient(color-stops($lightGray, $gray), center center))
 
 .with-shadow
   padding-bottom: $shadowHeight
@@ -37,6 +49,9 @@ a
   *
     display: inline-block
 
+  > .container:first-child
+    margin-left: 0
+
 @mixin grid($n)
   width: ($mainWidth / $n) - 2*$em - 2px
   margin: 0 1*$em 0 1*$em
@@ -45,7 +60,15 @@ a
   +grid(2)
 
 .grid3
-  +grid(3)
+  width: 220px
+  margin: 0 20px 0 20px
 
 .grid6
-  +grid(6)
+  width: 138px
+  margin: 0 13px 0 13px  
+
+  &:first-child
+    margin-left: 0
+
+  &:last-child
+    margin-right: 0

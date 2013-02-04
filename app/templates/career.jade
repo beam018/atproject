@@ -1,0 +1,79 @@
+extends single
+
+block nav
+  nav.nav
+    li 
+      a(href='/slider.html')
+        span О нас
+
+    li
+      a(href='/slider2.html')
+        span Проекты
+
+    li
+      a(href='/career.html')
+        span.active Вакансии
+      ul
+        li 
+          a(href='/career2.html') Дизайн
+          div 3
+        li
+          a(href='/career2.html') Арт
+          div 2
+        li
+          a(href='/career2.html') Технологии
+          div 2
+        li
+          a(href='/career2.html') QA
+          div 5
+        li
+          a(href='/career2.html') Реклама и PR
+        li
+          a(href='/career2.html') Другое
+
+    li
+      a(href='/slider3.html')
+        span Контакты
+
+block singleContent
+  block breadcrumbs
+
+  div.career-content
+    block careerContent
+      h1 Работа в Allods Team
+
+      p Это не просто возможность работать над большими играми или рассказывать истории. Это ваша возможность использовать свое воображение. В AT, мы работаем бок о бок, чтобы превратить идеи в реальность. Приходите посмотреть, что мы можем предложить.
+
+      a(href="/career2.html")
+        figure
+          img(src="http://placekitten.com/g/220/114", alt="", height="113", width="220")
+          figcaption Дизайн
+            div 2
+
+      a(href="/career2.html")
+        figure
+          img(src="http://placekitten.com/g/220/114", alt="", height="113", width="220")
+          figcaption Арт
+            div 2
+
+      a(href="/career2.html")
+        figure
+          img(src="http://placekitten.com/g/220/114", alt="", height="113", width="220")
+          figcaption Технологии
+            div 2
+
+      a(href="/career2.html")
+        figure
+          img(src="http://placekitten.com/g/220/114", alt="", height="113", width="220")
+          figcaption QA
+            div 2
+
+      a(href="/career2.html")
+        figure
+          img(src="http://placekitten.com/g/220/114", alt="", height="113", width="220")
+          figcaption Реклама и PR
+
+      a(href="/career2.html")
+        figure
+          img(src="http://placekitten.com/g/220/114", alt="", height="113", width="220")
+          figcaption Другое

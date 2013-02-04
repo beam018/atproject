@@ -7,11 +7,14 @@
 
 .header
   border: 1px solid $black
-  overflow: hidden
+  // overflow: hidden
   background: $black
   +background-image(linear-gradient($black, $darkGray))
   font-size: .875em
   margin: 0 0 $headerBottomOffset 0
+  height: $headerHeight
+  position: relative
+  z-index: 9500
 
 .logo
   display: block
@@ -26,13 +29,24 @@
 .nav
   float: right
 
-  a
-    display: inline-block
+  > li
+    display: block
+    float: left
     width: $headerElementWidth
     padding: 0 0 0 1px
     background: $darkGray
     +background-image(linear-gradient($darkGray, $black))
-    text-decoration: none
+
+    &:hover
+      +background-image(none)
+      background: $darkGray
+
+      ul
+        display: block
+
+  a
+    overflow: hidden
+    display: block
 
   span
     display: block
@@ -41,7 +55,53 @@
     text-align: center
     line-height: $headerHeight
     text-transform: uppercase
-    
+    +text-shadow(0 0 3px $black)
+
+    &:hover
+      +background-image(none)
+      background: $darkGray
+
     &.active
       +headerSelectedElement
       line-height: $headerHeight - 2px
+
+  ul
+    position: absolute
+    z-index: 9000
+    background: $darkGray
+    color: $white
+    margin: 0 0 0 0
+    border: 1px solid #4b4b4b
+    border-top: none
+    padding: 25px 0 25px 0
+    font-size: 100%
+    outline: 1px solid $black
+    display: none
+
+    a
+      line-height: 1.7143
+      +text-shadow(0 0 3px $black)
+      display: inline-block
+
+    li
+      border-bottom: 1px solid #383838
+      padding: 0 68px 0 18px
+      overflow: hidden
+
+      &:last-child
+        border: none
+
+      &:hover
+        background: $red
+
+    div
+      position: absolute
+      right: 18px
+      color: $black
+      height: 19px
+      width: 19px
+      text-align: center
+      background: $yellow
+      border: 1px solid #eb9610
+      +border-radius(2px)
+      margin: 2px 0 0 0

@@ -6,7 +6,8 @@ npm-debug.log
 .htaccess
 app/base.html
 app/single.html
-app/slider.html
+app/slider*.html
+app/career*.html
 static
 media
 node_modules
