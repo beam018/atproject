@@ -16,18 +16,27 @@
   div
     height: $sliderRowHeight
 
+    &:hover .caption
+      line-height: $sliderCaptionHeight + 9px
+
   .active
     .caption
-      background: $lightRed
       color: $white
+      background: rgba(168, 80, 75, 0.9)
 
 .caption
   display: block
-  background: $darkGray
+  background: rgba(53, 53, 53, 0.9)
   position: absolute
   bottom: 0
   width: 100%
   line-height: $sliderCaptionHeight
+  +transition(line-height 0.1s ease-in-out)
+
+.career-category
+  a
+    display: inline-block
+    margin: 0 20px 35px 20px
 
 figure
   $radius: 3px
@@ -35,25 +44,43 @@ figure
 
   width: 222px
   +border-radius($radius)
-  margin: 0 20px 35px 20px
   float: left
   +box-shadow(0 2px 5px 1px $gray)
+  position: relative
+  height: 145px
+  overflow: hidden
+
+  &:hover
+    figcaption
+      line-height: $height + 9px
+      margin-top: -$height - 9px
+
+    div
+      line-height: $height + 7px
 
   img
     border-bottom: none
-    +border-radius($radius $radius 0 0)
+    +border-radius($radius)
     display: block
     width: 222px
-    height: 115px
+    height: 145px
+    position: relative
+    z-index: 100
 
   figcaption
     background: $darkGray
     line-height: $height
+    margin: -$height 0 0 0
     padding: 0 9px 0 9px
     +text-shadow(0 0 3px $black)
     font-size: 0.875em
     +border-radius(0 0 $radius $radius)
     overflow: hidden
+    position: relative
+    z-index: 1000
+    opacity: 0.9
+    +text-shadow(0 0 3px $black)
+    +transition(all 0.1s ease-in-out)
 
   div
     float: right
@@ -68,12 +95,10 @@ figure
     +border-radius(0 0 $radius - 1px 0)
     position: relative
     +background-image(linear-gradient(#fed892, $yellow, $yellow, #ffb400))
+    +transition(line-height 0.1s ease-in-out)
 
 .career-content
   padding: 0 81px 0 81px
-
-  a
-    display: inline-block
 
   > p, ul
     margin-bottom: 3em
@@ -110,12 +135,19 @@ figure
     background: $white
     color: $gray
     width: $formInputWidth
+    max-width: $formInputWidth
     border: 1px solid $gray
     padding: 2px 4px 2px 4px
     +border-radius(2px)
 
   input, textarea
     margin: 0 0 9px 0
+
+    &:focus
+      background: #fff
+      color: $black
+      border-color: $black
+      outline: none
 
   textarea
     height: 81px
@@ -132,3 +164,6 @@ figure
 
   *
     color: $white
+
+.career-p
+  margin-bottom: 1em

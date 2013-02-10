@@ -4,6 +4,11 @@
   height: $sliderControlHeight
   display: inline-block
   position: absolute
+  opacity: 0.7
+  +transition(opacity 0.1s ease-in-out)
+
+  &:hover
+    opacity: 0.9
 
 .slider-control__left
   +transform(translate($sliderControlLeftOffset, $sliderControlTop))
@@ -22,7 +27,7 @@
   +border-radius(0 7px 0 0)
 
   .active, .active *
-    background: $red
+    background: #c26b65
     +box-shadow(none)
     color: $white
 
@@ -61,3 +66,6 @@
   padding: 0 15px 0 15px
   cursor: pointer
   +background-image(linear-gradient(#fed892, $yellow, $yellow, #ffb400))
+
+  &:hover
+    +background-image(linear-gradient(#e77a03, $yellow, $yellow, #fcc75d))

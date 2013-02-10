@@ -4,8 +4,22 @@
   color: $gray
   font-size: .75em
 
-  div
+  > div
     margin: 0 15px 0 15px
     padding: 0 0 .5em 0
     display: inline-block
     line-height: $footerHeight
+
+.social
+  div
+    display: inline-block
+    background: url(/images/soc.png)
+    height: 18px
+    width: 18px
+    +background-size(cover)
+    margin: 0 0 -5px 5px
+    cursor: pointer
+    +opacity(0.75)
+
+    &:hover
+      +opacity(1)

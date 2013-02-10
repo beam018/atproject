@@ -3,7 +3,7 @@ h1
   line-height: 1.375
   border-bottom: 1px solid #bfc0c1
   color: $black
-  margin: 0 0 1em 0
+  margin: 1em 0 1em 0
 
 h2
   font-size: 0.875em
@@ -45,11 +45,19 @@ table
   td
     padding: 0 0 0 10px
 
-  tr
-    background: $white
+  tbody
+    tr
+      background: $white
+      +transition(all 0.1s ease-in-out)
 
-    &:nth-child(even)
-      background: $lightGray
+      &:nth-child(even)
+        background: $lightGray
+
+      &:hover
+        background: $red
+
+        *
+          color: $white
 
   thead
     color: $white

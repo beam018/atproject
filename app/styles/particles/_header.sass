@@ -19,12 +19,14 @@
 .logo
   display: block
   float: left
-
-.logo-image
-  display: block
   height: $headerHeight - 2px
   width: $headerElementWidth - 2px
   +headerSelectedElement
+  text-align: center
+
+.logo-image
+  display: inline-block
+  margin: 4px 0 0 0
 
 .nav
   float: right
@@ -44,9 +46,22 @@
       ul
         display: block
 
+    > a
+      height: $headerHeight
+
   a
     overflow: hidden
     display: block
+
+    &.active i
+      display: none
+
+    &.active > span
+      +headerSelectedElement
+      line-height: $headerHeight - 2px
+
+    &:hover i
+      margin: -9px 0 0 0
 
   span
     display: block
@@ -57,13 +72,11 @@
     text-transform: uppercase
     +text-shadow(0 0 3px $black)
 
-    &:hover
-      +background-image(none)
-      background: $darkGray
-
-    &.active
-      +headerSelectedElement
-      line-height: $headerHeight - 2px
+  i
+    +transition(margin 0.1s ease-in-out)
+    display: block
+    border-top: 9px solid $red
+    margin: 0 0 0 0
 
   ul
     position: absolute
@@ -79,7 +92,7 @@
     display: none
 
     a
-      line-height: 1.7143
+      line-height: 1.7857
       +text-shadow(0 0 3px $black)
       display: inline-block
 
@@ -87,6 +100,7 @@
       border-bottom: 1px solid #383838
       padding: 0 68px 0 18px
       overflow: hidden
+      height: 25px
 
       &:last-child
         border: none
@@ -104,4 +118,4 @@
       background: $yellow
       border: 1px solid #eb9610
       +border-radius(2px)
-      margin: 2px 0 0 0
+      margin: -22px 0 0 0

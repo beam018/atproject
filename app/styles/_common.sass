@@ -1,14 +1,20 @@
-@font-face
-  font-family: 'Lucida Sans'
-  src: url('/fonts/LucidaSans.eot')
-  src: local('☺'), url('/fonts/LucidaSans.woff') format('woff'), url('/fonts/LucidaSans.ttf') format('truetype'), url('/fonts/LucidaSans.svg') format('svg')
-  font-weight: normal
-  font-style: normal
+// @font-face
+//   font-family: 'Lucida Sans'
+//   src: url('/fonts/LucidaSans.eot')
+//   src: local('☺'), url('/fonts/LucidaSans.woff') format('woff'), url('/fonts/LucidaSans.ttf') format('truetype'), url('/fonts/LucidaSans.svg') format('svg')
+//   font-weight: normal
+//   font-style: normal
+
+html
+  background-color: #f1f1f1
+  +filter-gradient(#f1f1f1, #f1f1f1, vertical)
+  +background-image(linear-gradient(top,  #f1f1f1 1%,#e0e0e0 21%,#dddddd 75%,#f1f1f1 100%))
 
 body
   width: $mainWidth
   margin: 0 auto 0 auto
-  font-family: "Lucida Sans", "Lucida Console", "Monaco", "Bitstream Vera Sans Mono", monospace
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif
+  // font-family: "Lucida Sans", "Lucida Console", "Monaco", "Bitstream Vera Sans Mono", monospace
 
 a
   +link-colors($yellow)
@@ -21,6 +27,7 @@ a
     border: 1px solid $darkGray
     +border-radius(4px)
     background: #fff
+    +filter-gradient(#fff, $lightestGray, horizontal)
     +background-image(radial-gradient(color-stops(#fff, $lightestGray), center center))
     position: relative
     width: 100%
@@ -45,9 +52,13 @@ a
 .grid-row
   overflow: hidden
   text-align: center
+  margin: 0 auto 0 auto
 
   *
     display: inline-block
+
+  > .container
+    line-height: 0
 
   > .container:first-child
     margin-left: 0
@@ -61,11 +72,13 @@ a
 
 .grid3
   width: 220px
-  margin: 0 20px 0 20px
+  margin: 0 20px 6px 20px
+  padding-bottom: 12px
 
 .grid6
   width: 138px
-  margin: 0 13px 0 13px  
+  margin: 0 13px 6px 13px  
+  padding-bottom: 12px
 
   &:first-child
     margin-left: 0
