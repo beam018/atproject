@@ -6,7 +6,7 @@
   height: auto
 
 .single
-  height: $contentHeight - $shadowHeight - 2px
+  height: $contentHeight - $shadowHeight
 
 .slide
   height: $slideHeight
@@ -35,9 +35,11 @@
   +text-shadow(0 0 3px $black)
 
 .career-category
+  margin: -29px 0 0 0
+
   a
     display: inline-block
-    margin: 0 20px 35px 20px
+    margin: 0 18px 35px 23px
 
 figure
   $radius: 3px
@@ -101,8 +103,15 @@ figure
 .career-content
   padding: 0 81px 0 81px
 
+  h1
+    margin-top: 15px
+
   > p, ul
     margin-bottom: 3em
+
+  @if $debug
+    tr
+      cursor: pointer
 
 .back__absolute
   color: $gray
@@ -175,7 +184,7 @@ figure
 
 .slider-content
   width: 550px
-  margin: 10px 80px 40px 0
+  margin: 10px 80px 29px 0
   position: absolute
   bottom: 0
   right: 0
