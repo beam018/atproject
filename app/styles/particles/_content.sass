@@ -118,6 +118,23 @@ figure
   border-top: 1px solid $lightGray
   border-bottom: 1px solid $lightGray
   margin: 0 0 1em 0
+  padding: 0 0 1em 0
+
+  p
+    margin-bottom: 8px
+
+  div
+    display: inline-block
+    background: url(/images/soc.png)
+    height: 30px
+    width: 30px
+    +background-size(cover)
+    margin: 0 9px 0 0
+    cursor: pointer
+    +opacity(0.75)
+
+    &:hover
+      +opacity(1)
 
 .contact-form
   div
@@ -167,3 +184,4 @@ figure
 
 .career-p
   margin-bottom: 1em
+
