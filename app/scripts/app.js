@@ -24,6 +24,14 @@ define([
       }));
     });
 
+    /*$('a').on('click', function(){
+      var $content = $('#content-container');
+      console.log($content);
+      if($content.hasClass('content__fullsize')){
+        $content.removeClass('content__fullsize');
+      }
+    });*/
+
     var careerView = new CareerView(resources);
     var projectsView = new ProjectsView(resources.projects);
 
@@ -39,21 +47,21 @@ define([
         'career/job=:id': 'showJob'
       },
 
-      content: $('#content'),
+      content: $('#content-container'),
 
       activateHome: function(){
         $.fn.switchTab();
-        this.content.html(resources.loadRes('home/', 'html'));
+        this.content.find('#content').html(resources.loadRes('home/', 'html'));
       },
 
       activateAbout: function(){
         $.fn.switchTab($('#about'));
-        this.content.html(resources.loadRes('about/', 'html'));
+        this.content.find('#content').html(resources.loadRes('about/', 'html'));
       },
 
       activateContacts: function(){
         $.fn.switchTab($('#contacts'));
-        this.content.html(resources.loadRes('contacts/', 'html'));
+        this.content.find('#content').html(resources.loadRes('contacts/', 'html'));
       },
 
       activateProjects: function(){
@@ -63,18 +71,12 @@ define([
 
       activateCurrentProject: function(id){
         $.fn.switchTab($('#projects'));
-        projectsView.renderCurent(id);
+        projectsView.render(id);
       },
 
       activateCareer: function(){
         $.fn.switchTab($('#career'));
         careerView.render();
-        careerView.$tabs.find('a').first().tab('show');
-
-        $('#myTab a').click(function (e) {
-          e.preventDefault();
-          $(this).tab('show');
-        });
       },
 
       showJobsByID: function(id){

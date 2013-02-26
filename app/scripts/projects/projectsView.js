@@ -11,38 +11,29 @@ define([
     
     initialize: function(collection){
       this.collection = new Projects(collection);
-      this.container = $('<div class="row-fluid projects-row"></div>');
+      this.container = $('<div class="grid-row slider-row"></div>');
 
       _.each(this.collection.toJSON(), function(item){
         this.container.append(this.renderProject(item));
       }, this);
+
+      this.carouselView = new CarouselView({collection: this.collection});
     },
 
-    render: function(){
-      this.carouselView = new CarouselView(this.collection);
-      this.carouselView.render();
+    render: function(id){
+      this.carouselView.render(id);
 
-      this.$el.html(this.carouselView.el);
-      this.$el.append(this.container);
+      this.$el.removeClass('single').addClass('slide colored');
+      this.$el.parents('#content-container').append(this.container);
     },
 
     renderProject: function(item){
-      var projectView = new ProjectView({
-        model: item
-      });
-      projectView.render();
+      var projectView = new ProjectView({model: item});
+      $(projectView.el).addClass(
+        this.collection.length <= 3 ? 'grid3' : 'grid6'
+      );
       
       return projectView.el;
-    },
-
-    renderCurent: function(id){
-      if(!this.carouselView){
-        this.render();
-        this.carouselView.renderCurent(id);
-      }
-      else{
-        this.carouselView.renderCurent(id);
-      }
     }
   });
 

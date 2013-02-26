@@ -1,20 +1,23 @@
-define(['backbone', 'handlebars'], function(Backbone, handlebars){
+define(['backbone'], function(Backbone){
   'use strict';
 
   var ProjectView = Backbone.View.extend({
     tagName: 'a',
-    className: 'span3 projects-set',
-    template: $('#project-template'),
+    className: 'container with-shadow',
+    template: $('#project-template').html(),
+
+    initialize: function(){
+      this.render();
+    },
+
     render: function(){
-      var templateSource = this.template.html();
-      var template = handlebars.compile(templateSource);
-      var html = template(this.model);
+      var tmpl = _.template(this.template);
+      var html = tmpl(this.model);
 
       this.$el
         .html(html)
         .attr('href', '#projects/' + this.model.id)
-        .attr('id', 'project-' + this.model.id)
-        .css('background', 'url(/media/' + this.model.thumb + ')');
+        .attr('id', 'project-' + this.model.id);
     }
   });
 

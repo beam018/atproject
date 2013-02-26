@@ -1,23 +1,14 @@
 define([
-    'handlebars',
     'backbone',
     'career/collections/jobsList',
     'career/jobsView'
-  ], function(handlebars, Backbone, JobsList, JobsView){
+  ], function(Backbone, JobsList, JobsView){
   'use strict';
-
-  handlebars.registerHelper('length', function(val){
-    if(!val){
-      return '';
-    }
-
-    return new handlebars.SafeString(val.length);
-  });
 
   var JobsListView = Backbone.View.extend({
     tagName: 'div',
-    className: 'row-fluid job-preview-list',
-    template: $('#job-list-template'),
+    className: 'career-category',
+    template: $('#job-category-template').html(),
 
     initialize: function(jobCategories, jobCollection){
       this.collection = jobCategories;
@@ -28,14 +19,12 @@ define([
     render: function(){
       var self = this;
       _.each(this.collection.models, function(item){
-        var templateSource = this.template.html();
-        var template = handlebars.compile(templateSource);
-        var html = template({
-          item: item.toJSON(),
-          count: self.jobCollection.where({category: item.id}).length
-        });
 
-        this.$el.append(html);
+        var category = item.toJSON();
+        category.jobsCount = self.jobCollection.where({category: item.id}).length;
+
+        var tmpl = _.template(this.template);
+        this.$el.append(tmpl(category));
       }, this);
 
       return this;

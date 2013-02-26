@@ -30,16 +30,34 @@ define('switchTab', [], function(){
       .addClass('active')
       .siblings('li.active')
       .removeClass('active');
+
+// other
+
+    var $content = $('#content');
+
+    // $content.html('<div class="container with-shadow"><div class="rounded single" id="content"></div></div>');
+
+    if($('#content-container').hasClass('content__fullsize')){
+      $('#content-container').removeClass('content__fullsize');
+    }
+
+    if($content.hasClass('slide')){
+      $content.removeClass('slide');
+    }
+
+    if($content.hasClass('colored')){
+      $content.removeClass('colored');
+    }
+
+    if(!$content.hasClass('single')){
+      console.log();
+      $content.addClass('single');
+    }
+
+    $content.parent().siblings().remove();
   };
 });
  
 require(['switchTab', 'app'], function(switchTab, app) {
   'use strict';
-
-  $('a').on('click', function(){
-    var $content = $('#content');
-    if($content.hasClass('content-unfix')){
-      $content.removeClass('content-unfix');
-    }
-  });
 });

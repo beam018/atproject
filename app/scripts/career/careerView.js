@@ -1,10 +1,8 @@
 define([
 
-    'handlebars',
     'backbone',
-    'career/tabView',
+    'resources',
     'career/postView',
-    'career/collections/tabs',
     'career/collections/jobsList',
     'career/collections/jobCategories',
     'career/collections/cities',
@@ -14,11 +12,9 @@ define([
 
   ], function(
 
-      handlebars,
       Backbone,
-      TabView,
+      resources,
       PostView,
-      Tabs,
       JobsList,
       JobCategories,
       Cities,
@@ -30,30 +26,10 @@ define([
 
   'use strict';
 
-  handlebars.registerHelper('getCityById', function(iterator, id){
-    if(!iterator){
-      return '';
-    }
-
-    if(!_.isNumber(id)){
-      return '';
-    }
-
-    var result = iterator[id];
-    if(_.isUndefined(result)){
-      return '';
-    }
-
-    return new handlebars.SafeString(result.city_name);
-  });
-
   var CareerView = Backbone.View.extend({
     el: $('#content'),
-    $tabs: $('<ul id="myTab" class="nav nav-tabs"></ul>'),
-    $posts: $('<div id="myTabContent" class="tab-content posts-container"></div>'),
 
     initialize: function(resources){
-      this.tabsCollection = new Tabs(resources.tabs);
       this.jobsCollection = new JobsList(resources.jobs);
       this.jobCategoriesCollection = new JobCategories(resources.jobCategories);
       this.citiesCollection = new Cities(resources.cities);
@@ -68,27 +44,15 @@ define([
     },
 
     render: function(){
-      this.$el.html(this.jobListView.el);
-      
-      this.$tabs.html('');
-      _.each(this.tabsCollection.models, function(item){
-        this.renderTab(item);
-        this.renderPost(item);
-      }, this);
-    },
-
-    renderTab: function(item){
-      var tabView = new TabView({model: item});
-      this.$tabs.append(tabView.render().el);
-
-      this.$el.append(this.$tabs);
-    },
-
-    renderPost: function(item){
-      var postView = new PostView({model: item});
-      this.$posts.append(postView.render().el);
-
-      this.$el.append(this.$posts);
+      this.$el.html('<div class="crumbs hide" id="crumbs"><div class="crumb"><a href="#career">Вакансии</a><span></span></div></div>');
+      this.$el.append('<div class="pages" id="pages"></div>');
+      var page = $('<div class="career-content" id="page-1"></div>');
+      this.$el
+        .find('#pages')
+        .html(page)
+        .find('#page-1')
+        .html(this.jobListView.el)
+        .prepend(resources.loadRes('career/', 'html'));
     },
 
     showJobs: function(id){
@@ -100,23 +64,28 @@ define([
         return;
       }
 
-      var category = this.jobCategoriesCollection.get(id).toJSON();
+      if(!$('#pages')[0]){
+        this.render();
+      }
+
       var jobs = _.map(this.jobsCollection.where({category: id}), function(item){
         return item.toJSON();
       });
-      var cities = [];
-      this.citiesCollection.each(function(item){
-        cities[item.id] = item.toJSON();
-      });
-
       var data = {
-        category: category,
         jobs: jobs,
-        cities: cities
+        category: this.jobCategoriesCollection.get(id).toJSON(),
+        cities: this.citiesCollection.toJSON()
       };
 
       this.jobsView.render(data);
-      this.$el.html(this.jobsView.el);
+      console.log($('#pages'));
+      console.log(this.$el);
+      // this.$el.html(this.jobsView.el);
+      $('#pages', this.$el).append(this.jobsView.el);
+
+      $('.career-table tr').on('click', function(e){
+        window.location = $(this).find('a').attr('href');
+      });
     },
 
     showJob: function(id){
@@ -127,16 +96,22 @@ define([
       }
 
       var job = this.jobsCollection.get(id).toJSON();
-      var category = this.jobCategoriesCollection.get(job.category).toJSON();
-
-      this.jobView.render({
+      var data = {
         job: job,
-        category: category
-      });
-      this.$el.html(this.jobView.el);
-      this.$el.addClass('content-unfix');
+        category: this.jobCategoriesCollection.get(job.category).toJSON(),
+        city: this.citiesCollection.get(job.city).toJSON()
+      };
 
-      new Ya.share({
+      this.jobView.render(data);
+      this.$el.html(this.jobView.el);
+
+      $('#content-container').addClass('content__fullsize');
+
+      $('#resume-field').on('change', function(e){
+        $('#brows-field').val($('#resume-field')[0].files[0].name);
+      });
+
+      /*new Ya.share({
         element: 'yashare',
         elementStyle: {
           type: 'none',
@@ -149,7 +124,7 @@ define([
             'gplus'
           ]
         }
-      });
+      });*/
     }
   });
 

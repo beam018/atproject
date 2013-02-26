@@ -28,17 +28,17 @@ html.no-js
       block nav
         nav.nav
           li 
-            a(href='/slider.html')
+            a(href='#about')
               span О нас
               i
 
           li
-            a(href='/slider2.html')
+            a(href='#projects')
               span Проекты
               i
 
           li
-            a(href='/career.html')
+            a(href='#career')
               span Вакансии
               i
 
@@ -65,8 +65,9 @@ html.no-js
                 a(href='/career2.html') Другое
 
           li
-            a(href='/slider3.html')
+            a(href='#contacts')
               span Контакты
+              i
 
     block content
       div.content
@@ -86,9 +87,8 @@ html.no-js
     script
       window.jQuery || document.write('<script src="scripts/vendor/jquery.min.js"><\/script>');
 
-    script
-      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));
+    | <script>var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));</script>
 
-    // build:js scripts/amd-app.js
-    //- script(data-main="scripts/main", src="scripts/vendor/require.js")
-    // endbuild
+    | <!-- build:js scripts/amd-app.js -->
+    | <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    | <!-- endbuild -->

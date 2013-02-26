@@ -9,6 +9,7 @@ define(['backbone'], function(Backbone){
     desired_skills: '',
     bottom_content: '',
     category: '',
+    project: '',
     idAttribute: 'id'
   });
 

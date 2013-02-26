@@ -1,239 +1,142 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Allods Team</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        
-        <link rel="stylesheet" href="styles/mock.css">
-        <link href='http://fonts.googleapis.com/css?family=PT+Sans:700' rel='stylesheet' type='text/css'>
-        <script src="scripts/vendor/modernizr.min.js"></script>
-        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-
-    </head>
-    <body>
-        <div class="container">
-            <header class="main-header" id="main-header">
-                <a href="#" class="pull-left" id="home">
-                    <img src="/images/allodst_logo.png" alt="">
-                </a>
-                <nav>
-                    <ul class="nav nav-pills">
-                        <li>
-                            <a href="#about" id="about">
-                                О команде
-                            </a>
-                        </li>
-                        
-                        <li>
-                            <a href="#projects" id="projects">
-                                Проекты
-                            </a>
-                        </li>
-                        
-                        <li class="career">
-                            <a href="#career" id="career">
-                                Вакансии
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu" id="dropdown"></ul>
-                        </li>
-                        
-                        <li>
-                            <a href="#contacts" id="contacts">
-                                Контакты
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
-            
-            <div class="content" id="content"></div>
-            
-            <footer class="main-footer">
-                @mail.ru
-            </footer>
+<!DOCTYPE html><!-- [if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!-- [if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]--><!-- [if IE 8]><html class="no-js lt-ie9"><![endif]--><!-- [if gt IE 8]><!--><html class="no-js"><!-- <![endif]--><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Allods Team</title><meta name="description" content=""><meta name="viewport" content="width=device-width"><link rel="stylesheet" href="styles/main.css"><script src="scripts/vendor/modernizr.min.js"></script></head><body><header class="header"><a href="#" class="logo"><img src="/images/logo1.png" alt="" width="71" height="41" class="logo-image"></a><nav class="nav"><li> <a href="#about"><span>О нас</span><i></i></a></li><li><a href="#projects"><span>Проекты</span><i></i></a></li><li><a href="#career"><span>Вакансии</span><i></i></a><ul><li> <a href="/career2.html">Дизайн</a><div>3</div></li><li><a href="/career2.html">Арт</a><div>2</div></li><li><a href="/career2.html">Технологии</a><div>2</div></li><li><a href="/career2.html">QA</a><div>5</div></li><li><a href="/career2.html">Реклама и PR</a></li><li><a href="/career2.html">Другое</a></li></ul></li><li><a href="#contacts"><span>Контакты</span><i></i></a></li></nav></header><div id="content-container" class="content"><div class="container with-shadow"><div id="content" class="single rounded"></div></div></div><script id="job-category-template" type="text/template"><a href="#career/type=<%= id %>">
+  <figure>
+    <img src="/media/<%= thumb %>" alt="" height="145" width="220"/>
+    <figcaption>
+      <%= name %>
+      <div><%= jobsCount %></div>
+    </figcaption>
+  </figure>
+</a></script><script id="jobs-table-template" type="text/tempalte"><div class="career-content">
+  <h1><%= category.name %></h1>
+  <%= category.content %>
+  <table class="career-table">
+    <thead>
+      <tr>
+        <td width="367">Название должности
+        </td>
+        <td width="270">Проект
+        </td>
+        <td>Город
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(var i = 0; i < jobs.length; i++){ %>
+      <% var job = jobs[i]; %>
+      <tr>
+        <td>
+          <span class="dot"></span>
+          <a href="#career/job=<%= job.id %>"><%= job.name %></a>
+        </td>
+        <td><%= job.project %></td>
+        <td><%= cities[job.city].city_name %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <div class="back__absolute">
+    < <a href="#career">Вернуться назад</a>
+  </div>
+ </div></script><script id="job-template" type="text/templates"><div class="container with-shadow">
+<div class="rounded single rounded__crumbs light-border">
+<div class="crumbs">
+  <div class="crumb">
+    <a href="#career">Вакансии</a>
+    <span></span>
+  </div>
+  <div class="crumb">
+    <a href="#career/type=<%= category.id %>"><%= category.name %></a>
+    <span></span>
+  </div>
+  <div class="crumb active">
+    <a href="#career/job=<%= job.id %>"><%= job.name %></a>
+    <span></span>
+  </div>
+</div>
+<div class="career-content career-p">
+  <h1><%= job.name %> | <%= job.project %> | <%= city.city_name %></h1>
+  <%= job.top_content %>
+  <% if(job.skills){ %>
+  <h2>Требования:</h2>
+  <%= job.skills %>
+  <% } %>
+  <% if(job.desired_skills){ %>
+  <h2>Приветсвуется:</h2>
+  <%= job.desired_skills %>
+  <% } %>
+  <%= job.bottom_content %>    
+  <div class="share">
+    <p>Рассказать о вакансии друзьям
+    </p>
+    <div style="background-position: 0 0">
+    </div>
+    <div style="background-position: 0 -30px">
+    </div>
+    <div style="background-position: 0 -60px">
+    </div>
+    <div style="background-position: 0 -90px">
+    </div>
+    <div style="background-position: 0 -120px">
+    </div>
+    <div style="background-position: 0 -150px">
+    </div>
+  </div>
+  <h2>Отправить заявку на эту вакансию</h2>
+  <form method="POST" class="contact-form">
+    <p>Ваша персональная информация</p>
+    <div>
+      <label for="name-field">Имя:</label>
+      <input type="text" name="name" id="name-field" placeholder="Имя">
+    </div>
+    <div>
+      <label for="surname-field">Фамилия:</label>
+      <input type="text" name="surname" id="surname-field" placeholder="Фамилия">
+    </div>
+    <div>
+      <label for="phone-field">Телефон:</label>
+      <input type="text" name="phone" id="phone-field" placeholder="Телефон">
+    </div>
+    <div>
+      <label for="email-field">Email:</label>
+      <input type="text" name="email" id="email-field" placeholder="Email">
+    </div>
+    <div>
+      <label for="resume-field" class="file-input"><span>Вложить резюме:</span>
+        <div>
+          <input id="brows-field" type="text" placeholder="Файл" disabled="disabled"/>
+          <div id="brows" class="button">Обзор...
+          </div>
         </div>
-
-    <script type="text/x-handlebars-template" id="dropdown-item-template">
-        <li><a href="#career/type={{item.id}}"><span class="pull-left">{{item.name}}</span><span class="pull-right">{{count}}</span></a></li>
-    </script>
-
-    <script type="text/x-handlebars-template" id="slider-template">
-        <div class="at-layer" id="at-layer">
-            <a href="#projects/{{leftId}}" class="arrow left"></a>
-            <a href="#projects/{{rightId}}" class="arrow right"></a>
-        </div>
-    </script>
-
-    <script type="text/x-handlebars-template" id="project-template">
-        <div class="carousel-caption">
-            {{caption}}
-        </div>
-        <img src="/media/{{image}}" alt="" class="hide">
-    </script>
-
-    <script type="text/x-handlebars-template" id="tab-template">
-        <a href="#tab{{id}}">{{caption}}</a>
-    </script>
-
-    <script type="text/x-handlebars-template" id="post-template">
-        {{{content}}}
-    </script>
-
-    <script type="text/x-handlebars-template" id="job-list-template">
-        <a href="#career/type={{item.id}}" class="job-preview">
-            <img src="/media/{{item.thumb}}" alt="">
-            <span class="carousel-caption">
-                {{item.name}}
-                <span class="pull-right">{{count}}</span>
-            </span>
-        </a>
-    </script>
-
-    <script type="text/x-handlebars-template" id="jobs-template">
-        <ul class="breadcrumb">
-          <li><a href="#career">Вакансии</a> <span class="divider">></span></li>
-          <li class="active"><a href="#career/type={{category.id}}">{{category.name}}</a></li>
-        </ul>
-
-        <div>{{{category.content}}}</div>
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Название</td>
-                    <th>Город</td>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each jobs}}
-                <tr>
-                    <td>
-                        <a href="#career/job={{id}}" class="target-job">
-                            {{name}}
-                        </a>
-                    </td>
-                    <td>{{{ getCityById ../cities city }}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </script>
-
-    <script type="text/x-handlebars-template" id="job-template">
-        <div class="no-flow job-nav">
-            <ul class="breadcrumb pull-left">
-              <li><a href="#career">Вакансии</a> <span class="divider">></span></li>
-              <li><a href="#career/type={{category.id}}">{{category.name}}</a> <span class="divider">></span></li>
-              <li class="active"><a href="#career/job={{job.id}}">{{job.name}}</a></li>
-            </ul>
-        </div>
-
-        <div class="job-info">
-            {{{job.top_content}}}
-
-            {{#if job.skills}}
-                <h4>Требования:</h4>
-                {{{job.skills}}}
-            {{/if}}
-
-            {{#if job.desired_skills}}
-                <h4>Приветсвуется:</h4>
-                {{{job.desired_skills}}}
-            {{/if}}
-
-            {{{job.bottom_content}}}
-            <div id="yashare"></div> 
-        </div>
-
-        <h4>Отправить заявку на вакансию {{job.name}}</h4>
-        <form class="form-horizontal job-form">
-          <div class="control-group">
-            <label class="control-label" for="inputName">Имя</label>
-            <div class="controls">
-              <input type="text" id="inputName" placeholder="Имя">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputSurname">Фамилия</label>
-            <div class="controls">
-              <input type="text" id="inputSurname" placeholder="Фамилия">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputPhone">Телефон</label>
-            <div class="controls">
-              <input type="text" id="inputPhone" placeholder="Телефон">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputEmail">Email</label>
-            <div class="controls">
-              <input type="text" id="inputEmail" placeholder="Email">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputResume">Резюме</label>
-            <div class="controls">
-              <input type="file" id="inputResume">
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="inputMore">Дополнительно</label>
-            <div class="controls">
-              <textarea id="inputMore" placeholder="Дополнительно"></textarea>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="controls">
-              <button type="submit" class="btn btn-large btn-primary">Отправить</button>
-            </div>
-          </div>
-        </form>
-    </script>
-
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-        <![endif]-->
-
-        <!-- Add your site or application content here -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="scripts/vendor/jquery.min.js"><\/script>')</script>
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
-    
-    <!-- build:js scripts/plugins.js -->
-    <script src="scripts/vendor/bootstrap/bootstrap-affix.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-alert.js"></script>
-    <!--<script src="scripts/vendor/bootstrap/bootstrap-dropdown.js"></script>-->
-    <script src="scripts/vendor/bootstrap/bootstrap-tooltip.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-modal.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-transition.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-button.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-popover.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-typeahead.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-carousel.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-scrollspy.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-collapse.js"></script>
-    <script src="scripts/vendor/bootstrap/bootstrap-tab.js"></script>
-    <!-- endbuild -->
-
-    <!-- build:js scripts/amd-app.js -->
-    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
-    <!-- endbuild -->
-</body>
-</html>
+      </label>
+      <input type="file" name="resume" id="resume-field" placeholder="Вложить резюме" class="hide"/>
+    </div>
+    <div>
+      <label for="extra-field">Дополнительно:</label>
+      <textarea name="extra" id="extra-field" placeholder="Дополнительно"></textarea>
+    </div>
+    <button class="button">Отправить</button>
+  </form>
+  <div class="back">
+    < <a href="/career.html">Вернуться назад</a>
+  </div>
+</div>
+</div>
+</div></script><script id="project-template" type="text/template"><div>
+  <img src="/media/<%= thumb %>" alt="">
+  <span class="caption"><%= caption %></span>
+</div>
+<img src="/media/<%= image %>" alt="" class="hide"></script><script id="slider-template" type="text/template">  <div id="slider-back-layer" class="rounded slide colored">
+    <div id="slider-forward-layer" class="slider-forward-layer">
+    <div id="slider-control-layer" class="slider-control-layer">
+      <a href="#projects/<%= prev.id %>" class="slider-control slider-control__left"></a>
+      <a href="#projects/<%= next.id %>" class="slider-control slider-control__right"></a>
+      <div class="slider-content"><%= project.content %></div>
+    <div>
+  </div></script><script id="dropdown-item-template" type="text/x-handlebars-template"><li><a href="#career/type={{item.id}}"><span class="pull-left">{{item.name}}</span><span class="pull-right">{{count}}</span></a></li><script id="project-template" type="text/x-handlebars-template"><div class="carousel-caption">
+{{caption}}
+</div>
+<img src="/media/{{image}}" alt="" class="hide"></script></script><footer class="footer"><div class="social"><div style="background-position: 0 0"></div><div style="background-position: 0 -18px"></div><div style="background-position: 0 -36px"></div><div style="background-position: 0 -90px"></div></div>|<div class="copyright">TM & © 2006-2013 Allods team. Все права защищены.</div></footer><!-- [if lte IE 7]><p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p><![endif]--><script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="scripts/vendor/jquery.min.js"><\/script>');
+</script><script>var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));</script>
+<!-- build:js scripts/amd-app.js -->
+<script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+<!-- endbuild --></body></html>

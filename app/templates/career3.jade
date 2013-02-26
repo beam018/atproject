@@ -123,8 +123,12 @@ block content
               input(type="text", name="email", id="email-field", placeholder="Email")
 
             div
-              label(for="resume-field") Вложить резюме:
-              input(type="file", name="resume", id="resume-field", placeholder="Вложить резюме")
+              label.file-input(for="resume-field")
+                span Вложить резюме:
+                div
+                  input(type="text", placeholder="Файл", disabled="disabled")
+                  button.button#brows Обзор...
+              input.hide(type="file", name="resume", id="resume-field", placeholder="Вложить резюме")
 
             div
               label(for="extra-field") Дополнительно:

@@ -186,6 +186,7 @@ module.exports = function( grunt ) {
       baseUrl: './scripts',
       wrap: true,
       name: 'main'
+      // mainFile: 'kickoff.html'
     },
 
     // While Yeoman handles concat/min when using

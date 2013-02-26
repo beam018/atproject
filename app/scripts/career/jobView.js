@@ -1,17 +1,12 @@
-define(['backbone', 'handlebars'], function(Backbone, handlebars){
+define(['backbone'], function(Backbone){
   'use strict';
 
   var JobView = Backbone.View.extend({
     tagName: 'div',
-    template: $('#job-template'),
+    template: $('#job-template').html(),
     render: function(data){
-      console.log(data);
-
-      var templateSource = this.template.html();
-      var template = handlebars.compile(templateSource);
-      var html = template(data);
-
-      this.$el.html(html);
+      var tmpl = _.template(this.template);
+      this.$el.html(tmpl(data));
     }
   });
 

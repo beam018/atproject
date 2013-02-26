@@ -2,7 +2,6 @@ define(['config'], function(config){
   'use strict';
 
   var Resources = function(){
-    this.tabs = this.loadRes('v1/jobs/tabs/');
     this.projects = this.loadRes('v1/projects/');
     this.jobs = this.loadRes('v1/jobs/');
     this.jobCategories = this.loadRes('v1/jobs/categories/');
