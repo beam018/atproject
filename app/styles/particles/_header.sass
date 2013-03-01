@@ -43,9 +43,6 @@
       +background-image(none)
       background: $darkGray
 
-      ul
-        display: block
-
     > a
       height: $headerHeight
 
@@ -86,19 +83,23 @@
     margin: 0 0 0 0
     border: 1px solid #4b4b4b
     border-top: none
-    padding: 25px 0 25px 0
+    // padding: 25px 0 25px 0
     font-size: 100%
     outline: 1px solid $black
     display: none
+    +transition(all 0.1s ease-in-out)
+    overflow: hidden
+
+    height: 0
 
     a
       line-height: 1.7857
       +text-shadow(0 0 3px $black)
-      display: inline-block
+      float: left
 
     li
       border-bottom: 1px solid #383838
-      padding: 0 68px 0 18px
+      padding: 0 88px 0 18px
       overflow: hidden
       height: 25px
 
@@ -118,4 +119,5 @@
       background: $yellow
       border: 1px solid #eb9610
       +border-radius(2px)
-      margin: -22px 0 0 0
+      float: right
+      margin: 2px 0 0 0

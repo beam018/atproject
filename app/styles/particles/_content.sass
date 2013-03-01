@@ -9,7 +9,7 @@
     height: auto
 
 .single
-  height: $contentHeight - $shadowHeight
+  height: $singleHeight
 
 .slide
   height: $slideHeight
@@ -109,8 +109,10 @@ figure
     +transition(line-height 0.1s ease-in-out)
 
 .career-content
-  padding: 0 81px 0 81px
-  width: 796px
+  padding: 0 $careerContentPadding 0 $careerContentPadding
+  width: $careerContentWidth
+  float: left
+  position: relative
 
   h1
     margin-top: 15px
@@ -231,3 +233,7 @@ figure
 .career-p
   margin-bottom: 1em
 
+.pages
+  width: $careerContentFullWidth * 3
+  min-height: $singleHeight
+  +transition(margin 0.3s ease-in-out)

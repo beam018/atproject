@@ -4,16 +4,12 @@ require.config({
       deps: ['underscore'],
       exports: 'Backbone'
     },
-    handlebars: {
-      exports: 'Handlebars'
-    }
   },
 
   paths: {
     // jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min',
     underscore: 'vendor/underscore-min',
     backbone: 'vendor/backbone-min',
-    handlebars: 'vendor/handlebars'
   }
 });
 
@@ -35,8 +31,6 @@ define('switchTab', [], function(){
 
     var $content = $('#content');
 
-    // $content.html('<div class="container with-shadow"><div class="rounded single" id="content"></div></div>');
-
     if($('#content-container').hasClass('content__fullsize')){
       $('#content-container').removeClass('content__fullsize');
     }
@@ -57,7 +51,20 @@ define('switchTab', [], function(){
     $content.parent().siblings().remove();
   };
 });
- 
+
 require(['switchTab', 'app'], function(switchTab, app) {
   'use strict';
+
+  var dropdown = $('#dropdown');
+  dropdown.parent('li').on('mouseenter', function(e){
+    dropdown.show();
+    dropdown.height(dropdown.data('height'));
+    dropdown.css('padding', '25px 0');
+  });
+
+  dropdown.on('mouseleave', function(e){
+    dropdown.height(0);
+    dropdown.css('padding', '0');
+    dropdown.hide();
+  });  
 });

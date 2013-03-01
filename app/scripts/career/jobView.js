@@ -3,6 +3,8 @@ define(['backbone'], function(Backbone){
 
   var JobView = Backbone.View.extend({
     tagName: 'div',
+    className: 'career-content career-p',
+    id: 'page-3',
     template: $('#job-template').html(),
     render: function(data){
       var tmpl = _.template(this.template);
