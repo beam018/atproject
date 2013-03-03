@@ -67,10 +67,10 @@ define([
 
     addCrumb: function(link, name){
       var tmpl = _.template($('#crumb-template').html());
-      this.$crumbs.append(tmpl({
+      this.$crumbs.append($(tmpl({
         name: name,
         link: link
-      }));
+      })).hide().fadeIn(300));
     },
 
     activateLastCrumb: function(){
