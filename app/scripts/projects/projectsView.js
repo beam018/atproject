@@ -8,7 +8,7 @@ define([
 
   var ProjectsView = Backbone.View.extend({
     el: $('#content'),
-    
+
     initialize: function(collection){
       this.collection = new Projects(collection);
       this.container = $('<div class="grid-row slider-row"></div>');
@@ -21,10 +21,21 @@ define([
     },
 
     render: function(id){
+      if(isNaN(parseInt(id, 10))){
+        id = this.collection.at(0).id;
+      }
+
       this.carouselView.render(id);
 
-      this.$el.removeClass('single').addClass('slide colored');
-      this.$el.parents('#content-container').append(this.container);
+      if(!this.$el.hasClass('slide')){
+        this.$el.removeClass('single').addClass('slide colored');
+        this.$el.parents('#content-container').append(this.container);
+      }
+
+      $('#project-' + id)
+        .addClass('active')
+        .siblings()
+        .removeClass('active');
     },
 
     renderProject: function(item){
@@ -32,7 +43,7 @@ define([
       $(projectView.el).addClass(
         this.collection.length <= 3 ? 'grid3' : 'grid6'
       );
-      
+
       return projectView.el;
     }
   });

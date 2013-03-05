@@ -44,41 +44,49 @@ define([
 
       activateHome: function(){
         $.fn.switchTab();
+        $.fn.clearBase();
         this.content.find('#content').html(resources.loadRes('home/', 'html'));
       },
 
       activateAbout: function(){
         $.fn.switchTab($('#about'));
+        $.fn.clearBase();
         this.content.find('#content').html(resources.loadRes('about/', 'html'));
       },
 
       activateContacts: function(){
         $.fn.switchTab($('#contacts'));
+        $.fn.clearBase();
         this.content.find('#content').html(resources.loadRes('contacts/', 'html'));
       },
 
       activateProjects: function(){
         $.fn.switchTab($('#projects'));
+        $.fn.clearBase('projects');
         projectsView.render();
       },
 
       activateCurrentProject: function(id){
         $.fn.switchTab($('#projects'));
+        $.fn.clearBase('projects');
         projectsView.render(id);
       },
 
       activateCareer: function(){
         $.fn.switchTab($('#career'));
+        $.fn.clearBase('career');
         careerView.render();
       },
 
       showJobsByID: function(id){
         $.fn.switchTab($('#career'));
+        $.fn.clearBase('career');
         careerView.showJobs(id);
       },
 
       showJob: function(id){
         $.fn.switchTab($('#career'));
+        $.fn.clearBase('career');
         careerView.showJob(id);
       }
     });

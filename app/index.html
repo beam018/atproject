@@ -1,4 +1,12 @@
-<!DOCTYPE html><!-- [if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!-- [if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]--><!-- [if IE 8]><html class="no-js lt-ie9"><![endif]--><!-- [if gt IE 8]><!--><html class="no-js"><!-- <![endif]--><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Allods Team</title><meta name="description" content=""><meta name="viewport" content="width=device-width"><link rel="stylesheet" href="styles/main.css"><script src="scripts/vendor/modernizr.min.js"></script></head><body><header class="header"><a href="#" class="logo"><img src="/images/logo1.png" alt="" width="71" height="41" class="logo-image"></a><nav class="nav"><li> <a href="#about"><span>О нас</span><i></i></a></li><li><a href="#projects"><span>Проекты</span><i></i></a></li><li><a href="#career"><span>Вакансии</span><i></i></a><ul id="dropdown"></ul></li><li><a href="#contacts"><span>Контакты</span><i></i></a></li></nav></header><div id="content-container" class="content"><div class="container with-shadow"><div id="content" class="single rounded"></div></div></div><script id="job-category-template" type="text/template"><a href="#career/type=<%= id %>">
+<!DOCTYPE html><!-- [if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!-- [if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]--><!-- [if IE 8]><html class="no-js lt-ie9"><![endif]--><!-- [if gt IE 8]><!--><html class="no-js"><!-- <![endif]--><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Allods Team</title><meta name="description" content=""><meta name="viewport" content="width=device-width"><link rel="stylesheet" href="styles/main.css"><script src="scripts/vendor/modernizr.min.js"></script></head><body><header class="header"><a href="#" class="logo"><img src="/images/logo1.png" alt="" width="71" height="41" class="logo-image"></a><nav class="nav"><li> <a href="#about"><span>О нас</span><i></i></a></li><li><a href="#projects"><span>Проекты</span><i></i></a></li><li><a href="#career"><span>Вакансии</span><i></i></a><ul id="dropdown"></ul></li><li><a href="#contacts"><span>Контакты</span><i></i></a></li></nav></header><div id="content-container" class="content"><div class="container with-shadow"><div id="content" class="single rounded"></div></div></div><script id="career-template" type="text/template"><div class="crumbs" id="crumbs">
+  <div class="crumb">
+    <a href="#career">Вакансии</a>
+    <span></span>
+  </div>
+</div>
+<div class="pages <% if(smooth){ %>pages__transition<% } %>" id="pages">
+  <div class="career-content" id="page-1"></div>
+</div></script><script id="job-category-template" type="text/template"><a href="#career/type=<%= id %>">
   <figure>
     <img src="/media/<%= thumb %>" alt="" height="145" width="220"/>
     <figcaption>
@@ -103,18 +111,19 @@
   <div class="back">
     < <a href="#career/type=<%= category.id %>">Вернуться назад</a>
   </div></script><script id="project-template" type="text/template"><div>
-  <img src="/media/<%= thumb %>" alt="">
+  <img src="/media/<%= thumb %>" alt="" height="88">
   <span class="caption"><%= caption %></span>
 </div>
-<img src="/media/<%= image %>" alt="" class="hide"></script><script id="slider-template" type="text/template">  <div id="slider-back-layer" class="rounded slide colored">
+<img src="/media/<%= image %>" alt="" class="hide"></script><script id="slider-template" type="text/template">  <div id="slider-back-layer" class="slider-back-layer">
     <div id="slider-forward-layer" class="slider-forward-layer">
+      <div class="slider-content" id="slider-content"><%= project.content %></div>
+    </div>
     <div id="slider-control-layer" class="slider-control-layer">
-      <a href="#projects/<%= prev.id %>" class="slider-control slider-control__left"></a>
-      <a href="#projects/<%= next.id %>" class="slider-control slider-control__right"></a>
-      <div class="slider-content"><%= project.content %></div>
+      <a href="#projects/<%= prev.id %>" id="left-arrow" class="slider-control slider-control__left"></a>
+      <a href="#projects/<%= next.id %>" id="right-arrow" class="slider-control slider-control__right"></a>
     <div>
   </div></script><script id="dropdown-item-template" type="text/template"><li>
-  <a href="#career/type=<%= item.id %>"><%= item.name %></a>
+  <a href="#career/type=<%= item.id %>" data-index="<%= index %>"><%= item.name %></a>
   <div><%= count %></div>
 </li></script><footer class="footer"><div class="social"><div style="background-position: 0 0"></div><div style="background-position: 0 -18px"></div><div style="background-position: 0 -36px"></div><div style="background-position: 0 -90px"></div></div>|<div class="copyright">TM & © 2006-2013 Allods team. Все права защищены.</div></footer><!-- [if lte IE 7]><p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p><![endif]--><script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="scripts/vendor/jquery.min.js"><\/script>');
 </script><script>var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));</script>

@@ -26,45 +26,50 @@ define('switchTab', [], function(){
       .addClass('active')
       .siblings('li.active')
       .removeClass('active');
+  };
 
-// other
-
+  $.fn.clearBase = function(args) {
     var $content = $('#content');
 
-    if($('#content-container').hasClass('content__fullsize')){
+    if(!_.find(arguments, function(item){return item == 'projects';})){
       $('#content-container').removeClass('content__fullsize');
-    }
-
-    if($content.hasClass('slide')){
       $content.removeClass('slide');
-    }
-
-    if($content.hasClass('colored')){
       $content.removeClass('colored');
-    }
-
-    if(!$content.hasClass('single')){
-      console.log();
       $content.addClass('single');
+      $content.parent().siblings().remove();
     }
 
-    $content.parent().siblings().remove();
+    if(!_.find(arguments, function(item){return item == 'career';})){
+      $content.removeClass('rounded__crumbs');
+      $content.removeClass('light-border');
+    }
   };
 });
 
 require(['switchTab', 'app'], function(switchTab, app) {
   'use strict';
 
+  var showDropdown = function(){
+    dropdown.height(dropdown.data('height') + 50);
+    dropdown.slideDown(150);
+    dropdown.children('li').map(function(index, item){
+      // plus padding top
+      $(item).css('margin-top', ($('a', item).data('index') + 1) * 25 + 'px');
+    });
+    // dropdown.css('padding', '25px 0');
+  };
+
+  var hideDropdown = function(){
+    dropdown.slideUp(150);
+    dropdown.children('li').css('margin-top', 0);
+  };
+
   var dropdown = $('#dropdown');
-  dropdown.parent('li').on('mouseenter', function(e){
-    dropdown.show();
-    dropdown.height(dropdown.data('height'));
-    dropdown.css('padding', '25px 0');
+  dropdown.parent('li').on('mouseenter', function(){
+    showDropdown();
   });
 
-  dropdown.on('mouseleave', function(e){
-    dropdown.height(0);
-    dropdown.css('padding', '0');
-    dropdown.hide();
-  });  
+  dropdown.parent('li').on('mouseleave', function(){
+    hideDropdown();
+  });
 });

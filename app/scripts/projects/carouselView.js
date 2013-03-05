@@ -18,28 +18,38 @@ define(['backbone'], function(Backbone){
         next: this.collection.getNext().toJSON(),
         prev: this.collection.getPrev().toJSON()
       };
-      var tmpl = _.template(this.template);
-      console.log(this.$el);
-      this.$el.html(tmpl(data));
+
+      if(!$('#slider-back-layer')[0]){
+        var tmpl = _.template(this.template);
+        this.$el.html(tmpl(data));
+      }
+      else{
+        var $leftArrow = $('#left-arrow');
+        var $rightArrow = $('#right-arrow');
+
+        $leftArrow.attr('href', '#projects/' + data.prev.id);
+        $rightArrow.attr('href', '#projects/' + data.next.id);
+
+        var $content = $('#slider-content');
+
+        $content.html(data.project.content);
+      }
 
       var forward = $('#slider-forward-layer', this.$el);
       var back = $('#slider-back-layer', this.$el);
 
-      var self = this;
-
+      forward.hide();
       forward.css(
         'background',
-        'url(/media/' + self.collection.getElement().toJSON().image + ') no-repeat 50% 50%'
-        // 'red'
+        'url(/media/' + data.project.image + ') no-repeat 50% 50%'
       );
-/*
-      forward.fadeIn(3000, function(){
+
+      forward.fadeIn(150, function(){
         back.css(
           'background',
-          // 'url(/media/' + self.collection.getElement().toJSON().image + ') no-repeat 50% 50%'
-          'blue'
+          'url(/media/' + data.project.image + ') no-repeat 50% 50%'
         );
-      });*/
+      });
     }
   });
 

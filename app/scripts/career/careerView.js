@@ -26,6 +26,7 @@ define([
 
   var CareerView = Backbone.View.extend({
     el: $('#content'),
+    template: $('#career-template').html(),
 
     initialize: function(resources){
       this.jobsCollection = new JobsList(resources.jobs);
@@ -41,9 +42,16 @@ define([
       );
     },
 
-    render: function(){
+    render: function(smooth){
+      if(smooth !== false){
+        smooth = true;
+      }
+
       var $pages = $('#pages');
       var $page1 = $('#page-1');
+
+      this.$el.addClass('rounded__crumbs');
+      this.$el.addClass('light-border');
 
       if($page1[0]){
         $pages.css('margin-left', 0);
@@ -51,14 +59,10 @@ define([
         return;
       }
 
-      this.$el.html('<div class="crumbs" id="crumbs"><div class="crumb"><a href="#career">Вакансии</a><span></span></div></div>');
-      this.$el.append('<div class="pages" id="pages"></div>');
-      var page = $('<div class="career-content" id="page-1"></div>');
-      this.$el
-        .find('#pages')
-        .html(page)
-        .find('#page-1')
-        .html(this.jobListView.el)
+      var tmpl = _.template(this.template);
+      this.$el.html(tmpl({smooth: smooth}));
+      var page = this.$el.find('#page-1');
+      page.html(this.jobListView.el)
         .prepend(resources.loadRes('career/', 'html'));
 
       this.$crumbs = $('#crumbs');
@@ -93,8 +97,10 @@ define([
 
       var $pages = $('#pages');
       if(!$pages[0]){
-        this.render();
+        this.render(false);
         this.showJobs(id);
+        $('#pages').addClass('pages__transition');
+        return;
       }
 
       var jobs = _.map(this.jobsCollection.where({category: id}), function(item){
@@ -139,9 +145,11 @@ define([
 
       var $pages = $('#pages');
       if(!$pages[0]){
-        this.render();
+        this.render(false);
         this.showJobs(category.id);
         this.showJob(id);
+        // $('#pages').addClass('pages__transition');
+        return;
       }
 
       if(!$('page-3')[0]){
@@ -175,6 +183,10 @@ define([
           ]
         }
       });*/
+
+      var dfd = $.Deferred();
+
+      return dfd;
     }
   });
 

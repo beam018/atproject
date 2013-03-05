@@ -5,6 +5,18 @@ block content
     div.container.with-shadow
       div.single.rounded#content
 
+  script#career-template(type="text/template")
+    | <div class="crumbs" id="crumbs">
+    |   <div class="crumb">
+    |     <a href="#career">Вакансии</a>
+    |     <span></span>
+    |   </div>
+    | </div>
+
+    | <div class="pages <% if(smooth){ %>pages__transition<% } %>" id="pages">
+    |   <div class="career-content" id="page-1"></div>
+    | </div>
+
   script#job-category-template(type="text/template")
     | <a href="#career/type=<%= id %>">
     |   <figure>
@@ -140,24 +152,25 @@ block content
 
   script#project-template(type="text/template")
     | <div>
-    |   <img src="/media/<%= thumb %>" alt="">
+    |   <img src="/media/<%= thumb %>" alt="" height="88">
     |   <span class="caption"><%= caption %></span>
     | </div>
     | <img src="/media/<%= image %>" alt="" class="hide">
 
   script#slider-template(type="text/template")
-    |   <div id="slider-back-layer" class="rounded slide colored">
+    |   <div id="slider-back-layer" class="slider-back-layer">
     |     <div id="slider-forward-layer" class="slider-forward-layer">
+    |       <div class="slider-content" id="slider-content"><%= project.content %></div>
+    |     </div>
     |     <div id="slider-control-layer" class="slider-control-layer">
-    |       <a href="#projects/<%= prev.id %>" class="slider-control slider-control__left"></a>
-    |       <a href="#projects/<%= next.id %>" class="slider-control slider-control__right"></a>
-    |       <div class="slider-content"><%= project.content %></div>
+    |       <a href="#projects/<%= prev.id %>" id="left-arrow" class="slider-control slider-control__left"></a>
+    |       <a href="#projects/<%= next.id %>" id="right-arrow" class="slider-control slider-control__right"></a>
     |     <div>
     |   </div>
 
 
   script#dropdown-item-template(type='text/template')
     | <li>
-    |   <a href="#career/type=<%= item.id %>"><%= item.name %></a>
+    |   <a href="#career/type=<%= item.id %>" data-index="<%= index %>"><%= item.name %></a>
     |   <div><%= count %></div>
     | </li>
