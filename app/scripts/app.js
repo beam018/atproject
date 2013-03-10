@@ -45,19 +45,25 @@ define([
       activateHome: function(){
         $.fn.switchTab();
         $.fn.clearBase();
-        this.content.find('#content').html(resources.loadRes('home/', 'html'));
+        this.content.find('#content').html('<div class="career-content">'+
+          resources.loadRes('home/', 'html')+
+        '</div>');
       },
 
       activateAbout: function(){
         $.fn.switchTab($('#about'));
         $.fn.clearBase();
-        this.content.find('#content').html(resources.loadRes('about/', 'html'));
+        this.content.find('#content').html('<div class="career-content">'+
+          resources.loadRes('about/', 'html')+
+        '</div>');
       },
 
       activateContacts: function(){
         $.fn.switchTab($('#contacts'));
         $.fn.clearBase();
-        this.content.find('#content').html(resources.loadRes('contacts/', 'html'));
+        this.content.find('#content').html('<div class="career-content">'+
+          resources.loadRes('contacts/', 'html')+
+        '</div>');
       },
 
       activateProjects: function(){

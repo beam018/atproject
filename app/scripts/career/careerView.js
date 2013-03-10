@@ -2,6 +2,7 @@ define([
 
     'backbone',
     'resources',
+    'config',
     'career/collections/jobsList',
     'career/collections/jobCategories',
     'career/collections/cities',
@@ -13,6 +14,7 @@ define([
 
       Backbone,
       resources,
+      config,
       JobsList,
       JobCategories,
       Cities,
@@ -107,10 +109,15 @@ define([
         return item.toJSON();
       });
       var category = this.jobCategoriesCollection.get(id).toJSON();
+      var cities = [];
+      _.map(this.citiesCollection.toJSON(), function(item){
+        cities[item.id] = item.city_name;
+      });
+
       var data = {
         jobs: jobs,
         category: category,
-        cities: this.citiesCollection.toJSON()
+        cities: cities
       };
 
       this.jobsView.render(data);
@@ -137,10 +144,15 @@ define([
 
       var job = this.jobsCollection.get(id).toJSON();
       var category = this.jobCategoriesCollection.get(job.category).toJSON();
+      var city = {};
+      if(this.citiesCollection.get(job.city)){
+        city = this.citiesCollection.get(job.city).toJSON();
+      }
+
       var data = {
         job: job,
         category: category,
-        city: this.citiesCollection.get(job.city).toJSON()
+        city: city
       };
 
       var $pages = $('#pages');
@@ -184,9 +196,7 @@ define([
         }
       });*/
 
-      var dfd = $.Deferred();
-
-      return dfd;
+      $('#contact-form').attr('action', config.serverUrl + 'mail/');
     }
   });
 

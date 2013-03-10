@@ -55,11 +55,12 @@ block content
     |       <% var job = jobs[i]; %>
     |       <tr>
     |         <td>
-    |           <span class="dot"></span>
-    |           <a href="#career/job=<%= job.id %>"><%= job.name %></a>
+    |           <a href="#career/job=<%= job.id %>">
+    |             <span class="dot"></span><%= job.name %>
+    |           </a>
     |         </td>
     |         <td><%= job.project %></td>
-    |         <td><%= cities[job.city].city_name %></td>
+    |         <td><%= cities[job.city] %></td>
     |       </tr>
     |       <% } %>
     |     </tbody>
@@ -104,9 +105,13 @@ block content
 
     |   <h2>Отправить заявку на эту вакансию</h2>
 
-    |   <form method="POST" class="contact-form">
+    |   <form method="POST" class="contact-form" id="contact-form" target="upload-target" enctype="multipart/form-data">
     |     <p>Ваша персональная информация</p>
     
+
+    |     <input type="hidden" name="job_name" value="<%= job.name %>">
+    |     <input type="hidden" name="job_project" value="<%= job.project %>">
+    |     <input type="hidden" name="job_city" value="<%= city.city_name %>">
     |     <div>
     |       <label for="name-field">Имя:</label>
     |       <input type="text" name="name" id="name-field" placeholder="Имя">
@@ -145,6 +150,8 @@ block content
     
     |     <button class="button">Отправить</button>
     |   </form>
+
+    |   <iframe id="upload-target" name="upload-target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
     
     |   <div class="back">
     |     < <a href="#career/type=<%= category.id %>">Вернуться назад</a>
