@@ -1,9 +1,10 @@
 define([
   'resources',
+  'config',
   'backbone',
   'career/careerView',
   'projects/projectsView'
-], function(resources, Backbone, CareerView, ProjectsView){
+], function(resources, config, Backbone, CareerView, ProjectsView){
   'use strict';
 
   $(document).ready(function(){
@@ -21,6 +22,16 @@ define([
         index: index,
         count: count
       }));
+    });
+
+    var $body = $('body');
+    var leftOffset = $body.offset().left;
+    $body.css('margin-left', leftOffset + 'px');
+
+    $(window).resize(function(e){
+      $body.css('margin-left', 'auto');
+      leftOffset = $body.offset().left;
+      $body.css('margin-left', leftOffset + 'px');
     });
 
     dropdown.data('height', resources.jobCategories.length * 25);
@@ -44,32 +55,52 @@ define([
 
       activateHome: function(){
         $.fn.switchTab();
-        $.fn.clearBase();
-        this.content.find('#content').html('<div class="career-content">'+
-          resources.loadRes('home/', 'html')+
-        '</div>');
+
+        var self = this;
+        this.content.fadeOut(config.fadeTime, function(){
+          $.fn.clearBase();
+          self.content.find('#content').html('<div class="career-content">'+
+            resources.loadRes('home/', 'html')+
+          '</div>');
+          self.content.fadeIn(config.fadeTime);
+        });
       },
 
       activateAbout: function(){
         $.fn.switchTab($('#about'));
-        $.fn.clearBase();
-        this.content.find('#content').html('<div class="career-content">'+
-          resources.loadRes('about/', 'html')+
-        '</div>');
+
+        var self = this;
+        this.content.fadeOut(config.fadeTime, function(){
+          $.fn.clearBase();
+          self.content.find('#content').html('<div class="career-content">'+
+            resources.loadRes('about/', 'html')+
+          '</div>');
+          self.content.fadeIn(config.fadeTime);
+        });
       },
 
       activateContacts: function(){
         $.fn.switchTab($('#contacts'));
-        $.fn.clearBase();
-        this.content.find('#content').html('<div class="career-content">'+
-          resources.loadRes('contacts/', 'html')+
-        '</div>');
+
+        var self = this;
+        this.content.fadeOut(config.fadeTime, function(){
+          $.fn.clearBase();
+          self.content.find('#content').html('<div class="career-content">'+
+            resources.loadRes('contacts/', 'html')+
+          '</div>');
+          self.content.fadeIn(config.fadeTime);
+        });
       },
 
       activateProjects: function(){
         $.fn.switchTab($('#projects'));
-        $.fn.clearBase('projects');
-        projectsView.render();
+
+        var self = this;
+        $.fn.clearBase();
+        this.content.fadeOut(config.fadeTime, function(){
+          projectsView.render();
+          self.content.fadeIn(config.fadeTime);
+        });
       },
 
       activateCurrentProject: function(id){
@@ -80,8 +111,13 @@ define([
 
       activateCareer: function(){
         $.fn.switchTab($('#career'));
-        $.fn.clearBase('career');
-        careerView.render();
+
+        var self = this;
+        $.fn.clearBase();
+        this.content.fadeOut(config.fadeTime, function(){
+          careerView.render();
+          self.content.fadeIn(config.fadeTime);
+        });
       },
 
       showJobsByID: function(id){

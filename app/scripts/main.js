@@ -3,13 +3,13 @@ require.config({
     backbone: {
       deps: ['underscore'],
       exports: 'Backbone'
-    },
+    }
   },
 
   paths: {
     // jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min',
     underscore: 'vendor/underscore-min',
-    backbone: 'vendor/backbone-min',
+    backbone: 'vendor/backbone-min'
   }
 });
 
@@ -46,7 +46,7 @@ define('switchTab', [], function(){
   };
 });
 
-require(['switchTab', 'app'], function(switchTab, app) {
+require(['switchTab', 'app', 'config'], function(switchTab, app, config) {
   'use strict';
 
   var showDropdown = function(){

@@ -22,6 +22,10 @@ define([
 
     render: function(id){
       if(isNaN(parseInt(id, 10))){
+        if(!this.collection.at(0)){
+          console.warn('no projects');
+          return;
+        }
         id = this.collection.at(0).id;
       }
 

@@ -19,7 +19,7 @@ define(['config'], function(config){
     var request = $.ajax({
       url: url,
       dataType: dataType,
-      async: false,
+      async: false
     });
 
     request.done(function(data){

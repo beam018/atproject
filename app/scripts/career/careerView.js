@@ -71,12 +71,15 @@ define([
       this.pageWidth = page.outerWidth();
     },
 
-    addCrumb: function(link, name){
+    addCrumb: function(link, name, fadeTime){
+      if(fadeTime === undefined){
+        fadeTime = 300;
+      }
       var tmpl = _.template($('#crumb-template').html());
       this.$crumbs.append($(tmpl({
         name: name,
         link: link
-      })).hide().fadeIn(300));
+      })).fadeIn(fadeTime));
     },
 
     activateLastCrumb: function(){
@@ -121,16 +124,28 @@ define([
       };
 
       this.jobsView.render(data);
+      console.log(data);
+      this.jobsView.$el.css(
+        'background-image', 'url(' + config.mediaUrl + data.category.background + ')'
+      );
       this.$('#page-1').after(this.jobsView.el);
 
       $pages.css('margin-left', -this.pageWidth);
 
-      this.$crumbs.children().first().nextAll().remove();
-      this.addCrumb('#career/type=' + id, category.name);
+      var urn = '#career/type=' + id;
+
+      var readyCrumb = _.find($('.crumb a'), function(item){
+        return $(item).attr('href') === urn;
+      });
+
+      if(!readyCrumb){
+        this.$crumbs.children().first().nextAll().remove();
+        this.addCrumb(urn, category.name);
+      }
       this.$crumbs.children().first().next().nextAll().remove();
       this.activateLastCrumb();
 
-      $('.career-table tr').on('click', function(e){
+      $('.career-table tbody tr').on('click', function(e){
         window.location = $(this).find('a').attr('href');
       });
     },
@@ -171,14 +186,40 @@ define([
 
       $pages.css('margin-left', -this.pageWidth * 2);
 
-      this.addCrumb('#career/job=' + id, job.name);
+      var urn = '#career/job=' + id;
+
+      var readyCrumb = _.find($('.crumb a'), function(item){
+        return $(item).attr('href') === urn;
+      });
+
+      if(!readyCrumb){
+        this.addCrumb(urn, job.name);
+      }
       this.$crumbs.children().first().next().next().nextAll().remove();
       this.activateLastCrumb();
 
+      // $('body').css();
       $('#content-container').addClass('content__fullsize');
+      // $(document).scrollTop()
+
+      $('#file-input').on('click', function(e){
+        e.preventDefault();
+        if(e.currentTarget === this && e.target.nodeName !== 'INPUT') {
+          $(this.control).click();
+        }
+      });
 
       $('#resume-field').on('change', function(e){
         $('#brows-field').val($('#resume-field')[0].files[0].name);
+      });
+
+      var frameLoad = false;
+      $('#upload-target').load(function(){
+        if(!frameLoad){
+          frameLoad = true;
+        }else{
+          alert('data was arrived');
+        }
       });
 
       /*new Ya.share({

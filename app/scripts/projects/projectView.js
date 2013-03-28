@@ -17,7 +17,8 @@ define(['backbone'], function(Backbone){
       this.$el
         .html(html)
         .attr('href', '#projects/' + this.model.id)
-        .attr('id', 'project-' + this.model.id);
+        .attr('id', 'project-' + this.model.id)
+        .addClass('thumb-link');
     }
   });
 
