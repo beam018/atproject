@@ -24,13 +24,16 @@ define([
       }));
     });
 
-    var $body = $('body');
-    var leftOffset = $body.offset().left;
-    $body.css('margin-left', leftOffset + 'px');
+    var body = document.getElementsByTagName('body')[0];
+    var $body = $(body);
+    var leftOffset = body.getBoundingClientRect().left;
+    console.log(leftOffset);
+    // $body.css('margin-left', leftOffset + 'px');
 
     $(window).resize(function(e){
       $body.css('margin-left', 'auto');
-      leftOffset = $body.offset().left;
+      leftOffset = body.getBoundingClientRect().left;
+      console.log(leftOffset);
       $body.css('margin-left', leftOffset + 'px');
     });
 

@@ -124,7 +124,6 @@ define([
       };
 
       this.jobsView.render(data);
-      console.log(data);
       this.jobsView.$el.css(
         'background-image', 'url(' + config.mediaUrl + data.category.background + ')'
       );
@@ -198,9 +197,9 @@ define([
       this.$crumbs.children().first().next().next().nextAll().remove();
       this.activateLastCrumb();
 
-      // $('body').css();
-      $('#content-container').addClass('content__fullsize');
-      // $(document).scrollTop()
+      $('#content-container').addClass('content__fullsize').scrollTop(0);
+
+      console.log($(window).scrollTop());
 
       $('#file-input').on('click', function(e){
         e.preventDefault();
@@ -218,7 +217,8 @@ define([
         if(!frameLoad){
           frameLoad = true;
         }else{
-          alert('data was arrived');
+          // alert('data was arrived');
+          console.log('data was arrived');
         }
       });
 

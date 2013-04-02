@@ -1,6 +1,5 @@
 temp
-dist
-dist.zip
+dist*
 .sass-cache
 npm-debug.log
 .idea
@@ -9,6 +8,8 @@ app/base.html
 app/single.html
 app/slider*.html
 app/career*.html
+app/index.html
 static
 media
 node_modules
+s.sh

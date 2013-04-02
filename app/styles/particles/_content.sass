@@ -1,3 +1,6 @@
+.content-helper
+  min-height: $contentHeight
+
 .content
   height: $contentHeight
   overflow: hidden
@@ -200,6 +203,7 @@ figure
 
   input, textarea
     margin: 0 0 9px 0
+    font: 13px "Arial"
 
     &:focus
       background: #fff
@@ -235,7 +239,7 @@ figure
 
     .button
       font-size: 13px
-      margin: -3px 0 0 4px
+      margin: -3px 0 0 3px
       padding: 0 17px 0 17px
       position: relative
       z-index: 0
@@ -257,6 +261,8 @@ figure
   width: $careerContentFullWidth * 3
   min-height: $singleHeight
   padding: 14px 0 0 0
+  overflow: hidden
+  position: relative
 
 .pages__transition
   +transition(margin 0.3s ease-in-out)
