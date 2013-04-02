@@ -12,4 +12,4 @@ app/index.html
 static
 media
 node_modules
-s.sh
+*.sh
