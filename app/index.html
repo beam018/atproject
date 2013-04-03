@@ -1,0 +1,253 @@
+<!DOCTYPE html><!-- [if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!-- [if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"><![endif]--><!-- [if IE 8]>
+<html class="no-js lt-ie9"><![endif]--><!-- [if gt IE 8]><!-->
+<html class="no-js"><!-- <![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Allods Team</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/vendor/modernizr.min.js"></script>
+</head>
+<body>
+    <header id="header" class="header">
+        <a href="#" class="logo">
+            <img src="/images/logo1.png" alt="" width="71" height="41" class="logo-image">
+        </a>
+
+        <nav id="nav" class="nav">
+            <li>
+                <a href="#about"><span>О нас</span><i></i></a>
+            </li>
+            <li>
+                <a href="#projects"><span>Проекты</span><i></i></a>
+            </li>
+            <li>
+                <a href="#career"><span>Вакансии</span><i></i></a>
+                <ul id="dropdown"></ul>
+            </li>
+            <li>
+                <a href="#contacts"><span>Контакты</span><i></i></a>
+            </li>
+        </nav>
+    </header>
+
+    <div class="content-helper">
+        <div id="content-container" class="content">
+            <div class="container with-shadow">
+                <div id="content" class="single rounded"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="social">
+            <div style="background-position: 0 0"></div>
+            <div style="background-position: 0 -18px"></div>
+            <div style="background-position: 0 -36px"></div>
+            <div style="background-position: 0 -90px"></div>
+        </div>
+        |
+        <div class="copyright">TM & © 2006-2013 Allods team. Все права защищены.</div>
+    </footer>
+
+    <script id="career-template" type="text/template">
+        <div class="crumbs" id="crumbs">
+            <div class="crumb">
+                <a href="#career">Вакансии</a>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="pages <% if(smooth){ %>pages__transition<% } %>" id="pages">
+            <div class="career-content" id="page-1"></div>
+        </div>
+    </script>
+
+    <script id="job-category-template" type="text/template">
+        <a href="#career/type=<%= id %>">
+            <figure>
+                <img src="/media/<%= thumb %>" alt="" height="145" width="220">
+
+                <figcaption>
+                    <%= name %>
+                    <div><%= jobsCount %></div>
+                </figcaption>
+            </figure>
+        </a>
+    </script>
+
+    <script id="crumb-template" type="text/template">
+        <div class="crumb" style="display: none;">
+            <a href="<%= link %>"><%= name %></a>
+            <span></span>
+        </div>
+    </script>
+
+    <script id="jobs-table-template" type="text/tempalte"><h1><%= category.name %></h1>
+        <%= category.content %>
+        <table class="career-table">
+            <thead>
+            <tr>
+                <td width="367">Название должности
+                </td>
+                <td width="270">Проект
+                </td>
+                <td>Город
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i = 0; i < jobs.length; i++){ %>
+            <% var job = jobs[i]; %>
+            <tr>
+                <td>
+                    <a href="#career/job=<%= job.id %>">
+                        <span class="dot"></span><%= job.name %>
+                    </a>
+                </td>
+                <td><%= job.project %></td>
+                <td><%= cities[job.city] %></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+        <div class="back__absolute">
+            < <a href="#career">Вернуться назад</a>
+        </div>
+    </script>
+
+    <script id="job-template" type="text/templates">
+        <iframe id="upload-target" name="upload-target" src="#" style="display:none;"></iframe>
+        <h1><%= job.name %> | <%= job.project %> | <%= city.city_name %></h1>
+
+        <%= job.top_content %>
+
+        <% if(job.skills){ %>
+            <h2>Требования:</h2>
+            <%= job.skills %>
+        <% } %>
+
+        <% if(job.desired_skills){ %>
+            <h2>Приветсвуется:</h2>
+            <%= job.desired_skills %>
+        <% } %>
+
+        <%= job.bottom_content %>
+        <div class="share">
+            <p>Рассказать о вакансии друзьям</p>
+
+            <div style="background-position: 0 0"></div>
+            <div style="background-position: 0 -30px"></div>
+            <div style="background-position: 0 -60px"></div>
+            <div style="background-position: 0 -90px"></div>
+            <div style="background-position: 0 -120px"></div>
+            <div style="background-position: 0 -150px"></div>
+        </div>
+
+        <h2>Отправить отклик на эту вакансию</h2>
+
+        <form method="POST" class="contact-form" id="contact-form" target="upload-target" enctype="multipart/form-data">
+            <p>Ваша персональная информация</p>
+            <input type="hidden" name="job_id" value="<%= job.id %>">
+
+            <div>
+                <label for="name-field">Имя:</label>
+                <input type="text" name="name" id="name-field" placeholder="Имя">
+            </div>
+
+            <div>
+                <label for="surname-field">Фамилия:</label>
+                <input type="text" name="surname" id="surname-field" placeholder="Фамилия">
+            </div>
+
+            <div>
+                <label for="phone-field">Телефон:</label>
+                <input type="text" name="phone" id="phone-field" placeholder="Телефон">
+            </div>
+
+            <div>
+                <label for="email-field">Email:</label>
+                <input type="text" name="email" id="email-field" placeholder="Email">
+            </div>
+
+            <div>
+                <label for="resume-field" class="file-input" id="file-input"><span>Вложить резюме:</span>
+                    <div>
+                        <input id="brows-field" type="text" placeholder="Файл" disabled="disabled">
+                        <div id="brows" class="button">Обзор...</div>
+                    </div>
+                </label>
+                <input type="file" name="resume" id="resume-field" placeholder="Вложить резюме" class="hide">
+            </div>
+
+            <div>
+                <label for="extra-field">Дополнительно:</label>
+                <textarea name="extra" id="extra-field" placeholder="Дополнительно"></textarea>
+            </div>
+
+            <button class="button">Отправить</button>
+        </form>
+
+        <div class="back">
+            < <a href="#career/type=<%= category.id %>">Вернуться назад</a>
+        </div>
+    </script>
+
+    <script id="project-template" type="text/template">
+        <div>
+            <img src="/media/<%= thumb %>" alt="" height="88">
+            <span class="caption"><%= caption %></span>
+        </div>
+
+        <img src="/media/<%= image %>" alt="" class="hide">
+    </script>
+
+    <script id="slider-template" type="text/template">
+        <div id="slider-back-layer" class="slider-back-layer">
+            <div id="slider-forward-layer" class="slider-forward-layer">
+                <div class="slider-content" id="slider-content"><%= project.content %></div>
+            </div>
+
+            <div id="slider-control-layer" class="slider-control-layer">
+                <a href="#projects/<%= prev.id %>" id="left-arrow" class="slider-control slider-control__left"></a>
+                <a href="#projects/<%= next.id %>" id="right-arrow" class="slider-control slider-control__right"></a>
+            </div>
+        </div>
+    </script>
+
+    <script id="dropdown-item-template" type="text/template">
+        <li>
+            <a href="#career/type=<%= item.id %>" data-index="<%= index %>"><%= item.name %></a>
+
+            <div><%= count %></div>
+        </li>
+    </script>
+
+    <!-- [if lte IE 7]>
+        <p class="chromeframe">
+            You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a>
+            or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>
+            to better experience this site.
+        </p>
+    <![endif]-->
+    <script>
+        var _gaq = [
+            ['_setAccount', 'UA-XXXXX-X'],
+            ['_trackPageview']
+        ];
+        (function (d, t) {
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g, s)
+        }(document, 'script'));
+    </script>
+
+    <!-- build:js scripts/amd-app.js -->
+    <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
+    <!-- endbuild -->
+</body>
+</html>
