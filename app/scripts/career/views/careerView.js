@@ -1,17 +1,21 @@
 define([
 
+    'jquery',
+    'underscore',
     'backbone',
     'resources',
     'config',
     'career/collections/jobsList',
     'career/collections/jobCategories',
     'career/collections/cities',
-    'career/jobsListView',
-    'career/jobsView',
-    'career/jobView'
+    'career/views/jobsListView',
+    'career/views/jobsView',
+    'career/views/jobView'
 
   ], function(
 
+      $,
+      _,
       Backbone,
       resources,
       config,
@@ -76,10 +80,11 @@ define([
         fadeTime = 300;
       }
       var tmpl = _.template($('#crumb-template').html());
-      this.$crumbs.append($(tmpl({
+      var content = tmpl({
         name: name,
         link: link
-      })).fadeIn(fadeTime));
+      });
+      this.$crumbs.append(content).children('.crumb').fadeIn(fadeTime);
     },
 
     activateLastCrumb: function(){
@@ -174,7 +179,6 @@ define([
         this.render(false);
         this.showJobs(category.id);
         this.showJob(id);
-        // $('#pages').addClass('pages__transition');
         return;
       }
 
@@ -198,8 +202,6 @@ define([
       this.activateLastCrumb();
 
       $('#content-container').addClass('content__fullsize').scrollTop(0);
-
-      console.log($(window).scrollTop());
 
       $('#file-input').on('click', function(e){
         e.preventDefault();

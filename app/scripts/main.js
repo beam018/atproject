@@ -1,19 +1,31 @@
 require.config({
   shim: {
+    jquery: {
+      exports: '$'
+    },
+    switchTab: {
+      deps: ['jquery']
+    },
+    clearBase: {
+      deps: ['jquery']
+    },
+    underscore: {
+      exports: '_'
+    },
     backbone: {
-      deps: ['underscore'],
+      deps: ['underscore', 'jquery'],
       exports: 'Backbone'
     }
   },
 
   paths: {
-    // jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min',
+    jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min',
     underscore: 'vendor/underscore-min',
     backbone: 'vendor/backbone-min'
   }
 });
 
-define('switchTab', [], function(){
+define('switchTab', ['jquery'], function($){
   $.fn.switchTab = function(target){
     if(!target){
       $('#main-header').find('li.active').map(function(index, item){
@@ -27,7 +39,9 @@ define('switchTab', [], function(){
       .siblings('li.active')
       .removeClass('active');
   };
+});
 
+define('clearBase', ['jquery', 'underscore'], function($, _){
   $.fn.clearBase = function(args) {
     var $content = $('#content');
 
@@ -46,8 +60,36 @@ define('switchTab', [], function(){
   };
 });
 
-require(['switchTab', 'app', 'config'], function(switchTab, app, config) {
+require(['jquery', 'underscore', 'resources', 'app', 'switchTab', 'clearBase'], function($, _, resources, App) {
   'use strict';
+
+  var dropdown = $('#dropdown');
+
+  var tmpl = _.template($('#dropdown-item-template').html());
+  var jobs = _.groupBy(resources.jobs, 'category');
+
+  _.each(resources.jobCategories, function(item, index){
+    var count = jobs[item.id] ? jobs[item.id].length : 0;
+
+    dropdown.append(tmpl({
+      item: item,
+      index: index,
+      count: count
+    }));
+  });
+
+  var body = document.getElementsByTagName('body')[0];
+  var $body = $(body);
+  var leftOffset = body.getBoundingClientRect().left;
+  $body.css('margin-left', leftOffset + 'px');
+
+  $(window).resize(function(e){
+    $body.css('margin-left', 'auto');
+    leftOffset = body.getBoundingClientRect().left;
+    $body.css('margin-left', leftOffset + 'px');
+  });
+
+  dropdown.data('height', resources.jobCategories.length * 25);
 
   var showDropdown = function(){
     dropdown.height(dropdown.data('height') + 50);
@@ -56,7 +98,6 @@ require(['switchTab', 'app', 'config'], function(switchTab, app, config) {
       // plus padding top
       $(item).css('margin-top', ($('a', item).data('index') + 1) * 25 + 'px');
     });
-    // dropdown.css('padding', '25px 0');
   };
 
   var hideDropdown = function(){
@@ -64,7 +105,6 @@ require(['switchTab', 'app', 'config'], function(switchTab, app, config) {
     dropdown.children('li').css('margin-top', 0);
   };
 
-  var dropdown = $('#dropdown');
   dropdown.parent('li').on('mouseenter', function(){
     showDropdown();
   });
@@ -72,4 +112,6 @@ require(['switchTab', 'app', 'config'], function(switchTab, app, config) {
   dropdown.parent('li').on('mouseleave', function(){
     hideDropdown();
   });
+
+  App.initialize();
 });

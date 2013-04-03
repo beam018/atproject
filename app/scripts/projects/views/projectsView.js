@@ -1,8 +1,8 @@
 define([
     'backbone',
     'projects/collections/projects',
-    'projects/projectView',
-    'projects/carouselView'
+    'projects/views/projectView',
+    'projects/views/carouselView'
   ], function(Backbone, Projects, ProjectView, CarouselView){
   'use strict';
 

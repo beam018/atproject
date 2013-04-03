@@ -1,8 +1,7 @@
 define([
+    'underscore',
     'backbone',
-    'career/collections/jobsList',
-    'career/jobsView'
-  ], function(Backbone, JobsList, JobsView){
+  ], function(_, Backbone){
   'use strict';
 
   var JobsListView = Backbone.View.extend({
@@ -28,7 +27,7 @@ define([
       }, this);
 
       return this;
-    },
+    }
   });
 
   return JobsListView;

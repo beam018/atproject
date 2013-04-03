@@ -1,4 +1,4 @@
-define(['backbone', 'projects/models/slideImage'], function(Backbone, SlideImage){
+define(['backbone'], function(Backbone){
   'use strict';
 
   var Project = Backbone.Model.extend({

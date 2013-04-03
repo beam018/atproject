@@ -1,4 +1,4 @@
-define(['config'], function(config){
+define(['jquery', 'config'], function($, config){
   'use strict';
 
   var Resources = function(){
@@ -6,6 +6,8 @@ define(['config'], function(config){
     this.jobs = this.loadRes('v1/jobs/');
     this.jobCategories = this.loadRes('v1/jobs/categories/');
     this.cities = this.loadRes('v1/jobs/cities/');
+
+    this.pages = [];
   };
 
   Resources.prototype.loadRes = function(path, dataType){
@@ -37,7 +39,5 @@ define(['config'], function(config){
     return resource;
   };
 
-  var resources = new Resources();
-
-  return resources;
+  return new Resources();
 });
