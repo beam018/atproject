@@ -73,7 +73,7 @@
 figure
   $radius: 3px
   $height: 30px
-  $figureWidth: 222px
+  $figureWidth: 221px
 
   width: $figureWidth
   +border-radius($radius)
@@ -200,6 +200,10 @@ figure
     border: 1px solid $gray
     padding: 2px 4px 2px 4px
     +border-radius(2px)
+    float: left
+
+  input.error
+    border-color: #f00
 
   input, textarea
     margin: 0 0 9px 0
@@ -271,3 +275,7 @@ figure
   min-height: 528px
   +background-size(cover)
   background-repeat: no-repeat
+
+.file-block
+  .tooltip
+    margin-top: 3px

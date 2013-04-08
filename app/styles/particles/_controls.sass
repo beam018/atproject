@@ -70,3 +70,27 @@
 
   &:hover
     +background-image(linear-gradient(#e77a03, $yellow, $yellow, #fcc75d))
+
+  &[disabled]
+    +opacity(0.5)
+
+.tooltip
+  border: 1px solid #f00
+  float: left
+  margin:  0 0 0 5px
+  +border-radius(2px)
+  background-color: #f00
+
+  p
+    text-align: center
+    margin: 0 0 0 0
+    padding: 0 .5em 0 .5em
+    color: #fff
+
+  div
+    height: 0
+    width: 0
+    border: 5px solid transparent    
+    border-right: 5px solid #f00
+    position: absolute
+    margin: 5px 0 0 -10px

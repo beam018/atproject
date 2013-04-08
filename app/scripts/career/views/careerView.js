@@ -96,6 +96,69 @@ define([
         .removeClass('active');
     },
 
+    showErrorTooltip: function($target){
+      var $fieldContainer = $target.parent('div');
+
+      if($fieldContainer.find('.tooltip')[0]){
+        return;
+      }
+
+      var regexp = /^[а-яА-Яa-zA-Z]+/;
+      var tooltipErrorTmplSrc = $('#tooltip-error-template').html();
+      var tooltipErrorTmpl = _.template(tooltipErrorTmplSrc);
+
+      var nameSource = $fieldContainer.find('label').html();
+      var name = regexp.exec(nameSource)[0];
+
+      var tooltip = tooltipErrorTmpl({name: name});
+      $fieldContainer.append(tooltip);
+
+      $target.addClass('error');
+    },
+
+    removeErrorTooltip: function($target){
+      $target.parent('div').find('.tooltip').remove();
+      $target.removeClass('error');
+    },
+
+    validateField: function($target){
+      var phoneRegexp = /^\+?[0-9]{1,3}[-. (]?\(?([0-9]{3})\)?[)-. ]?([0-9]{3})[-. ]?([0-9]{2})[-. ]?([0-9]{2})$/;
+      if($target.attr('id') === 'phone-field' && !phoneRegexp.test($target.val())){
+        this.showErrorTooltip($target);
+        return false;
+      }
+
+      var emailRegexp = /([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/;
+      if($target.attr('id') === 'email-field' && !emailRegexp.test($target.val())){
+        this.showErrorTooltip($target);
+        return false;
+      }
+
+      if(!$target.val()){
+        this.showErrorTooltip($target);
+        return false;
+      }
+
+      if($target.val()){
+        this.removeErrorTooltip($target);
+      }
+
+      return true;
+    },
+
+    validateAll: function(){
+      var $fields = $('input');
+      var errors = false;
+
+      for(var i=0; i<$fields.length; i++){
+        if(!this.validateField($($fields[i]))){
+          errors = true;
+        }
+      }
+
+      return !errors;
+    },
+
     showJobs: function(id){
       id = parseInt(id, 10);
       if(isNaN(id)){
@@ -221,6 +284,31 @@ define([
         }else{
           // alert('data was arrived');
           console.log('data was arrived');
+        }
+      });
+
+      var self = this;
+      var $fields = $('input');
+      $fields.on('focusout', function(){
+        var $target = $(this);
+        var $fieldContainer = $target.parent('div');
+
+        self.validateField($target);
+      });
+
+      var $submitBtn = $('#submit');
+      $('#resume-field').on('change', function(){
+        if(self.validateAll()){
+          $submitBtn.attr('disabled', false);
+        }
+      });
+
+      $submitBtn.on('click', function(){
+        if(self.validateAll()){
+          $submitBtn.attr('disabled', false);
+        }
+        else{
+          $submitBtn.attr('disabled', true);
         }
       });
 

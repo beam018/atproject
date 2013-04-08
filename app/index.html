@@ -70,7 +70,7 @@
     <script id="job-category-template" type="text/template">
         <a href="#career/type=<%= id %>">
             <figure>
-                <img src="/media/<%= thumb %>" alt="" height="145" width="220">
+                <img src="/media/<%= thumb %>" alt="" height="145" width="221">
 
                 <figcaption>
                     <%= name %>
@@ -174,7 +174,7 @@
                 <input type="text" name="email" id="email-field" placeholder="Email">
             </div>
 
-            <div>
+            <div class="file-block">
                 <label for="resume-field" class="file-input" id="file-input"><span>Вложить резюме:</span>
                     <div>
                         <input id="brows-field" type="text" placeholder="Файл" disabled="disabled">
@@ -189,7 +189,9 @@
                 <textarea name="extra" id="extra-field" placeholder="Дополнительно"></textarea>
             </div>
 
-            <button class="button">Отправить</button>
+            <button class="button" type="submit" id="submit" disabled>
+                Отправить
+            </button>
         </form>
 
         <div class="back">
@@ -209,7 +211,9 @@
     <script id="slider-template" type="text/template">
         <div id="slider-back-layer" class="slider-back-layer">
             <div id="slider-forward-layer" class="slider-forward-layer">
-                <div class="slider-content" id="slider-content"><%= project.content %></div>
+                <div class="slider-content" id="slider-content">
+                    <%= project.content %>
+                </div>
             </div>
 
             <div id="slider-control-layer" class="slider-control-layer">
@@ -226,6 +230,13 @@
             <div><%= count %></div>
         </li>
     </script>
+        
+    <script id="tooltip-error-template" type="text/template">
+        <div class="tooltip error-tip">
+            <div></div>
+            <p>Вы не верно заполнили поле "<%= name %>"</p>
+        </div>
+    </script>
 
     <!-- [if lte IE 7]>
         <p class="chromeframe">
@@ -234,18 +245,7 @@
             to better experience this site.
         </p>
     <![endif]-->
-    <script>
-        var _gaq = [
-            ['_setAccount', 'UA-XXXXX-X'],
-            ['_trackPageview']
-        ];
-        (function (d, t) {
-            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g, s)
-        }(document, 'script'));
-    </script>
-
+    <script> var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>
     <!-- build:js scripts/amd-app.js -->
     <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
     <!-- endbuild -->
