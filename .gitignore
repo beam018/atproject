@@ -1,10 +1,8 @@
-temp
-dist*
-.sass-cache
-npm-debug.log
-.idea
-.htaccess
-static
-media
 node_modules
+dist*
+.tmp
+.sass-cache
+app/components
+.idea
+npm-debug.log
 *.sh

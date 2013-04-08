@@ -13,15 +13,15 @@ require.config({
       exports: '_'
     },
     backbone: {
-      deps: ['underscore', 'jquery'],
+      deps: ['jquery', 'underscore'],
       exports: 'Backbone'
     }
   },
 
   paths: {
-    jquery: '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min',
-    underscore: 'vendor/underscore-min',
-    backbone: 'vendor/backbone-min'
+    jquery: '../components/jquery/jquery',
+    underscore: '../components/underscore/underscore',
+    backbone: '../components/backbone-amd/backbone'
   }
 });
 

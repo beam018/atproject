@@ -26,7 +26,7 @@ define([
       JobsView,
       JobView
 
-    ){
+  ){
 
   'use strict';
 

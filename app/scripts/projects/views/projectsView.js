@@ -1,9 +1,11 @@
 define([
+    'jquery',
+    'underscore',
     'backbone',
     'projects/collections/projects',
     'projects/views/projectView',
     'projects/views/carouselView'
-  ], function(Backbone, Projects, ProjectView, CarouselView){
+  ], function($, _, Backbone, Projects, ProjectView, CarouselView){
   'use strict';
 
   var ProjectsView = Backbone.View.extend({

@@ -1,4 +1,4 @@
-define(['backbone'], function(Backbone){
+define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
   'use strict';
 
   var ProjectView = Backbone.View.extend({

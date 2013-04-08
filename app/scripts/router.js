@@ -1,11 +1,12 @@
 define([
   'jquery',
+  'underscore',
   'config',
   'resources',
   'backbone',
   'career/views/careerView',
   'projects/views/projectsView'
-], function($, config, resources, Backbone, CareerView, ProjectsView){
+], function($, _, config, resources, Backbone, CareerView, ProjectsView){
   var Router = Backbone.Router.extend({
     routes: {
       '': 'activateHome',
