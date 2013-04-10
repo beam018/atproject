@@ -39,32 +39,6 @@ define(['config', 'jquery'], function(config, $){
     request.fail(fallback);
   };
 
-  /**
-  * @deprecated
-  */
-  utils.resources.loadRes = function(path, type){
-    var resource;
-
-    if(!type){
-      type = 'html';
-    }
-
-    var callback = function(data){
-      resource = data;
-    };
-
-    var fallback = function(status){
-      dbg.error('Request failed: ' + status);
-    };
-
-    var url = config.serverUrl + path;
-    res.xhr(url, type, callback, fallback);
-
-    dbg.warn('deprecated method call');
-
-    return resource;
-  };
-
   utils.resources.json = function(path){
     var json = {};
 
