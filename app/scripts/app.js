@@ -1,6 +1,7 @@
 define([
+  'utils',
   'router'
-], function(Router){
+], function(utils, Router){
   'use strict';
 
   var initialize = function(){

@@ -2,11 +2,13 @@ define([
   'jquery',
   'underscore',
   'config',
-  'resources',
+  'utils',
   'backbone',
   'career/views/careerView',
   'projects/views/projectsView'
-], function($, _, config, resources, Backbone, CareerView, ProjectsView){
+], function($, _, config, utils, Backbone, CareerView, ProjectsView){
+  'use strict';
+
   var Router = Backbone.Router.extend({
     routes: {
       '': 'activateHome',
@@ -21,7 +23,14 @@ define([
   });
 
   var initialize = function(){
-    var router = new Router;
+    var resources = utils.resources;
+    var pages = resources.pages;
+
+    var router = new Router();
+
+    var wrapPage = function(page){
+      return '<div class="career-content">' + page + '</div>';
+    };
 
     var careerView = new CareerView(resources);
     var projectsView = new ProjectsView(resources.projects);
@@ -33,9 +42,7 @@ define([
 
       content.fadeOut(config.fadeTime, function(){
         $.fn.clearBase();
-        content.find('#content').html('<div class="career-content">'+
-          resources.loadRes('home/', 'html')+
-          '</div>');
+        content.find('#content').html(wrapPage(pages.home));
         content.fadeIn(config.fadeTime);
       });
     });
@@ -45,9 +52,7 @@ define([
 
       content.fadeOut(config.fadeTime, function(){
         $.fn.clearBase();
-        content.find('#content').html('<div class="career-content">'+
-          resources.loadRes('about/', 'html')+
-          '</div>');
+        content.find('#content').html(wrapPage(pages.about));
         content.fadeIn(config.fadeTime);
       });
     });
@@ -57,9 +62,7 @@ define([
 
       content.fadeOut(config.fadeTime, function(){
         $.fn.clearBase();
-        content.find('#content').html('<div class="career-content">'+
-          resources.loadRes('contacts/', 'html')+
-          '</div>');
+        content.find('#content').html(wrapPage(pages.contacts));
         content.fadeIn(config.fadeTime);
       });
     });

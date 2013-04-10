@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'resources',
+    'utils',
     'config',
     'career/collections/jobsList',
     'career/collections/jobCategories',
@@ -14,7 +14,7 @@ define([
       $,
       _,
       Backbone,
-      resources,
+      utils,
       config,
       JobsList,
       JobCategories,
@@ -24,6 +24,9 @@ define([
       JobView
   ){
     'use strict';
+
+    var resources = utils.resources,
+        pages = resources.pages;
 
     var CareerView = Backbone.View.extend({
       el: $('#content'),
@@ -63,8 +66,7 @@ define([
         var tmpl = _.template(this.template);
         this.$el.html(tmpl({smooth: smooth}));
         var page = this.$el.find('#page-1');
-        page.html(this.jobListView.el)
-          .prepend(resources.loadRes('career/', 'html'));
+        page.html(this.jobListView.el).prepend(pages.career);
 
         this.$crumbs = $('#crumbs');
         this.pageWidth = page.outerWidth();
