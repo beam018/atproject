@@ -333,7 +333,12 @@ define([
         if(!frameLoad){
           frameLoad = true;
         }else if(submit){
-          $('#alert').removeClass('hide');
+          var $alert = $('#alert');
+          $alert.fadeIn(config.fadeTime);
+          setTimeout(function(){
+            $alert.fadeOut(config.fadeTime);
+          }, 7000);
+
           $submitBtn.hide();
           $fields.each(function(index, field){
             $(field).val('');
