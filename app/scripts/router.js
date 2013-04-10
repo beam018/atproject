@@ -1,12 +1,11 @@
 define([
   'jquery',
-  'underscore',
   'config',
   'utils',
   'backbone',
   'career/views/careerView',
   'projects/views/projectsView'
-], function($, _, config, utils, Backbone, CareerView, ProjectsView){
+], function($, config, utils, Backbone, CareerView, ProjectsView){
   'use strict';
 
   var Router = Backbone.Router.extend({
