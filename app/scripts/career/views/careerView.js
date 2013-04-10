@@ -96,47 +96,68 @@ define([
         .removeClass('active');
     },
 
-    showErrorTooltip: function($target){
+    showErrorTooltip: function($target, msg){
       var $fieldContainer = $target.parent('div');
 
-      if($fieldContainer.find('.tooltip')[0]){
-        return;
-      }
-
-      var regexp = /^[а-яА-Яa-zA-Z]+/;
       var tooltipErrorTmplSrc = $('#tooltip-error-template').html();
       var tooltipErrorTmpl = _.template(tooltipErrorTmplSrc);
 
-      var nameSource = $fieldContainer.find('label').html();
-      var name = regexp.exec(nameSource)[0];
+      var targetId = $target.attr('id');
+      if(!msg && (targetId === 'phone-field' || targetId === 'email-field')){
+        var regexp = /^[а-яА-Яa-zA-Z]+/;
+        var nameSource = $fieldContainer.find('label').html();
+        var name = regexp.exec(nameSource)[0];
 
-      var tooltip = tooltipErrorTmpl({name: name});
+        msg = 'Неверно заполнили поле "' + name + '"';
+      }
+
+      if(!msg || !_.isString(msg)){
+        msg = 'Не заполнили';
+      }
+
+      var oldTooltip = $fieldContainer.find('.tooltip');
+      if(oldTooltip[0]){
+        oldTooltip.find('p').html(msg);
+        return;
+      }
+
+      var tooltip = tooltipErrorTmpl({msg: msg});
       $fieldContainer.append(tooltip);
+      $fieldContainer.find('.tooltip').fadeIn(config.fadeTime);
 
       $target.addClass('error');
     },
 
     removeErrorTooltip: function($target){
-      $target.parent('div').find('.tooltip').remove();
+      $target.parent('div')
+        .find('.tooltip')
+        .fadeOut(config.fadeTime, function(){
+          $(this).remove();
+        });
       $target.removeClass('error');
     },
 
     validateField: function($target){
-      var phoneRegexp = /^\+?[0-9]{1,3}[-. (]?\(?([0-9]{3})\)?[)-. ]?([0-9]{3})[-. ]?([0-9]{2})[-. ]?([0-9]{2})$/;
-      if($target.attr('id') === 'phone-field' && !phoneRegexp.test($target.val())){
-        this.showErrorTooltip($target);
-        return false;
-      }
-
-      var emailRegexp = /([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/;
-      if($target.attr('id') === 'email-field' && !emailRegexp.test($target.val())){
-        this.showErrorTooltip($target);
-        return false;
-      }
-
       if(!$target.val()){
-        this.showErrorTooltip($target);
+        var msg = 'Не заполнили';
+        this.showErrorTooltip($target, msg);
         return false;
+      }
+
+      if($target.attr('id') === 'phone-field'){
+        var phoneRegexp = /^\+?[0-9]{1,3}[-. (]?\(?([0-9]{3})\)?[)-. ]?([0-9]{3})[-. ]?([0-9]{2})[-. ]?([0-9]{2})$/;
+        if(!phoneRegexp.test($target.val())){
+          this.showErrorTooltip($target);
+          return false;
+        };
+      }
+
+      if($target.attr('id') === 'email-field'){
+        var emailRegexp = /([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/;
+        if(!emailRegexp.test($target.val())){
+          this.showErrorTooltip($target);
+          return false;
+        };
       }
 
       if($target.val()){
@@ -277,21 +298,15 @@ define([
         $('#brows-field').val($('#resume-field')[0].files[0].name);
       });
 
-      var frameLoad = false;
-      $('#upload-target').load(function(){
-        if(!frameLoad){
-          frameLoad = true;
-        }else{
-          // alert('data was arrived');
-          console.log('data was arrived');
-        }
-      });
-
       var self = this;
       var $fields = $('input');
-      $fields.on('focusout', function(){
+      $fields.on('focusout keyup', function(e){
         var $target = $(this);
         var $fieldContainer = $target.parent('div');
+
+        if(e.type === 'keyup' && e.keyCode === 9){
+          return;
+        };
 
         self.validateField($target);
       });
@@ -303,12 +318,27 @@ define([
         }
       });
 
+      var submit = false;
       $submitBtn.on('click', function(){
         if(self.validateAll()){
-          $submitBtn.attr('disabled', false);
+          submit = true;
         }
         else{
           $submitBtn.attr('disabled', true);
+        }
+      });
+
+      var frameLoad = false;
+      $('#upload-target').load(function(){
+        if(!frameLoad){
+          frameLoad = true;
+        }else if(submit){
+          $('#alert').removeClass('hide');
+          $submitBtn.hide();
+          $fields.each(function(index, field){
+            $(field).val('');
+          });
+          $('textarea').val('');
         }
       });
 

@@ -113,5 +113,9 @@ require(['jquery', 'underscore', 'resources', 'app', 'switchTab', 'clearBase'], 
     hideDropdown();
   });
 
+  dropdown.children('li').on('click', function(){
+    window.location = $(this).find('a').attr('href');
+  });
+
   App.initialize();
 });

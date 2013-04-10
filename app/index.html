@@ -70,7 +70,7 @@
     <script id="job-category-template" type="text/template">
         <a href="#career/type=<%= id %>">
             <figure>
-                <img src="/media/<%= thumb %>" alt="" height="145" width="221">
+                <img src="/media/<%= thumb %>" alt="" height="145" width="220">
 
                 <figcaption>
                     <%= name %>
@@ -189,6 +189,10 @@
                 <textarea name="extra" id="extra-field" placeholder="Дополнительно"></textarea>
             </div>
 
+            <div id="alert" class="alert hide">
+              Ваша заявка отправлена. Мы отправили подтверждение на вашу почту.
+            </div>
+
             <button class="button" type="submit" id="submit" disabled>
                 Отправить
             </button>
@@ -232,9 +236,9 @@
     </script>
         
     <script id="tooltip-error-template" type="text/template">
-        <div class="tooltip error-tip">
+        <div class="tooltip error-tip" style="display: none;">
             <div></div>
-            <p>Вы не верно заполнили поле "<%= name %>"</p>
+            <p><%= msg %></p>
         </div>
     </script>
 
