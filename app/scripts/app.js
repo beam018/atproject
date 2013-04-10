@@ -6,6 +6,7 @@ define([
 
   var initialize = function(){
     Router.initialize();
+    utils.debug.log('router initialised');
   };
 
   return {

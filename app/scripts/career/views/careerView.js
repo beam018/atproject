@@ -32,7 +32,7 @@ define([
       el: $('#content'),
       template: $('#career-template').html(),
 
-      initialize: function(resources){
+      initialize: function(){
         this.jobsCollection = new JobsList(resources.jobs);
         this.jobCategoriesCollection = new JobCategories(resources.jobCategories);
         this.citiesCollection = new Cities(resources.cities);
@@ -44,6 +44,8 @@ define([
           this.jobCategoriesCollection,
           this.jobsCollection
         );
+
+        utils.debug.log('career view initialized');
       },
 
       render: function(smooth){
@@ -70,6 +72,8 @@ define([
 
         this.$crumbs = $('#crumbs');
         this.pageWidth = page.outerWidth();
+
+        utils.debug.log('career view rendered');
       },
 
       addCrumb: function(link, name, fadeTime){
@@ -195,7 +199,7 @@ define([
       showJobs: function(id){
         id = parseInt(id, 10);
         if(isNaN(id)){
-          console.error('bad id');
+          utils.debug.error('bad id');
 
           this.$el.html('');
           return;
@@ -248,12 +252,14 @@ define([
         $('.career-table tbody tr').on('click', function(){
           window.location = $(this).find('a').attr('href');
         });
+
+        utils.debug.log('jobs page generated');
       },
 
       showJob: function(id){
         id = parseInt(id, 10);
         if(isNaN(id)){
-          console.error('bad id');
+          utils.debug.error('bad id');
           return;
         }
 
@@ -304,6 +310,8 @@ define([
 
         // remove height restriction
         $('#content-container').addClass('content__fullsize');
+
+        utils.debug.log('job page generated');
 
         // custom file input
         $('#file-input').on('click', function(e){
@@ -389,6 +397,8 @@ define([
         });*/
 
         $('#contact-form').attr('action', config.serverUrl + 'mail/');
+
+        utils.debug.log('form handlers initialized');
       }
     });
 

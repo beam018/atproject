@@ -60,6 +60,8 @@ define(['config', 'jquery'], function(config, $){
     var url = config.serverUrl + path;
     res.xhr(url, type, callback, fallback);
 
+    dbg.warn('deprecated method call');
+
     return resource;
   };
 
@@ -97,6 +99,8 @@ define(['config', 'jquery'], function(config, $){
     return html;
   };
 
+  dbg.log('utils created');
+
   res.projects = res.json('projects/');
   res.cities = res.json('jobs/cities/');
   res.jobCategories = res.json('jobs/categories/');
@@ -107,6 +111,8 @@ define(['config', 'jquery'], function(config, $){
   res.pages.about = res.html('about/');
   res.pages.contacts = res.html('contacts/');
   res.pages.career = res.html('career/');
+
+  dbg.log('remote resourses loaded');
 
   return utils;
 });

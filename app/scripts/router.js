@@ -21,6 +21,7 @@ define([
       'career/job=:id': 'showJob'
     }
   });
+  utils.debug.log('routes headers created');
 
   var initialize = function(){
     var resources = utils.resources;
@@ -32,8 +33,8 @@ define([
       return '<div class="career-content">' + page + '</div>';
     };
 
-    var careerView = new CareerView(resources);
-    var projectsView = new ProjectsView(resources.projects);
+    var careerView = new CareerView();
+    var projectsView = new ProjectsView();
 
     var content = $('#content-container');
 
@@ -105,7 +106,11 @@ define([
       careerView.showJob(id);
     });
 
+    utils.debug.log('routes handling function initialised');
+
     Backbone.history.start();
+
+    utils.debug.log('history started');
   };
 
   return {

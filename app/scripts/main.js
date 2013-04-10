@@ -60,9 +60,12 @@ define('clearBase', ['jquery', 'underscore'], function($, _){
   };
 });
 
-require(['jquery', 'underscore', 'resources', 'app', 'switchTab', 'clearBase'], function($, _, resources, App) {
+require(['jquery', 'underscore', 'utils', 'app', 'switchTab', 'clearBase'], function($, _, utils, App) {
   'use strict';
 
+  var resources = utils.resources;
+
+  // generate dropdown menu
   var dropdown = $('#dropdown');
 
   var tmpl = _.template($('#dropdown-item-template').html());
@@ -77,18 +80,21 @@ require(['jquery', 'underscore', 'resources', 'app', 'switchTab', 'clearBase'], 
       count: count
     }));
   });
+  utils.debug.log('dropdown generated');
 
-  var body = document.getElementsByTagName('body')[0];
+  // window resize handling
+  var body = document.body;
   var $body = $(body);
   var leftOffset = body.getBoundingClientRect().left;
   $body.css('margin-left', leftOffset + 'px');
 
-  $(window).resize(function(e){
+  $(window).resize(function(){
     $body.css('margin-left', 'auto');
     leftOffset = body.getBoundingClientRect().left;
     $body.css('margin-left', leftOffset + 'px');
   });
 
+  // dropdown animation
   dropdown.data('height', resources.jobCategories.length * 25);
 
   var showDropdown = function(){
@@ -105,17 +111,14 @@ require(['jquery', 'underscore', 'resources', 'app', 'switchTab', 'clearBase'], 
     dropdown.children('li').css('margin-top', 0);
   };
 
-  dropdown.parent('li').on('mouseenter', function(){
-    showDropdown();
-  });
-
-  dropdown.parent('li').on('mouseleave', function(){
-    hideDropdown();
-  });
+  dropdown.parent('li').on('mouseenter', showDropdown);
+  dropdown.parent('li').on('mouseleave', hideDropdown);
 
   dropdown.children('li').on('click', function(){
     window.location = $(this).find('a').attr('href');
   });
 
   App.initialize();
+  utils.debug.log('App initialised');
+  utils.debug.log('Done!');
 });
