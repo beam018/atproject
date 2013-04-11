@@ -205,6 +205,8 @@ define([
           return;
         }
 
+        $('#page-3').remove();
+
         var $pages = $('#pages');
         if(!$pages[0]){
           this.render(false);
@@ -212,6 +214,8 @@ define([
           $('#pages').addClass('pages__transition');
           return;
         }
+
+        $('#content-container').addClass('content__fullsize');
 
         var jobs = _.map(this.jobsCollection.where({category: id}), function(item){
           return item.toJSON();

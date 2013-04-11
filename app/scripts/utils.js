@@ -4,21 +4,21 @@ define(['config', 'jquery'], function(config, $){
   var utils = {};
 
   utils.debug = {
-    log: function(){
+    log: function(msg){
       if(config.debug){
-        console.log(arguments);
+        console.log(msg);
       }
     },
 
-    warn: function(){
+    warn: function(msg){
       if(config.debug){
-        console.warn(arguments);
+        console.warn(msg);
       }
     },
 
-    error: function(){
+    error: function(msg){
       if(config.debug){
-        console.error(arguments);
+        console.error(msg);
       }
     }
   };

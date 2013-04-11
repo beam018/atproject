@@ -11,6 +11,7 @@ define([], function(){
   config.mediaUrl = config.serverUrl + 'media/';
 
   config.debug = true;
+  // config.debug = true;
 
   config.fadeTime = 150;
 
