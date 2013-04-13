@@ -67,6 +67,10 @@ define([
 
         var tmpl = _.template(this.template);
         this.$el.html(tmpl({smooth: smooth}));
+        if(!FormData){
+          var $iframe = $('<iframe id="upload-target" name="upload-target" src="/frame.html" style="display:none;"></iframe>');
+          this.$el.append($iframe);
+        }
         var page = this.$el.find('#page-1');
         page.html(this.jobListView.el).prepend(pages.career);
 
@@ -260,6 +264,26 @@ define([
         utils.debug.log('jobs page generated');
       },
 
+      _showAlert: function(){
+        var $form = $('#contact-form');
+
+        var $alert = $form.find('#alert');
+        $alert.fadeIn(config.fadeTime);
+
+        setTimeout(function(){
+          $alert.fadeOut(config.fadeTime);
+        }, 7000);
+
+        var $fields = $('input');
+        var $submitBtn = $('#submit');
+
+        $submitBtn.hide();
+        $fields.each(function(index, field){
+          $(field).val('');
+        });
+        $('textarea').val('');
+      },
+
       showJob: function(id){
         id = parseInt(id, 10);
         if(isNaN(id)){
@@ -354,34 +378,47 @@ define([
         });
 
         // form submit
-        var submit = false;
-        $submitBtn.on('click', function(){
+        var $form = $('#contact-form');
+        if(!$form.get(0)){
+          utils.debug.error('no contact form');
+          return;
+        }
+
+        if(!FormData){
+          $form.attr('target', 'upload-target');
+        }
+
+        var callback = function(){
+          self._showAlert();
+        };
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', config.mailUrl, false);
+        xhr.onload = callback;
+
+        $submitBtn.on('click', function(e){
           if(self.validateAll()){
-            submit = true;
+            if(FormData){
+              e.preventDefault();
+
+              var fd = new FormData($form.get(0));
+
+              $fields.each(function(index, field){
+                var $field = $(field);
+                fd.append($field.attr('name'), $field.val());
+              });
+
+              xhr.send(fd);
+
+              return;
+            }
+
+            self._showAlert();
           }
           else{
+            e.preventDefault();
             $submitBtn.attr('disabled', true);
-          }
-        });
-
-        // alert from frame
-        var frameLoad = false;
-        $('#upload-target').load(function(){
-          if(!frameLoad){
-            frameLoad = true;
-          }else if(submit){
-            var $alert = $('#alert');
-            $alert.fadeIn(config.fadeTime);
-
-            setTimeout(function(){
-              $alert.fadeOut(config.fadeTime);
-            }, 7000);
-
-            $submitBtn.hide();
-            $fields.each(function(index, field){
-              $(field).val('');
-            });
-            $('textarea').val('');
           }
         });
 

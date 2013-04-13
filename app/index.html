@@ -121,7 +121,6 @@
     </script>
 
     <script id="job-template" type="text/templates">
-        <iframe id="upload-target" name="upload-target" src="#" style="display:none;"></iframe>
         <h1><%= job.name %> | <%= job.project %> | <%= city.city_name %></h1>
 
         <%= job.top_content %>
@@ -150,7 +149,7 @@
 
         <h2>Отправить отклик на эту вакансию</h2>
 
-        <form method="POST" class="contact-form" id="contact-form" target="upload-target" enctype="multipart/form-data">
+        <form method="POST" class="contact-form" id="contact-form" enctype="multipart/form-data">
             <p>Ваша персональная информация</p>
             <input type="hidden" name="job_id" value="<%= job.id %>">
 
