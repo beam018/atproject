@@ -388,14 +388,8 @@ define([
           $form.attr('target', 'upload-target');
         }
 
-        var callback = function(){
-          self._showAlert();
-        };
-
         var xhr = new XMLHttpRequest();
-
         xhr.open('POST', config.mailUrl, false);
-        xhr.onload = callback;
 
         $submitBtn.on('click', function(e){
           if(self.validateAll()){
@@ -410,8 +404,6 @@ define([
               });
 
               xhr.send(fd);
-
-              return;
             }
 
             self._showAlert();
