@@ -48,19 +48,29 @@ define([
         utils.debug.log('career view initialized');
       },
 
+      _movePages: function(pos){
+        var $pages = $('#pages');
+
+        $pages.attr(
+          'class',
+          $pages
+            .attr('class')
+            .replace(/pages__translate-\d+/g, 'pages__translate-' + pos)
+        );
+      },
+
       render: function(smooth){
         if(smooth !== false){
           smooth = true;
         }
 
-        var $pages = $('#pages');
         var $page1 = $('#page-1');
 
         this.$el.addClass('rounded__crumbs');
         this.$el.addClass('light-border');
 
         if($page1[0]){
-          $pages.css('margin-left', 0);
+          this._movePages(0);
           this.$crumbs.children().first().nextAll().remove();
           return;
         }
@@ -200,6 +210,26 @@ define([
         return !errors;
       },
 
+      _showAlert: function(){
+        var $form = $('#contact-form');
+
+        var $alert = $form.find('#alert');
+        $alert.fadeIn(config.fadeTime);
+
+        setTimeout(function(){
+          $alert.fadeOut(config.fadeTime);
+        }, 7000);
+
+        var $fields = $('input');
+        var $submitBtn = $('#submit');
+
+        $submitBtn.hide();
+        $fields.each(function(index, field){
+          $(field).val('');
+        });
+        $('textarea').val('');
+      },
+
       showJobs: function(id){
         id = parseInt(id, 10);
         if(isNaN(id)){
@@ -242,7 +272,7 @@ define([
         );
         this.$('#page-1').after(this.jobsView.el);
 
-        $pages.css('margin-left', -this.pageWidth);
+        this._movePages(1);
 
         var urn = '#career/type=' + id;
 
@@ -262,26 +292,6 @@ define([
         });
 
         utils.debug.log('jobs page generated');
-      },
-
-      _showAlert: function(){
-        var $form = $('#contact-form');
-
-        var $alert = $form.find('#alert');
-        $alert.fadeIn(config.fadeTime);
-
-        setTimeout(function(){
-          $alert.fadeOut(config.fadeTime);
-        }, 7000);
-
-        var $fields = $('input');
-        var $submitBtn = $('#submit');
-
-        $submitBtn.hide();
-        $fields.each(function(index, field){
-          $(field).val('');
-        });
-        $('textarea').val('');
       },
 
       showJob: function(id){
@@ -321,7 +331,7 @@ define([
         }
 
         // page transition
-        $pages.css('margin-left', -this.pageWidth * 2);
+        this._movePages(2);
 
         // add bredcrumb
         var urn = '#career/job=' + id;

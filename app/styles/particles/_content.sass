@@ -147,12 +147,6 @@ figure
     tr
       cursor: pointer
 
-// .back__absolute
-//   color: $gray
-//   font-size: 0.875em
-//   position: absolute
-//   top: 490px
-
 .back
   color: $gray
   font-size: 0.875em
@@ -269,7 +263,11 @@ figure
   position: relative
 
 .pages__transition
-  +transition(margin 0.3s ease-in-out)
+  +transition(all 0.3s ease-in-out)
+
+@for $i from 0 through $careerPagesDepth
+  .pages__translate-#{ $i }
+    +transform(translate(-$careerContentFullWidth * $i, 0))
 
 #page-2
   min-height: 528px
