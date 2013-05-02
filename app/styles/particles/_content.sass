@@ -4,6 +4,8 @@
 .content
   height: $contentHeight
   overflow: hidden
+  +transition(opacity $fadeTime ease-in-out)
+  +opacity(1)
 
 .content__fullsize
   height: auto
@@ -277,3 +279,6 @@ figure
 .file-block
   .tooltip
     margin-top: 3px
+
+.fadeOut
+  +opacity(0)

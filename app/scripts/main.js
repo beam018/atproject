@@ -25,42 +25,7 @@ require.config({
   }
 });
 
-define('switchTab', ['jquery'], function($){
-  $.fn.switchTab = function(target){
-    if(!target){
-      $('#main-header').find('li.active').map(function(index, item){
-        $(item).removeClass('active');
-      });
-    }
-
-    $(target)
-      .parents('li')
-      .addClass('active')
-      .siblings('li.active')
-      .removeClass('active');
-  };
-});
-
-define('clearBase', ['jquery', 'underscore'], function($, _){
-  $.fn.clearBase = function(args) {
-    var $content = $('#content');
-
-    if(!_.find(arguments, function(item){return item == 'projects';})){
-      $('#content-container').removeClass('content__fullsize');
-      $content.removeClass('slide');
-      $content.removeClass('colored');
-      $content.addClass('single');
-      $content.parent().siblings().remove();
-    }
-
-    if(!_.find(arguments, function(item){return item == 'career';})){
-      $content.removeClass('rounded__crumbs');
-      $content.removeClass('light-border');
-    }
-  };
-});
-
-require(['jquery', 'underscore', 'utils', 'app', 'switchTab', 'clearBase'], function($, _, utils, App) {
+require(['jquery', 'underscore', 'utils', 'app'], function($, _, utils, App) {
   'use strict';
 
   var resources = utils.resources;

@@ -15,6 +15,7 @@ define([
       'contacts': 'activateContacts',
       'projects': 'activateProjects',
       'projects/:id': 'activateCurrentProject',
+      'career?no-fade=:fade': 'activateCareer',
       'career': 'activateCareer',
       'career/type=:id': 'showJobsByID',
       'career/job=:id': 'showJob'
@@ -32,76 +33,125 @@ define([
       return '<div class="career-content">' + page + '</div>';
     };
 
+    var delay = function(callback){
+      setTimeout(callback, config.fadeTime);
+    }
+
+    var clearBase = function(){
+      if(!_.find(arguments, function(item){return item == 'projects';})){
+        $('#content-container').removeClass('content__fullsize');
+        $contentContainer.removeClass('slide');
+        $contentContainer.removeClass('colored');
+        $contentContainer.addClass('single');
+        $contentContainer.parent().siblings().remove();
+      }
+
+      if(!_.find(arguments, function(item){return item == 'career';})){
+        $contentContainer.removeClass('rounded__crumbs');
+        $contentContainer.removeClass('light-border');
+      }
+    };
+
+    var switchTab = function(target){
+      utils.debug.log(target);
+      if(!target){
+        $('#nav').find('li.active').map(function(index, item){
+          $(item).removeClass('active');
+        });
+      }
+
+      $(target)
+        .parents('li')
+        .addClass('active')
+        .siblings('li.active')
+        .removeClass('active');
+    };
+
     var careerView = new CareerView();
     var projectsView = new ProjectsView();
 
-    var content = $('#content-container');
+    var $content = $('#content-container');
+    var $contentContainer = $('#content');
+
+    router.on('route:routeStart', function(e){
+      clearBase();
+      $content.addClass('fadeOut');
+
+      delay(function(){
+        router.trigger('route.fadeOutFinish')
+      });
+    });
+
+    router.on('route.fadeOutFinish', function(){
+      $content.removeClass('fadeOut');
+    })
 
     router.on('route:activateHome', function(){
-      $.fn.switchTab();
+      switchTab();
+      router.trigger('route:routeStart');
 
-      content.fadeOut(config.fadeTime, function(){
-        $.fn.clearBase();
-        content.find('#content').html(wrapPage(pages.home));
-        content.fadeIn(config.fadeTime);
+      delay(function(){
+        $content.find('#content').html(wrapPage(pages.home))
       });
     });
 
     router.on('route:activateAbout', function(){
-      $.fn.switchTab($('#about'));
+      switchTab($('#about'));
+      router.trigger('route:routeStart');
 
-      content.fadeOut(config.fadeTime, function(){
-        $.fn.clearBase();
-        content.find('#content').html(wrapPage(pages.about));
-        content.fadeIn(config.fadeTime);
+      delay(function(){
+        $content.find('#content').html(wrapPage(pages.about))
       });
     });
 
     router.on('route:activateContacts', function(){
-      $.fn.switchTab($('#contacts'));
+      switchTab($('#contacts'));
+      router.trigger('route:routeStart');
 
-      content.fadeOut(config.fadeTime, function(){
-        $.fn.clearBase();
-        content.find('#content').html(wrapPage(pages.contacts));
-        content.fadeIn(config.fadeTime);
+      delay(function(){
+        $content.find('#content').html(wrapPage(pages.contacts));
       });
     });
 
     router.on('route:activateProjects', function(){
-      $.fn.switchTab($('#projects'));
+      switchTab($('#projects'));
+      router.trigger('route:routeStart');
 
-      $.fn.clearBase();
-      content.fadeOut(config.fadeTime, function(){
+      delay(function(){
         projectsView.render();
-        content.fadeIn(config.fadeTime);
       });
     });
 
     router.on('route:activateCurrentProject', function(id){
-      $.fn.switchTab($('#projects'));
-      $.fn.clearBase('projects');
+      switchTab($('#projects'));
+      clearBase('projects');
       projectsView.render(id);
     });
 
-    router.on('route:activateCareer', function(){
-      $.fn.switchTab($('#career'));
+    router.on('route:activateCareer', function(noFade){
+      switchTab($('#career'));
 
-      $.fn.clearBase();
-      content.fadeOut(config.fadeTime, function(){
+      if(noFade){
         careerView.render();
-        content.fadeIn(config.fadeTime);
+        return;
+      }
+
+      router.trigger('route:routeStart');
+
+      delay(function(){
+        careerView.render();
       });
     });
 
     router.on('route:showJobsByID', function(id){
-      $.fn.switchTab($('#career'));
-      $.fn.clearBase('career');
+      switchTab($('#career'));
+      clearBase('career');
       careerView.showJobs(id);
     });
 
     router.on('route:showJob', function(id){
-      $.fn.switchTab($('#career'));
-      $.fn.clearBase('career');
+      switchTab($('#career'));
+      clearBase('career');
       careerView.showJob(id);
     });
 

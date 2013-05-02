@@ -45,16 +45,16 @@
     > a
       height: $headerHeight
 
-  a
-    overflow: hidden
-    display: block
-
     &.active i
       display: none
 
-    &.active > span
+    &.active span
       +headerSelectedElement
       line-height: $headerHeight - 2px
+
+  a
+    overflow: hidden
+    display: block
 
     &:hover i
       margin: -9px 0 0 0
