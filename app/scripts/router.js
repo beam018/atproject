@@ -29,6 +29,10 @@ define([
 
     var router = new Router();
 
+
+    var $content = $('#content-container');
+    var $contentContainer = $('#content');
+
     var wrapPage = function(page){
       return '<div class="career-content">' + page + '</div>';
     };
@@ -69,9 +73,6 @@ define([
 
     var careerView = new CareerView();
     var projectsView = new ProjectsView();
-
-    var $content = $('#content-container');
-    var $contentContainer = $('#content');
 
     router.on('route:routeStart', function(e){
       clearBase();
@@ -132,6 +133,7 @@ define([
       switchTab($('#career'));
 
       if(noFade){
+        clearBase('career');
         careerView.render();
         return;
       }

@@ -71,7 +71,9 @@ define([
 
         if($page1[0]){
           this._movePages(0);
-          this.$crumbs.children().first().nextAll().remove();
+          setTimeout(function(){
+            this.$crumbs.children().first().nextAll().remove();
+          }, config.animationTime)
           return;
         }
 
@@ -239,8 +241,6 @@ define([
           return;
         }
 
-        $('#page-3').remove();
-
         var $pages = $('#pages');
         if(!$pages[0]){
           this.render(false);
@@ -273,6 +273,9 @@ define([
         this.$('#page-1').after(this.jobsView.el);
 
         this._movePages(1);
+        setTimeout(function(){
+          $('#page-3').remove();
+        }, config.animationTime)
 
         var urn = '#career/type=' + id;
 

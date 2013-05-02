@@ -15,6 +15,7 @@ define([], function(){
   // config.debug = false;
 
   config.fadeTime = 150;
+  config.animationTime = 300;
 
   return config;
 });
