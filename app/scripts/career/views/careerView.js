@@ -442,7 +442,7 @@ define([
           }
         });*/
 
-        $('#contact-form').attr('action', config.serverUrl + 'mail/');
+        $('#contact-form').attr('action', config.mailUrl);
 
         utils.debug.log('form handlers initialized');
       }
