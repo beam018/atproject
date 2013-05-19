@@ -59,6 +59,38 @@ define([
         );
       },
 
+      addCrumb: function(link, name, fadeTime){
+        if(fadeTime === undefined){
+          fadeTime = 300;
+        }
+        var tmpl = _.template($('#crumb-template').html());
+        var content = tmpl({
+          name: name,
+          link: link
+        });
+        this.$crumbs.append(content).children('.crumb').fadeIn(fadeTime);
+        this.activateLastCrumb();
+      },
+
+      removeCrumbs: function($crumb, fadeTime){
+        var self = this;
+        $crumb.nextAll().each(function(index, item){
+          $(item).fadeOut(config.fadeTime, function(){
+            $(this).remove();
+            self.activateLastCrumb();
+          });
+        });
+      },
+
+      activateLastCrumb: function(){
+        this.$crumbs
+          .children()
+          .last()
+          .addClass('active')
+          .siblings()
+          .removeClass('active');
+      },
+
       render: function(smooth){
         if(smooth !== false){
           smooth = true;
@@ -69,13 +101,13 @@ define([
         this.$el.addClass('rounded__crumbs');
         this.$el.addClass('light-border');
 
+        var self = this;
         if($page1[0]){
           this._movePages(0);
           setTimeout(function(){
-            this.$crumbs = $('#crumbs');
-            utils.debug.log(this.$crumbs);
-            this.$crumbs.children().first().nextAll().remove();
+            self.removeCrumbs(self.$crumbs.children().first());
           }, config.animationTime)
+
           return;
         }
 
@@ -92,27 +124,6 @@ define([
         this.pageWidth = page.outerWidth();
 
         utils.debug.log('career view rendered');
-      },
-
-      addCrumb: function(link, name, fadeTime){
-        if(fadeTime === undefined){
-          fadeTime = 300;
-        }
-        var tmpl = _.template($('#crumb-template').html());
-        var content = tmpl({
-          name: name,
-          link: link
-        });
-        this.$crumbs.append(content).children('.crumb').fadeIn(fadeTime);
-      },
-
-      activateLastCrumb: function(){
-        this.$crumbs
-          .children()
-          .last()
-          .addClass('active')
-          .siblings()
-          .removeClass('active');
       },
 
       showErrorTooltip: function($target, msg){
@@ -286,11 +297,10 @@ define([
         });
 
         if(!readyCrumb){
-          this.$crumbs.children().first().nextAll().remove();
+          this.removeCrumbs(this.$crumbs.children().first());
           this.addCrumb(urn, category.name);
         }
-        this.$crumbs.children().first().next().nextAll().remove();
-        this.activateLastCrumb();
+        this.removeCrumbs(this.$crumbs.children().first().next());
 
         $('.career-table tbody tr').on('click', function(){
           window.location = $(this).find('a').attr('href');
@@ -348,8 +358,7 @@ define([
         if(!readyCrumb){
           this.addCrumb(urn, job.name);
         }
-        this.$crumbs.children().first().next().next().nextAll().remove();
-        this.activateLastCrumb();
+        this.removeCrumbs(this.$crumbs.children().first().next().next());
 
         // remove height restriction
         $('#content-container').addClass('content__fullsize');

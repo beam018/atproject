@@ -57,7 +57,6 @@ define([
     };
 
     var switchTab = function(target){
-      utils.debug.log(target);
       if(!target){
         $('#nav').find('li.active').map(function(index, item){
           $(item).removeClass('active');
