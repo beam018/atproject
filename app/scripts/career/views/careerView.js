@@ -72,6 +72,8 @@ define([
         if($page1[0]){
           this._movePages(0);
           setTimeout(function(){
+            this.$crumbs = $('#crumbs');
+            utils.debug.log(this.$crumbs);
             this.$crumbs.children().first().nextAll().remove();
           }, config.animationTime)
           return;

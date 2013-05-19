@@ -7,3 +7,4 @@ app/components
 npm-debug.log
 *.sh
 media
+*.swp
