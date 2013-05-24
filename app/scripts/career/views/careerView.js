@@ -336,6 +336,7 @@ define([
           this.render(false);
           this.showJobs(category.id);
           this.showJob(id);
+          $('#pages').addClass('pages__transition');
           return;
         }
 
