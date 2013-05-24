@@ -198,7 +198,8 @@ define([
         }
 
         if($target.attr('id') === 'email-field'){
-          var emailRegexp = /([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/;
+          // var emailRegexp = /([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/;
+          var emailRegexp = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
           if(!emailRegexp.test($target.val())){
             this.showErrorTooltip($target);
             return false;
@@ -413,13 +414,13 @@ define([
           $form.attr('target', 'upload-target');
         }
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', config.mailUrl, false);
-
         $submitBtn.on('click', function(e){
           if(self.validateAll()){
             if(FormData){
               e.preventDefault();
+
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', config.mailUrl, false);
 
               var fd = new FormData($form.get(0));
 
