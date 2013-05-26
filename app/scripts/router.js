@@ -74,10 +74,10 @@ define([
     var projectsView = new ProjectsView();
 
     router.on('route:routeStart', function(e){
-      clearBase();
       $content.addClass('fadeOut');
 
       delay(function(){
+        clearBase();
         router.trigger('route.fadeOutFinish')
       });
     });
