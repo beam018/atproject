@@ -246,7 +246,7 @@ define([
         $('textarea').val('');
       },
 
-      showJobs: function(id){
+      showJobs: function(id, saveNextPage){
         id = parseInt(id, 10);
         if(isNaN(id)){
           utils.debug.error('bad id');
@@ -288,7 +288,11 @@ define([
 
         this._movePages(1);
         setTimeout(function(){
-          $('#page-3').remove();
+          // bug
+          
+          if(!saveNextPage){
+            $('#page-3').remove();
+          }
         }, config.animationTime)
 
         var urn = '#career/type=' + id;
@@ -335,7 +339,7 @@ define([
         var $pages = $('#pages');
         if(!$pages[0]){
           this.render(false);
-          this.showJobs(category.id);
+          this.showJobs(category.id, true);
           this.showJob(id);
           $('#pages').addClass('pages__transition');
           return;
