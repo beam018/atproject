@@ -118,7 +118,7 @@ define([
           this.$el.append($iframe);
         }
         var page = this.$el.find('#page-1');
-        page.html(this.jobListView.el).prepend(pages.career);
+        page.html(this.jobListView.el).prepend(pages.career || '<p></p>');
 
         this.$crumbs = $('#crumbs');
         this.pageWidth = page.outerWidth();
