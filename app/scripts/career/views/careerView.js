@@ -281,9 +281,12 @@ define([
         };
 
         this.jobsView.render(data);
-        this.jobsView.$el.css(
-          'background-image', 'url(' + config.mediaUrl + data.category.background + ')'
-        );
+        if(data.category.background){
+          this.jobsView.$el.css(
+            'background-image',
+            'url(' + config.mediaUrl + data.category.background + ')'
+          );
+        }
         this.$('#page-1').after(this.jobsView.el);
 
         this._movePages(1);
