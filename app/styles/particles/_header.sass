@@ -1,7 +1,7 @@
 @mixin headerSelectedElement
-  background: $red
-  +background-image(linear-gradient($red, $darkRed))
-  border: 1px solid $lightRed
+  background: $blue
+  +background-image(linear-gradient($blue, $darkBlue))
+  border: 1px solid $lightBlue
   +single-box-shadow(rgba($black, 0.15), 0, 0, 2em, 0, inset)
   color: $white
 
@@ -71,7 +71,7 @@
   i
     +transition(margin 0.1s ease-in-out)
     display: block
-    border-top: 9px solid $red
+    border-top: 9px solid $blue
     margin: 0 0 0 0
 
   ul
@@ -110,7 +110,7 @@
         border: none
 
       &:hover
-        background: $red
+        background: $blue
 
     div
       position: absolute
