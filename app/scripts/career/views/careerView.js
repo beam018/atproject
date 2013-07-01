@@ -335,7 +335,8 @@ define([
         var data = {
           job: job,
           category: category,
-          city: city
+          city: city,
+          social: config.social
         };
 
         // check exist pages container

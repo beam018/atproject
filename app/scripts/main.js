@@ -25,65 +25,72 @@ require.config({
   }
 });
 
-require(['jquery', 'underscore', 'utils', 'app'], function($, _, utils, App) {
-  'use strict';
+require(
+  ['jquery', 'underscore', 'utils', 'app' , 'config'],
+  function($, _, utils, App, config) {
+    'use strict';
 
-  var resources = utils.resources;
+    var resources = utils.resources;
 
-  // generate dropdown menu
-  var dropdown = $('#dropdown');
+    // generate dropdown menu
+    var dropdown = $('#dropdown');
 
-  var tmpl = _.template($('#dropdown-item-template').html());
-  var jobs = _.groupBy(resources.jobs, 'category');
+    var tmpl = _.template($('#dropdown-item-template').html());
+    var jobs = _.groupBy(resources.jobs, 'category');
 
-  _.each(resources.jobCategories, function(item, index){
-    var count = jobs[item.id] ? jobs[item.id].length : 0;
+    _.each(resources.jobCategories, function(item, index){
+      var count = jobs[item.id] ? jobs[item.id].length : 0;
 
-    dropdown.append(tmpl({
-      item: item,
-      index: index,
-      count: count
-    }));
-  });
-  utils.debug.log('dropdown generated');
-
-  // window resize handling
-  var body = document.body;
-  var $body = $(body);
-  var leftOffset = body.getBoundingClientRect().left;
-  $body.css('margin-left', leftOffset + 'px');
-
-  $(window).resize(function(){
-    $body.css('margin-left', 'auto');
-    leftOffset = body.getBoundingClientRect().left;
-    $body.css('margin-left', leftOffset + 'px');
-  });
-
-  // dropdown animation
-  dropdown.data('height', resources.jobCategories.length * 25);
-
-  var showDropdown = function(){
-    dropdown.height(dropdown.data('height') + 50);
-    dropdown.slideDown(150);
-    dropdown.children('li').map(function(index, item){
-      // plus padding top
-      $(item).css('margin-top', ($('a', item).data('index') + 1) * 25 + 'px');
+      dropdown.append(tmpl({
+        item: item,
+        index: index,
+        count: count
+      }));
     });
-  };
+    utils.debug.log('dropdown generated');
 
-  var hideDropdown = function(){
-    dropdown.slideUp(150);
-    dropdown.children('li').css('margin-top', 0);
-  };
+    // window resize handling
+    var body = document.body;
+    var $body = $(body);
+    var leftOffset = body.getBoundingClientRect().left;
+    $body.css('margin-left', leftOffset + 'px');
 
-  dropdown.parent('li').on('mouseenter', showDropdown);
-  dropdown.parent('li').on('mouseleave', hideDropdown);
+    $(window).resize(function(){
+      $body.css('margin-left', 'auto');
+      leftOffset = body.getBoundingClientRect().left;
+      $body.css('margin-left', leftOffset + 'px');
+    });
 
-  dropdown.children('li').on('click', function(){
-    window.location = $(this).find('a').attr('href');
-  });
+    // dropdown animation
+    dropdown.data('height', resources.jobCategories.length * 25);
 
-  App.initialize();
-  utils.debug.log('App initialised');
-  utils.debug.log('Done!');
-});
+    var showDropdown = function(){
+      dropdown.height(dropdown.data('height') + 50);
+      dropdown.slideDown(150);
+      dropdown.children('li').map(function(index, item){
+        // plus padding top
+        $(item).css('margin-top', ($('a', item).data('index') + 1) * 25 + 'px');
+      });
+    };
+
+    var hideDropdown = function(){
+      dropdown.slideUp(150);
+      dropdown.children('li').css('margin-top', 0);
+    };
+
+    dropdown.parent('li').on('mouseenter', showDropdown);
+    dropdown.parent('li').on('mouseleave', hideDropdown);
+
+    dropdown.children('li').on('click', function(){
+      window.location = $(this).find('a').attr('href');
+    });
+
+    if(!config.social){
+      $('footer div.social').hide();
+    }
+
+    App.initialize();
+    utils.debug.log('App initialised');
+    utils.debug.log('Done!');
+  }
+);
