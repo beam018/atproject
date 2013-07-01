@@ -17,7 +17,7 @@ define([], function(){
   config.fadeTime = 150;
   config.animationTime = 300;
 
-  config.social = false;
+  config.social = true;
 
   return config;
 });
