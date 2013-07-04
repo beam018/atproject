@@ -10,6 +10,7 @@ define([], function(){
   config.staticUrl = config.serverUrl + 'static/';
   config.mediaUrl = config.serverUrl + 'media/';
   config.mailUrl = config.serverUrl + 'mail/';
+  // config.pagesUrl = config.apiUrl + 'pages/';
 
   config.debug = true;
   // config.debug = false;

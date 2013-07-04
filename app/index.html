@@ -241,6 +241,15 @@
         </div>
     </script>
 
+    <script id="page-thumb-template" type="text/template">
+        <a href="#<%= type %>/<%= id %>" class="container with-shadow thumb-link" id="page-thumb-<%= id %>">
+            <div>
+                <img src="/media/<%= thumb %>" alt="" height="88">
+                <span class="caption"><%= title %></span>
+            </div>
+        </a>
+    </script>
+
     <!-- [if lte IE 7]>
         <p class="chromeframe">
             You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a>

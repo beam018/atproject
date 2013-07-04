@@ -4,21 +4,23 @@ define([
   'utils',
   'backbone',
   'career/views/careerView',
-  'projects/views/projectsView'
-], function($, config, utils, Backbone, CareerView, ProjectsView){
+  'projects/views/projectsView',
+  'pages/views/pagesView'
+], function($, config, utils, Backbone, CareerView, ProjectsView, PagesView){
   'use strict';
 
   var Router = Backbone.Router.extend({
     routes: {
-      '': 'activateHome',
-      'about': 'activateAbout',
-      'contacts': 'activateContacts',
+      // 'about': 'activatePages',
       'projects': 'activateProjects',
       'projects/:id': 'activateCurrentProject',
       'career?no-fade=:fade': 'activateCareer',
       'career': 'activateCareer',
       'career/type=:id': 'showJobsByID',
-      'career/job=:id': 'showJob'
+      'career/job=:id': 'showJob',
+      '': 'activatePages',
+      ':page': 'activatePages',
+      ':page/:id': 'activateCurrentPage'
     }
   });
   utils.debug.log('routes headers created');
@@ -33,15 +35,12 @@ define([
     var $content = $('#content-container');
     var $contentContainer = $('#content');
 
-    var wrapPage = function(page){
-      return '<div class="career-content">' + page + '</div>';
-    };
-
     var delay = function(callback){
       setTimeout(callback, config.fadeTime);
     }
 
     var clearBase = function(){
+      // clear micro UI changes on page
       if(!_.find(arguments, function(item){return item == 'projects';})){
         $('#content-container').removeClass('content__fullsize');
         $contentContainer.removeClass('slide');
@@ -72,6 +71,7 @@ define([
 
     var careerView = new CareerView();
     var projectsView = new ProjectsView();
+    var pagesView = new PagesView(pages);
 
     router.on('route:routeStart', function(e){
       $content.addClass('fadeOut');
@@ -86,13 +86,19 @@ define([
       $content.removeClass('fadeOut');
     })
 
-    router.on('route:activateHome', function(){
+    router.on('route:activatePages', function(page){
       switchTab();
       router.trigger('route:routeStart');
 
       delay(function(){
-        $content.find('#content').html(wrapPage(pages.home))
+        pagesView.render(page);
       });
+    });
+
+    router.on('route:activateCurrentPage', function(page, id){
+      switchTab();
+      clearBase('projects');
+      pagesView.render(page, id);
     });
 
     router.on('route:activateAbout', function(){

@@ -46,8 +46,9 @@ define(['config', 'jquery'], function(config, $){
       json = data;
     };
 
-    var fallback = function(data, status){
-      dbg.error('Request failed: ' + status);
+    var fallback = function(status){
+      dbg.error('Request failed: ' + status.status + ' ' + status.statusText);
+      json = undefined;
     };
 
     var url = config.apiUrl + path;
@@ -64,7 +65,8 @@ define(['config', 'jquery'], function(config, $){
     };
 
     var fallback = function(status){
-      dbg.error('Request failed: ' + status);
+      dbg.error('Request failed: ' + status.status + ' ' + status.statusText);
+      return '';
     };
 
     var url = config.serverUrl + path;
@@ -81,9 +83,10 @@ define(['config', 'jquery'], function(config, $){
   res.jobs = res.json('jobs/');
 
   res.pages = [];
-  res.pages.home = res.html('home/');
-  res.pages.about = res.html('about/');
-  res.pages.contacts = res.html('contacts/');
+  res.pages.home = res.json('pages/home/');
+  res.pages.about = res.json('pages/about/');
+  res.pages.contacts = res.json('pages/contacts/');
+
   res.pages.career = res.html('career/');
 
   dbg.log('remote resourses loaded');
