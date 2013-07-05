@@ -304,11 +304,17 @@ define([
           return $(item).attr('href') === urn;
         });
 
+        // TODO: refact
+        // if crumbs cildren length == 2
+        // then change crumb value and url
         if(!readyCrumb){
           this.removeCrumbs(this.$crumbs.children().first());
           this.addCrumb(urn, category.name);
         }
-        this.removeCrumbs(this.$crumbs.children().first().next());
+        if($('#page-3')[0]){
+          // TODO: refact
+          this.removeCrumbs(this.$crumbs.children().first().next());
+        }
 
         $('.career-table tbody tr').on('click', function(){
           window.location = $(this).find('a').attr('href');

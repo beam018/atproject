@@ -80,6 +80,7 @@ require(
 
     dropdown.parent('li').on('mouseenter', showDropdown);
     dropdown.parent('li').on('mouseleave', hideDropdown);
+    dropdown.parent('li').on('click', hideDropdown);
 
     dropdown.children('li').on('click', function(){
       window.location = $(this).find('a').attr('href');
