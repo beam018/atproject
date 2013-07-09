@@ -87,7 +87,12 @@ define([
     })
 
     router.on('route:activatePages', function(page){
-      switchTab();
+      if(page === 'home' || page === undefined){
+        switchTab();  
+      }
+      else{
+        switchTab($('#' + page));
+      }
       router.trigger('route:routeStart');
 
       delay(function(){
@@ -96,7 +101,12 @@ define([
     });
 
     router.on('route:activateCurrentPage', function(page, id){
-      switchTab();
+      if(page === 'home' || page === undefined){
+        switchTab();  
+      }
+      else{
+        switchTab($('#' + page));
+      }
       clearBase('projects');
       pagesView.render(page, id);
     });

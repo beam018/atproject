@@ -68,13 +68,26 @@ define(['jquery', 'underscore', 'backbone', 'utils',
           .addClass('active')
           .siblings()
           .removeClass('active');
+
+        currentPage.toJSON().background ? this.$el.css(
+      		'background-image',
+      		'url(/media/' + currentPage.toJSON().background + ')') :
+        	this.$el.css('background-image', '');
 			}
 			else if(themePages.length === 1){
-				html = wrapPage(this.pages[_key].at(0).toJSON().content);
+				var currentPage = this.pages[_key].at(0);
+
+				html = wrapPage(currentPage.toJSON().content);
+
+				currentPage.toJSON().background ? this.$el.css(
+      		'background-image',
+      		'url(/media/' + currentPage.toJSON().background + ')') :
+        	this.$el.css('background-image', '');
 			}
 			else{
 				utils.debug.warn('no page data');
 				html = '';
+				this.$el.css('background-image', '');
 			}
 
 			this.$el.html(html);

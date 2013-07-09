@@ -8,3 +8,4 @@ npm-debug.log
 *.sh
 media
 *.swp
+libpeerconnection.log

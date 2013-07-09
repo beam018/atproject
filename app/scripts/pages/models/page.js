@@ -5,6 +5,7 @@ define(['backbone'], function(Backbone){
 		title: '',
 		type: '',
 		content: '',
+		background: '',
 		thumb: '',
 		idAttribute: 'id'
 	})
