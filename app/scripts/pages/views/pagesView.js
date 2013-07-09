@@ -52,9 +52,28 @@ define(['jquery', 'underscore', 'backbone', 'utils',
 					var thumbLink = this.containerTemplate(themePages.toJSON()[pageKey]);
 					// jquery throw an error if template has tabs
 					var $thumbLink = $(thumbLink.replace(/\s{2,}/g, ''));
-					$thumbLink.addClass(
-						themePages.length <= 3 ? 'grid3' : 'grid6'
-					);
+
+					var grid = 'grid6';
+
+					switch(themePages.length){
+						case 2:
+							grid = 'grid2';
+							break;
+
+						case 3:
+							grid = 'grid3';
+							break;
+
+						case 4:
+							grid = 'grid4';
+							break;
+
+						default:
+							grid = 'grid6';
+					}
+
+					$thumbLink.addClass(grid);
+
 					this.container.append($thumbLink);
 				}
 
