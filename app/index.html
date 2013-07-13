@@ -89,6 +89,7 @@
 
     <script id="jobs-table-template" type="text/tempalte"><h1><%= category.name %></h1>
         <%= category.content %>
+        <% if(jobs.length){ %>
         <table class="career-table">
             <thead>
             <tr>
@@ -115,6 +116,7 @@
             <% } %>
             </tbody>
         </table>
+        <% } %>
         <div class="back">
             < <a href="#career">Вернуться назад</a>
         </div>
