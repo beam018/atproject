@@ -52,9 +52,27 @@ define([
 
       renderProject: function(item){
         var projectView = new ProjectView({model: item});
-        $(projectView.el).addClass(
-          this.collection.length <= 3 ? 'grid3' : 'grid6'
-        );
+
+        var grid = 'grid6';
+
+        switch(this.collection.length){
+          case 2:
+            grid = 'grid2';
+            break;
+
+          case 3:
+            grid = 'grid3';
+            break;
+
+          case 4:
+            grid = 'grid4';
+            break;
+
+          default:
+            grid = 'grid6';
+        }
+
+        $(projectView.el).addClass(grid);
 
         utils.debug.log( '- ' + item.caption + ' thumb rendered');
         return projectView.el;

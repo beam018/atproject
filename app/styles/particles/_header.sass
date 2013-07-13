@@ -2,7 +2,7 @@
   background: $blue
   +background-image(linear-gradient($blue, $darkBlue))
   border: 1px solid $lightBlue
-  +single-box-shadow(rgba($black, 0.15), 0, 0, 2em, 0, inset)
+  // +single-box-shadow(rgba($black, 0.15), 0, 0, 2em, 0, inset)
   color: $white
 
 .header
@@ -25,7 +25,6 @@
 
 .logo-image
   display: inline-block
-  margin: 4px 0 0 0
 
 .nav
   float: right
@@ -71,7 +70,7 @@
   i
     +transition(margin 0.1s ease-in-out)
     display: block
-    border-top: 9px solid $blue
+    border-top: 9px solid rgba($blue, 0.75)
     margin: 0 0 0 0
 
   ul
