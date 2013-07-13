@@ -75,7 +75,7 @@
 
                 <figcaption>
                     <%= name %>
-                    <div><%= jobsCount %></div>
+                    <% if(jobsCount){ %><div><%= jobsCount %></div><% } %>
                 </figcaption>
             </figure>
         </a>
@@ -232,7 +232,7 @@
         <li>
             <a href="#career/type=<%= item.id %>" data-index="<%= index %>"><%= item.name %></a>
 
-            <div><%= count %></div>
+            <% if(count){ %><div><%= count %></div><% }; %>
         </li>
     </script>
         
