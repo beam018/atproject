@@ -97,6 +97,7 @@ define([
 
       delay(function(){
         pagesView.render(page);
+        if(page === 'contacts') $contentContainer.addClass('light-border');
       });
     });
 
@@ -109,24 +110,6 @@ define([
       }
       clearBase('projects');
       pagesView.render(page, id);
-    });
-
-    router.on('route:activateAbout', function(){
-      switchTab($('#about'));
-      router.trigger('route:routeStart');
-
-      delay(function(){
-        $content.find('#content').html(wrapPage(pages.about))
-      });
-    });
-
-    router.on('route:activateContacts', function(){
-      switchTab($('#contacts'));
-      router.trigger('route:routeStart');
-
-      delay(function(){
-        $content.find('#content').html(wrapPage(pages.contacts));
-      });
     });
 
     router.on('route:activateProjects', function(){
