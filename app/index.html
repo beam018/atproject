@@ -212,20 +212,20 @@
             <span class="caption"><%= caption %></span>
         </div>
 
-        <img src="/media/<%= image %>" alt="" class="hide">
+        <% if(image){ %><img src="/media/<%= image %>" alt="" class="hide"><% } %>
     </script>
 
     <script id="slider-template" type="text/template">
         <div id="slider-back-layer" class="slider-back-layer">
             <div id="slider-forward-layer" class="slider-forward-layer">
-                <div class="slider-content" id="slider-content">
+                <div class="slider-content darkText" id="slider-content">
                     <%= project.content %>
                 </div>
             </div>
 
             <div id="slider-control-layer" class="slider-control-layer">
-                <a href="#projects/<%= prev.id %>" id="left-arrow" class="slider-control slider-control__left"></a>
-                <a href="#projects/<%= next.id %>" id="right-arrow" class="slider-control slider-control__right"></a>
+                <a href="#<%= pageName %>/<%= prev.id %>" id="left-arrow" class="slider-control slider-control__left"></a>
+                <a href="#<%= pageName %>/<%= next.id %>" id="right-arrow" class="slider-control slider-control__right"></a>
             </div>
         </div>
     </script>

@@ -4,23 +4,19 @@ define([
   'utils',
   'backbone',
   'career/views/careerView',
-  'projects/views/projectsView',
   'pages/views/pagesView'
-], function($, config, utils, Backbone, CareerView, ProjectsView, PagesView){
+], function($, config, utils, Backbone, CareerView, PagesView){
   'use strict';
 
   var Router = Backbone.Router.extend({
     routes: {
-      // 'about': 'activatePages',
-      'projects': 'activateProjects',
-      'projects/:id': 'activateCurrentProject',
       'career?no-fade=:fade': 'activateCareer',
       'career': 'activateCareer',
       'career/type=:id': 'showJobsByID',
       'career/job=:id': 'showJob',
-      // '': 'activatePages',
-      // ':page': 'activatePages',
-      // ':page/:id': 'activateCurrentPage'
+      '': 'activatePages',
+      ':page': 'activatePages',
+      ':page/:id': 'activateCurrentPage'
     }
   });
   utils.debug.log('routes headers created');
@@ -31,7 +27,6 @@ define([
 
     var router = new Router();
 
-
     var $content = $('#content-container');
     var $contentContainer = $('#content');
 
@@ -41,7 +36,7 @@ define([
 
     var clearBase = function(){
       // clear micro UI changes on page
-      if(!_.find(arguments, function(item){return item == 'projects';})){
+      if(!_.find(arguments, function(item){return item == 'pages';})){
         $('#content-container').removeClass('content__fullsize');
         $contentContainer.removeClass('slide');
         $contentContainer.removeClass('colored');
@@ -70,8 +65,12 @@ define([
     };
 
     var careerView = new CareerView();
-    var projectsView = new ProjectsView();
-    // var pagesView = new PagesView(pages);
+    var pagesViews = [];
+
+    for(var key in pages){
+      if(!pages[key][0]) continue;
+      pagesViews[key] = new PagesView(pages[key], key);
+    }
 
     router.on('route:routeStart', function(e){
       $content.addClass('fadeOut');
@@ -88,7 +87,8 @@ define([
 
     router.on('route:activatePages', function(page){
       if(page === 'home' || page === undefined){
-        switchTab();  
+        switchTab();
+        page = 'home';
       }
       else{
         switchTab($('#' + page));
@@ -96,35 +96,36 @@ define([
       router.trigger('route:routeStart');
 
       delay(function(){
-        pagesView.render(page);
+        try{
+          pagesViews[page].render();
+        }
+        catch(err){
+          utils.debug.error(err.message);
+          utils.debug.warn('No pages of this type');
+          $contentContainer.html('');
+        }
         if(page === 'contacts') $contentContainer.addClass('light-border');
       });
     });
 
     router.on('route:activateCurrentPage', function(page, id){
       if(page === 'home' || page === undefined){
-        switchTab();  
+        switchTab();
+        page = 'home';
       }
       else{
         switchTab($('#' + page));
       }
-      clearBase('projects');
-      pagesView.render(page, id);
-    });
-
-    router.on('route:activateProjects', function(){
-      switchTab($('#projects'));
-      router.trigger('route:routeStart');
-
-      delay(function(){
-        projectsView.render();
-      });
-    });
-
-    router.on('route:activateCurrentProject', function(id){
-      switchTab($('#projects'));
-      clearBase('projects');
-      projectsView.render(id);
+      clearBase('pages');
+      try{
+        pagesViews[page].render(id);
+      }
+      catch(err){
+        utils.debug.error(err.message);
+        utils.debug.warn('No pages of this type');
+        $contentContainer.html('');
+      }
+      if(page === 'contacts') $contentContainer.addClass('light-border');
     });
 
     router.on('route:activateCareer', function(noFade){

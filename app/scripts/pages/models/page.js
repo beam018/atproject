@@ -1,14 +1,14 @@
 define(['backbone'], function(Backbone){
-	'use strict';
+  'use strict';
 
-	var Page = Backbone.Model.extend({
-		title: '',
-		type: '',
-		content: '',
-		background: '',
-		thumb: '',
-		idAttribute: 'id'
-	})
+  var Page = Backbone.Model.extend({
+  	idAttribute: 'id',
+    caption: '',
+    content: '',
+    thumb: '',
+    image: '',
+    type: ''
+  });
 
-	return Page;
+  return Page;
 });

@@ -87,7 +87,7 @@ define(['config', 'jquery'], function(config, $){
   res.pages.about = res.json('pages/about/');
   res.pages.contacts = res.json('pages/contacts/');
 
-  res.pages.career = res.html('career/');
+  res.career = res.html('career/');
 
   dbg.log('remote resourses loaded');
 

@@ -1,122 +1,87 @@
-define(['jquery', 'underscore', 'backbone', 'utils',
-	'pages/collections/pages'], function($, _, Backbone, utils, Pages){
-	'use strict';
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'utils',
+    'pages/collections/pages',
+    'pages/views/pageView',
+    'pages/views/carouselView'
+  ], function($, _, Backbone, utils, Pages, PageView, CarouselView){
+    'use strict';
 
-	var PagesView = Backbone.View.extend({
-		el: $('#content'),
+    var PagesView = Backbone.View.extend({
+      el: $('#content'),
 
-		initialize: function(pages){
-			var _pages = pages;
-			console.log(pages);
-			this.pages = [];
+      initialize: function(collection, pageName){
+        this.collection = new Pages(collection);
+        this.container = $('<div class="grid-row slider-row"></div>');
+        this.pageName = pageName;
 
-			for(var key in _pages){
-				console.log(_pages[key]);
-				console.log(!_pages[key]);
-				if(!_pages[key]) continue;
-				this.pages[key] = new Pages(_pages[key]);
-			}
+        _.each(this.collection.toJSON(), function(item){
+          this.container.append(this.renderProject(item));
+        }, this);
 
-			this.containerTemplate = _.template($('#page-thumb-template').html());
+        this.carouselView = new CarouselView({
+          collection: this.collection
+        });
 
-			utils.debug.log('pages view initialized');
-		},
+        utils.debug.log('carousel view initialized');
+        utils.debug.log('pages view initialized');
+      },
 
-		render: function(key, id){
-			this.container = $('<div class="grid-row slider-row"></div>');
-
-			var _key = key;
-			if(!_key) _key = 'home';
-
-			var themePages = this.pages[_key];
-
-			if(themePages === undefined){
-				utils.debug.warn('no page data type');
-				this.$el.html('');
-				return;
-			}
-
-			var wrapPage = function(page){
-	      return '<div class="career-content">' + page + '</div>';
-	    };
-
-			var html = '';
-
-			if(themePages.length > 1){
-				var _id = id;
-				if(isNaN(parseInt(_id, 10))){
-          _id = themePages.at(0).id;
+      render: function(id){
+        if(isNaN(parseInt(id, 10))){
+          if(!this.collection.at(0)){
+            utils.debug.warn('no pages');
+            return;
+          }
+          id = this.collection.at(0).id;
         }
-        var currentPage = themePages.get(_id);
 
-        html = wrapPage(currentPage.toJSON().content);
+        this.carouselView.render(id, this.pageName);
+        utils.debug.log('carousel view rendered');
 
-				for(var pageKey in themePages.toJSON()){
-					var thumbLink = this.containerTemplate(themePages.toJSON()[pageKey]);
-					// jquery throw an error if template has tabs
-					var $thumbLink = $(thumbLink.replace(/\s{2,}/g, ''));
-
-					var grid = 'grid6';
-
-					switch(themePages.length){
-						case 2:
-							grid = 'grid2';
-							break;
-
-						case 3:
-							grid = 'grid3';
-							break;
-
-						case 4:
-							grid = 'grid4';
-							break;
-
-						default:
-							grid = 'grid6';
-					}
-
-					$thumbLink.addClass(grid);
-
-					this.container.append($thumbLink);
-				}
-
-				if(!this.$el.hasClass('slide')){
-          this.$el.removeClass('single').addClass('slide');
+        if(!this.$el.hasClass('slide') && this.collection.length > 1){
+          this.$el.removeClass('single').addClass('slide colored');
           this.$el.parents('#content-container').append(this.container);
         }
 
-        var id = currentPage.id;
-        $('#page-thumb-' + _id)
+        $('#project-' + id)
           .addClass('active')
           .siblings()
           .removeClass('active');
 
-        currentPage.toJSON().background ? this.$el.css(
-      		'background-image',
-      		'url(/media/' + currentPage.toJSON().background + ')') :
-        	this.$el.css('background-image', '');
-			}
-			else if(themePages.length === 1){
-				var currentPage = this.pages[_key].at(0);
+        utils.debug.log('page rendered');
+      },
 
-				html = wrapPage(currentPage.toJSON().content);
+      renderProject: function(item){
+        var pageView = new PageView({model: item});
 
-				currentPage.toJSON().background ? this.$el.css(
-      		'background-image',
-      		'url(/media/' + currentPage.toJSON().background + ')') :
-        	this.$el.css('background-image', '');
-			}
-			else{
-				utils.debug.warn('no page data');
-				html = '';
-				this.$el.css('background-image', '');
-			}
+        var grid = 'grid6';
 
-			this.$el.html(html);
+        switch(this.collection.length){
+          case 2:
+            grid = 'grid2';
+            break;
 
-			utils.debug.log('pages view rendered');
-		}
-	})
+          case 3:
+            grid = 'grid3';
+            break;
 
-	return PagesView;
-});
+          case 4:
+            grid = 'grid4';
+            break;
+
+          default:
+            grid = 'grid6';
+        }
+
+        $(pageView.el).addClass(grid);
+
+        utils.debug.log( '- ' + item.caption + ' thumb rendered');
+        return pageView.el;
+      }
+    });
+
+    return PagesView;
+  });
