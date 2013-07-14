@@ -7,9 +7,12 @@ define(['jquery', 'underscore', 'backbone', 'utils',
 
 		initialize: function(pages){
 			var _pages = pages;
+			console.log(pages);
 			this.pages = [];
 
 			for(var key in _pages){
+				console.log(_pages[key]);
+				console.log(!_pages[key]);
 				if(!_pages[key]) continue;
 				this.pages[key] = new Pages(_pages[key]);
 			}

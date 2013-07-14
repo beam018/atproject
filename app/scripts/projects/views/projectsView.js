@@ -13,7 +13,7 @@ define([
       el: $('#content'),
 
       initialize: function(){
-        this.collection = new Projects(utils.resources.projects);
+        this.collection = new Projects(utils.resources.pages.projects);
         this.container = $('<div class="grid-row slider-row"></div>');
 
         _.each(this.collection.toJSON(), function(item){

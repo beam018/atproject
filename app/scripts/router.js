@@ -18,9 +18,9 @@ define([
       'career': 'activateCareer',
       'career/type=:id': 'showJobsByID',
       'career/job=:id': 'showJob',
-      '': 'activatePages',
-      ':page': 'activatePages',
-      ':page/:id': 'activateCurrentPage'
+      // '': 'activatePages',
+      // ':page': 'activatePages',
+      // ':page/:id': 'activateCurrentPage'
     }
   });
   utils.debug.log('routes headers created');
@@ -71,7 +71,7 @@ define([
 
     var careerView = new CareerView();
     var projectsView = new ProjectsView();
-    var pagesView = new PagesView(pages);
+    // var pagesView = new PagesView(pages);
 
     router.on('route:routeStart', function(e){
       $content.addClass('fadeOut');

@@ -77,12 +77,12 @@ define(['config', 'jquery'], function(config, $){
 
   dbg.log('utils created');
 
-  res.projects = res.json('projects/');
   res.cities = res.json('jobs/cities/');
   res.jobCategories = res.json('jobs/categories/');
   res.jobs = res.json('jobs/');
 
   res.pages = [];
+  res.pages.projects = res.json('pages/projects/');
   res.pages.home = res.json('pages/home/');
   res.pages.about = res.json('pages/about/');
   res.pages.contacts = res.json('pages/contacts/');
