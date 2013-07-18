@@ -47,12 +47,12 @@ require(
   function($, _, utils, App, config) {
     'use strict';
 
-    $(document).one('click', '.fancybox', function(e){
+    $(document).one('click', '#content .fancybox', function(e){
       e.preventDefault();
       $(this).fancybox().click();
     });
 
-    $(document).one('click', '.fancybox-media', function(e) {
+    $(document).one('click', '#content .fancybox-media', function(e) {
       e.preventDefault();
       $(this).fancybox({
         openEffect  : 'none',
