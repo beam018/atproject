@@ -22,6 +22,9 @@ require.config({
     'jquery.mousewheel': {
       deps: ['jquery']
     },
+    'lightbox.media': {
+      deps: ['lightbox']
+    },
     'lightbox': {
       deps: ['jquery', 'jquery.mousewheel']
     }
@@ -33,18 +36,31 @@ require.config({
     'jquery.mousewheel': 'vendor/jquery.mousewheel-3.0.6.pack',
     'underscore': '../components/underscore/underscore',
     'backbone': '../components/backbone-amd/backbone',
-    'lightbox': 'vendor/jquery.fancybox.pack'
+    'lightbox': 'vendor/jquery.fancybox.pack',
+    'lightbox.media': 'vendor/jquery.fancybox-media'
   }
 });
 
 require(
-  ['jquery', 'underscore', 'utils', 'app' , 'config', 'lightbox'],
+  ['jquery', 'underscore', 'utils', 'app', 
+    'config', 'lightbox', 'lightbox.media'],
   function($, _, utils, App, config) {
     'use strict';
 
-    $(document).on('click', '.fancybox', function(e){
+    $(document).one('click', '.fancybox', function(e){
       e.preventDefault();
-      $.fancybox($(this));
+      $(this).fancybox().click();
+    });
+
+    $(document).one('click', '.fancybox-media', function(e) {
+      e.preventDefault();
+      $(this).fancybox({
+        openEffect  : 'none',
+        closeEffect : 'none',
+        helpers : {
+          media : {}
+        }
+      }).click();
     });
 
     var resources = utils.resources;
