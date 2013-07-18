@@ -1,34 +1,51 @@
 require.config({
   shim: {
-    jquery: {
-      exports: '$'
+    'jquery': {
+      exports: 'jQuery'
     },
-    switchTab: {
+    'switchTab': {
       deps: ['jquery']
     },
-    clearBase: {
+    'clearBase': {
       deps: ['jquery']
     },
-    underscore: {
+    'underscore': {
       exports: '_'
     },
-    backbone: {
+    'backbone': {
       deps: ['jquery', 'underscore'],
       exports: 'Backbone'
+    },
+    'jquery.xdr': {
+      deps: ['jquery']
+    },
+    'jquery.mousewheel': {
+      deps: ['jquery']
+    },
+    'lightbox': {
+      deps: ['jquery', 'jquery.mousewheel']
     }
   },
 
   paths: {
-    jquery: '../components/jquery/jquery',
-    underscore: '../components/underscore/underscore',
-    backbone: '../components/backbone-amd/backbone'
+    'jquery': '../components/jquery/jquery',
+    'jquery.xdr': '../components/jquery.xdomainrequest/jQuery.XDomainRequest',
+    'jquery.mousewheel': 'vendor/jquery.mousewheel-3.0.6.pack',
+    'underscore': '../components/underscore/underscore',
+    'backbone': '../components/backbone-amd/backbone',
+    'lightbox': 'vendor/jquery.fancybox.pack'
   }
 });
 
 require(
-  ['jquery', 'underscore', 'utils', 'app' , 'config'],
+  ['jquery', 'underscore', 'utils', 'app' , 'config', 'lightbox'],
   function($, _, utils, App, config) {
     'use strict';
+
+    $(document).on('click', '.fancybox', function(e){
+      e.preventDefault();
+      $.fancybox($(this));
+    });
 
     var resources = utils.resources;
 

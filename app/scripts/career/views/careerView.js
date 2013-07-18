@@ -183,6 +183,8 @@ define([
       },
 
       validateField: function($target){
+        $target.removeClass('valid');
+
         if(this.isFieldEmpty($target)){
           var msg = 'Не заполнили';
           this.showErrorTooltip($target, msg);
@@ -210,6 +212,7 @@ define([
           this.removeErrorTooltip($target);
         }
 
+        $target.addClass('valid');
         return true;
       },
 
@@ -404,9 +407,8 @@ define([
             return;
           }
 
-          if(self.isFieldEmpty($target)){
-            var msg = 'Не заполнили';
-            self.showErrorTooltip($target, msg);
+          if(!self.validateField($target)){
+            self.showErrorTooltip($target);
           }
           else {
             self.removeErrorTooltip($target);

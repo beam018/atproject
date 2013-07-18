@@ -1,7 +1,8 @@
 define([
   'utils',
-  'router'
-], function(utils, Router){
+  'router',
+  'jquery'
+], function(utils, Router, $){
   'use strict';
 
   var initialize = function(){

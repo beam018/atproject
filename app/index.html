@@ -16,6 +16,12 @@
     <link rel="shortcut icon" href="/favicon.gif" type="image/gif">
 </head>
 <body>
+    <!-- [if lte IE 8]>
+        <p class="chromeframe">
+            Чтобы сайт отображался корректно, а страницы загружались быстрее, рекомендуем <a href="http://browsehappy.com/">установить последнюю версию браузера</a> или <a href="http://www.google.com/chromeframe/?redirect=true">Google Chrome Frame</a>.
+        </p>
+    <![endif]-->
+
     <header id="header" class="header">
         <a href="#" class="logo">
             <img src="/images/logo.png" alt="" width="139" height="52" class="logo-image">
@@ -53,7 +59,7 @@
             <div style="background-position: 0 -36px"></div>
             <div style="background-position: 0 -90px"></div>
         </div>
-        <div class="copyright">TM & © 2006-2013 Allods team. Все права защищены.</div>
+        <div class="copyright">© 2008-2013 Allods Team, Mail.Ru Games, LLC. All Rights Reserved. Powered by <a href="http://mail.ru">Mail.Ru</a></div>
     </footer>
 
     <script id="career-template" type="text/template">
@@ -125,7 +131,20 @@
     <script id="job-template" type="text/templates">
         <h1><%= job.name %> | <%= job.project %> | <%= city.city_name %></h1>
 
-        <%= job.top_content %>
+        <% if(job.top_content){ %>
+            <h2>Что вас ждет:</h2>
+            <%= job.top_content %>
+        <% } %>
+
+        <% if(job.bottom_content){ %>
+            <h2>О работе:</h2>
+            <%= job.bottom_content %>
+        <% } %>
+
+        <% if(job.skills){ %>
+            <h2>Обязанности:</h2>
+            <%= job.requirements %>
+        <% } %>
 
         <% if(job.skills){ %>
             <h2>Требования:</h2>
@@ -137,7 +156,6 @@
             <%= job.desired_skills %>
         <% } %>
 
-        <%= job.bottom_content %>
         <% if(social){ %>
         <div class="share">
             <p>Рассказать о вакансии друзьям</p>
@@ -154,7 +172,6 @@
         <h2>Отправить отклик на эту вакансию</h2>
 
         <form method="POST" class="contact-form" id="contact-form" enctype="multipart/form-data">
-            <p>Ваша персональная информация</p>
             <input type="hidden" name="job_id" value="<%= job.id %>">
 
             <div>
@@ -254,13 +271,6 @@
         </a>
     </script>
 
-    <!-- [if lte IE 7]>
-        <p class="chromeframe">
-            You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a>
-            or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>
-            to better experience this site.
-        </p>
-    <![endif]-->
     <script> var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>
     <!-- build:js scripts/amd-app.js -->
     <script data-main="scripts/main" src="components/requirejs/require.js"></script>

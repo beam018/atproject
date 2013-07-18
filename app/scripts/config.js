@@ -12,8 +12,8 @@ define([], function(){
   config.mailUrl = config.serverUrl + 'mail/';
   // config.pagesUrl = config.apiUrl + 'pages/';
 
-  // config.debug = true;
-  config.debug = false;
+  config.debug = true;
+  // config.debug = false;
 
   config.fadeTime = 200;
   config.animationTime = 300;

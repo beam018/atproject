@@ -1,5 +1,7 @@
-define(['config', 'jquery'], function(config, $){
+define(['config', 'jquery', 'jquery.xdr'], function(config, $){
   'use strict';
+
+  $.support.cors = true;
 
   var utils = {};
 
@@ -77,6 +79,8 @@ define(['config', 'jquery'], function(config, $){
 
   dbg.log('utils created');
 
+  $(window).trigger('myEvent')
+
   res.cities = res.json('jobs/cities/');
   res.jobCategories = res.json('jobs/categories/');
   res.jobs = res.json('jobs/');
@@ -89,6 +93,7 @@ define(['config', 'jquery'], function(config, $){
 
   res.career = res.html('career/');
 
+  $(window).trigger('pagesLoad');
   dbg.log('remote resourses loaded');
 
   return utils;
