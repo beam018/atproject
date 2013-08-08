@@ -4,8 +4,9 @@ define([
   'utils',
   'backbone',
   'career/views/careerView',
-  'pages/views/pagesView'
-], function($, config, utils, Backbone, CareerView, PagesView){
+  'pages/views/pagesView',
+  'pages/views/contactsView'
+], function($, config, utils, Backbone, CareerView, PagesView, ContactsView){
   'use strict';
 
   var Router = Backbone.Router.extend({
@@ -14,6 +15,9 @@ define([
       'career': 'activateCareer',
       'career/type=:id': 'showJobsByID',
       'career/job=:id': 'showJob',
+      'contacts?no-fade=:fade': 'activateContacts',
+      'contacts': 'activateContacts',
+      'contacts/:id': 'showContact',
       '': 'activatePages',
       ':page': 'activatePages',
       ':page/:id': 'activateCurrentPage'
@@ -30,8 +34,8 @@ define([
     var $content = $('#content-container');
     var $contentContainer = $('#content');
 
-    var delay = function(callback){
-      setTimeout(callback, config.fadeTime);
+    var delay = function(callback, time){
+      setTimeout(callback, time || config.fadeTime);
     }
 
     var clearBase = function(){
@@ -65,6 +69,7 @@ define([
     };
 
     var careerView = new CareerView();
+    var contactsView = new ContactsView(resources.contacts);
     var pagesViews = [];
 
     for(var key in pages){
@@ -77,6 +82,9 @@ define([
 
       delay(function(){
         clearBase();
+      }, config.fadeTime / 2);
+
+      delay(function(){
         router.trigger('route.fadeOutFinish')
       });
     });
@@ -142,6 +150,28 @@ define([
       delay(function(){
         careerView.render();
       });
+    });
+
+    router.on('route:activateContacts', function(noFade){
+      switchTab($('#contacts'));
+
+      if(noFade){
+        clearBase('career');
+        contactsView.render(noFade);
+        return;
+      }
+
+      router.trigger('route:routeStart');
+
+      delay(function(){
+        contactsView.render();
+      });
+    });
+
+    router.on('route:showContact', function(id){
+      switchTab($('#contacts'));
+      clearBase('career');
+      contactsView.showContact(id);
     });
 
     router.on('route:showJobsByID', function(id){

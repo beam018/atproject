@@ -1,8 +1,8 @@
-<!DOCTYPE html><!-- [if lt IE 7]>
-<html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!-- [if IE 7]>
-<html class="no-js lt-ie9 lt-ie8"><![endif]--><!-- [if IE 8]>
-<html class="no-js lt-ie9"><![endif]--><!-- [if gt IE 8]><!-->
-<html class="no-js"><!-- <![endif]-->
+<!DOCTYPE html><!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"><![endif]--><!--[if IE 8]>
+<html class="no-js lt-ie9"><![endif]--><!--[if gt IE 8]><!-->
+<html class="no-js"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -10,17 +10,22 @@
     <meta name="description" content="">
     <!-- <meta name="viewport" content="width=device-width"> -->
     <link rel="stylesheet" href="styles/main.css">
-    <!-- <script src="/components/modernizr/modernizr.js"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
     <link rel="icon" href="/favicon.gif" type="image/gif">
     <link rel="shortcut icon" href="/favicon.gif" type="image/gif">
 </head>
-<body>
-    <!-- [if lte IE 8]>
-        <p class="chromeframe">
-            Чтобы сайт отображался корректно, а страницы загружались быстрее, рекомендуем <a href="http://browsehappy.com/">установить последнюю версию браузера</a> или <a href="http://www.google.com/chromeframe/?redirect=true">Google Chrome Frame</a>.
+<!--[if IE]><body class="ie"><![endif]<!-->
+<!--[if !IE]><!-->
+<body><!--<![endif]-->
+
+    <!--[if lte IE 9]>
+        <p class="chromeframe fancybox" id="chromeframe">
+            Чтобы сайт отображался корректно, а страницы загружались быстрее,<br> вам нужно <a href="http://browsehappy.com/">установить последнюю версию браузера</a> или <a href="http://www.google.com/chromeframe/?redirect=true">Google Chrome Frame</a>.
         </p>
     <![endif]-->
+
+    <img src="/images/image_486242.gif" class="no-display">
 
     <header id="header" class="header">
         <a href="#" class="logo">
@@ -47,7 +52,7 @@
     <div class="content-helper">
         <div id="content-container" class="content">
             <div class="container with-shadow">
-                <div id="content" class="single rounded"></div>
+                <div id="content" class="single rounded loading"></div>
             </div>
         </div>
     </div>
@@ -74,6 +79,18 @@
         </div>
     </script>
 
+    <script id="contacts-template" type="text/template">
+        <div class="crumbs" id="crumbs">
+            <div class="crumb active">
+                <a href="#contacts?no-fade=true">Все контакты<span></span></a>
+            </div>
+        </div>
+
+        <div class="pages contacts-pages pages__translate-0 <% if(smooth){ %>pages__transition<% } %>" id="pages">
+            <div class="career-content content-page" id="contacts-1"></div>
+        </div>
+    </script>
+
     <script id="job-category-template" type="text/template">
         <a href="#career/type=<%= id %>">
             <figure>
@@ -91,6 +108,18 @@
         <div class="crumb" style="display: none;">
             <a href="<%= link %>"><%= name %><span></span></a>
         </div>
+    </script>
+
+    <script id="contacts-thumb-template" type="text/template">
+        <a href="#contacts/<%= id %>">
+            <figure>
+                <img src="/media/<%= thumb %>" alt="" height="145" width="220">
+
+                <figcaption>
+                    <%= caption %>
+                </figcaption>
+            </figure>
+        </a>
     </script>
 
     <script id="jobs-table-template" type="text/tempalte"><h1><%= category.name %></h1>
@@ -122,6 +151,8 @@
             <% } %>
             </tbody>
         </table>
+        <% }else{ %>
+            <%= category.no_jobs_text %>
         <% } %>
         <div class="back">
             <span>◀ </span>
@@ -133,7 +164,6 @@
         <h1><%= job.name %> | <%= job.project %> | <%= city.city_name %></h1>
 
         <% if(job.top_content){ %>
-            <h2>Что вас ждет:</h2>
             <%= job.top_content %>
         <% } %>
 
@@ -273,7 +303,7 @@
         </a>
     </script>
 
-    <script> var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>
+    <script> var _gaq = [['_setAccount', 'UA-42851848-1'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>
     <!-- build:js scripts/amd-app.js -->
     <script data-main="scripts/main" src="components/requirejs/require.js"></script>
     <!-- endbuild -->

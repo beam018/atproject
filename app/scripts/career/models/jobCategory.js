@@ -6,6 +6,7 @@ define(['backbone'], function(Backbone){
     thumb: '',
     background: '',
     content: '',
+    no_jobs_text: '',
     idAttribute: 'id'
   });
 

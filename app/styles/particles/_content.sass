@@ -24,6 +24,20 @@
   *
     color: $darkGray
 
+.loading
+  background: #FFF url('/images/image_486242.gif') no-repeat 50% 50% !important
+  background: rgb(255,255,255)
+  background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 14%, rgba(237,237,237,1) 100%)
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(14%,rgba(255,255,255,1)), color-stop(100%,rgba(237,237,237,1)))
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 14%,rgba(237,237,237,1) 100%)
+  background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 14%,rgba(237,237,237,1) 100%)
+  background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 14%,rgba(237,237,237,1) 100%)
+  background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 14%,rgba(237,237,237,1) 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=1 )
+
+.ie .fancybox-close
+  display: none
+
 .slide
   height: $slideHeight
   position: relative
@@ -76,6 +90,10 @@
     margin: 0 18px 22px 23px
     padding: 0 0 8px 0
     background: url(/images/shadowVacancy.png) no-repeat left bottom
+
+.contacts-pages
+  > .career-category
+    text-align: center
 
 .thumb-link
   height: 88px
@@ -141,6 +159,9 @@ figure
     +background-image(linear-gradient(#fed892, $yellow, $yellow, #ffb400))
     +transition(line-height 0.1s ease-in-out)
 
+.content-page
+  height: $singleHeight
+
 .career-content
   padding: 0 $careerContentPadding 0 $careerContentPadding
   width: $careerContentWidth
@@ -176,6 +197,9 @@ figure
   span
     font-size: 12px
     color: $yellow
+    position: relative
+    top: -2px
+    margin: 0 4px 0 0
 
 .share
   border-top: 1px solid $lightGray
@@ -200,6 +224,8 @@ figure
       +opacity(1)
 
 .contact-form
+  margin: 1em 0 0 0
+
   div
     overflow: hidden
 
@@ -289,7 +315,7 @@ figure
 .pages
   width: $careerContentFullWidth * 3
   min-height: $singleHeight
-  padding: 14px 0 0 0
+  // padding: 14px 0 0 0
   overflow: hidden
   position: relative
 

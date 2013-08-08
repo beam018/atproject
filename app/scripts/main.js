@@ -47,12 +47,16 @@ require(
   function($, _, utils, App, config) {
     'use strict';
 
-    $(document).one('click', '#content .fancybox', function(e){
+    $('html').removeClass('no-js');
+
+    // fancybox
+    var fbImageHandler = function(e){
       e.preventDefault();
       $(this).fancybox().click();
-    });
+      $(document).one('click', '.fancybox', fbImageHandler);
+    };
 
-    $(document).one('click', '#content .fancybox-media', function(e) {
+    var fbVideoHandler = function(e) {
       e.preventDefault();
       $(this).fancybox({
         openEffect  : 'none',
@@ -61,11 +65,18 @@ require(
           media : {}
         }
       }).click();
-    });
+      $(document).one('click', '.fancybox-media', fbVideoHandler);
+    };
 
-    var resources = utils.resources;
+    $(document).one('click', '.fancybox', fbImageHandler);
+    $(document).one('click', '.fancybox-media', fbVideoHandler);
+
+    if($('body').hasClass('ie')){
+      $('body .fancybox').click();
+    }
 
     // generate dropdown menu
+    var resources = utils.resources;
     var dropdown = $('#dropdown');
 
     var tmpl = _.template($('#dropdown-item-template').html());
@@ -124,6 +135,8 @@ require(
     }
 
     App.initialize();
+    $('#content').removeClass('loading');
+
     utils.debug.log('App initialised');
     utils.debug.log('Done!');
   }

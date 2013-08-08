@@ -9,7 +9,8 @@ define([
     'career/collections/cities',
     'career/views/jobsListView',
     'career/views/jobsView',
-    'career/views/jobView'
+    'career/views/jobView',
+    'pages/views/crumbView'
   ], function(
       $,
       _,
@@ -21,7 +22,8 @@ define([
       Cities,
       JobsListView,
       JobsView,
-      JobView
+      JobView,
+      CrumbView
   ){
     'use strict';
 
@@ -48,6 +50,10 @@ define([
         utils.debug.log('career view initialized');
       },
 
+      addCrumb: CrumbView.addCrumb,
+      removeCrumbs: CrumbView.removeCrumbs,
+      activateLastCrumb: CrumbView.activateLastCrumb,
+
       _movePages: function(pos){
         var $pages = $('#pages');
 
@@ -59,38 +65,6 @@ define([
         );
       },
 
-      addCrumb: function(link, name, fadeTime){
-        if(fadeTime === undefined){
-          fadeTime = 300;
-        }
-        var tmpl = _.template($('#crumb-template').html());
-        var content = tmpl({
-          name: name,
-          link: link
-        });
-        this.$crumbs.append(content).children('.crumb').fadeIn(fadeTime);
-        this.activateLastCrumb();
-      },
-
-      removeCrumbs: function($crumb, fadeTime){
-        var self = this;
-        $crumb.nextAll().each(function(index, item){
-          $(item).fadeOut(config.fadeTime, function(){
-            $(this).remove();
-            self.activateLastCrumb();
-          });
-        });
-      },
-
-      activateLastCrumb: function(){
-        this.$crumbs
-          .children()
-          .last()
-          .addClass('active')
-          .siblings()
-          .removeClass('active');
-      },
-
       render: function(smooth){
         if(smooth !== false){
           smooth = true;
@@ -100,6 +74,8 @@ define([
 
         this.$el.addClass('rounded__crumbs');
         this.$el.addClass('light-border');
+
+        this.$crumbs = $('#crumbs');
 
         var self = this;
         if($page1[0]){
@@ -120,7 +96,6 @@ define([
         var page = this.$el.find('#page-1');
         page.html(this.jobListView.el).prepend(resources.career || '<p></p>');
 
-        this.$crumbs = $('#crumbs');
         this.pageWidth = page.outerWidth();
 
         utils.debug.log('career view rendered');
