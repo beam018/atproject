@@ -50,7 +50,6 @@ define([
 
       if(!_.find(arguments, function(item){return item == 'career';})){
         $contentContainer.removeClass('rounded__crumbs');
-        $contentContainer.removeClass('light-border');
       }
     };
 
@@ -76,6 +75,17 @@ define([
       if(!pages[key][0]) continue;
       pagesViews[key] = new PagesView(pages[key], key);
     }
+
+    var notFound = function(err){
+      try{
+        pagesViews['notFound'].render();
+      }
+      catch(err){
+        utils.debug.error(err.message);
+        utils.debug.warn('No pages of this type');
+        $contentContainer.html('');
+      }
+    };
 
     router.on('route:routeStart', function(e){
       $content.addClass('fadeOut');
@@ -108,12 +118,9 @@ define([
           pagesViews[page].render();
         }
         catch(err){
-          utils.debug.error(err.message);
-          utils.debug.warn('No pages of this type');
-          $contentContainer.html('');
+          notFound(err);
         }
-        if(page === 'contacts') $contentContainer.addClass('light-border');
-      });
+      }, config.fadeTime / 2);
     });
 
     router.on('route:activateCurrentPage', function(page, id){
@@ -129,11 +136,8 @@ define([
         pagesViews[page].render(id);
       }
       catch(err){
-        utils.debug.error(err.message);
-        utils.debug.warn('No pages of this type');
-        $contentContainer.html('');
+        notFound(err);
       }
-      if(page === 'contacts') $contentContainer.addClass('light-border');
     });
 
     router.on('route:activateCareer', function(noFade){

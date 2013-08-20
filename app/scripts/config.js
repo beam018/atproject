@@ -12,6 +12,8 @@ define([], function(){
   config.mailUrl = config.serverUrl + 'mail/';
   // config.pagesUrl = config.apiUrl + 'pages/';
 
+  config.notFoundUrl = '404';
+
   config.debug = true;
   // config.debug = false;
 

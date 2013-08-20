@@ -5,6 +5,8 @@ define(['jquery', 'config'], function($, config){
 		$crumbs: $('#crumbs'),
 
 		addCrumb: function(link, name, fadeTime){
+      this.$crumbs = $('#crumbs');
+
       if(fadeTime === undefined){
         fadeTime = 300;
       }
@@ -18,6 +20,8 @@ define(['jquery', 'config'], function($, config){
     },
 
     removeCrumbs: function($crumb, fadeTime){
+      this.$crumbs = $('#crumbs');
+
       var self = this;
       $crumb.nextAll().each(function(index, item){
         $(item).fadeOut(config.fadeTime, function(){

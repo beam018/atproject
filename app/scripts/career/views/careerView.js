@@ -73,7 +73,7 @@ define([
         var $page1 = $('#page-1');
 
         this.$el.addClass('rounded__crumbs');
-        this.$el.addClass('light-border');
+        // this.$el.addClass('light-border');
 
         this.$crumbs = $('#crumbs');
 

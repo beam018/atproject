@@ -26,12 +26,12 @@ define([
 
       initialize: function(collection){
         this.collection = new Pages(collection);
-        
+
         utils.debug.log('contacts view initialized');
       },
 
       _movePages: function(pos){
-        var $pages = $('#pages');
+        var $pages = $('#contacts-pages');
 
         $pages.attr(
           'class',
@@ -54,7 +54,6 @@ define([
         this.$crumbs = $('#crumbs');
 
         this.$el.addClass('rounded__crumbs');
-        this.$el.addClass('light-border');
 
         var self = this;
         if($page1[0]){
@@ -71,7 +70,7 @@ define([
         var page = this.$el.find('#contacts-1');
 
         if(this.collection.length){
-          var contactsListElem = $('<div class="career-category"></div>');
+          var contactsListElem = $('<div class="career-category contacts-category"></div>');
           var thumbsTmpl = _.template($('#contacts-thumb-template').html());
           for(var i=0; i<this.collection.length; i++){
             var thumbHtml = thumbsTmpl(this.collection.toJSON()[i]);
@@ -96,11 +95,11 @@ define([
           return;
         }
 
-        var $pages = $('#pages');
+        var $pages = $('#contacts-pages');
         if(!$pages[0]){
           this.render(false);
           this.showContact(id);
-          $('#pages').addClass('pages__transition');
+          $('#contacts-pages').addClass('pages__transition');
           return;
         }
 
