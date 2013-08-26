@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="styles/main.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
-    <link rel="icon" href="/favicon.gif" type="image/gif">
-    <link rel="shortcut icon" href="/favicon.gif" type="image/gif">
+    <link rel="icon" href="/favicon.gif?v=1" type="image/gif">
+    <link rel="shortcut icon" href="/favicon.gif?v=1" type="image/gif">
 </head>
 <!--[if IE]><body class="ie"><![endif]<!-->
 <!--[if !IE]><!-->
@@ -34,6 +34,9 @@
 
         <nav id="nav" class="nav">
             <li>
+                <a href="#posts" id="posts"><span>Статьи</span><i></i></a>
+            </li>
+            <li>
                 <a href="#about" id="about"><span>О нас</span><i></i></a>
             </li>
             <li>
@@ -52,7 +55,16 @@
     <div class="content-helper">
         <div id="content-container" class="content">
             <div class="container with-shadow">
-                <div id="content" class="single rounded loading"></div>
+                <div id="content" class="single rounded loading">
+                    <div class="seo-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -301,6 +313,8 @@
                 <span class="caption"><%= caption %></span>
             </div>
         </a>
+
+        <% if(image){ %><img src="/media/<%= image %>" alt="" class="hide"><% } %>
     </script>
 
     <script> var _gaq = [['_setAccount', 'UA-42851848-1'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>

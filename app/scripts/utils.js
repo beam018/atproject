@@ -79,7 +79,7 @@ define(['config', 'jquery', 'jquery.xdr'], function(config, $){
 
   dbg.log('utils created');
 
-  $(window).trigger('myEvent')
+  $(window).trigger('myEvent');
 
   res.cities = res.json('jobs/cities/');
   res.jobCategories = res.json('jobs/categories/');
@@ -89,6 +89,7 @@ define(['config', 'jquery', 'jquery.xdr'], function(config, $){
   res.pages.projects = res.json('pages/projects/');
   res.pages.home = res.json('pages/home/');
   res.pages.about = res.json('pages/about/');
+  res.pages.posts = res.json('pages/posts/');
   res.pages.notFound = res.json('pages/' + config.notFoundUrl + '/');
 
   res.contacts = res.json('pages/contacts/');
