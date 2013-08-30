@@ -5,8 +5,11 @@ define([
   'backbone',
   'career/views/careerView',
   'pages/views/pagesView',
-  'pages/views/contactsView'
-], function($, config, utils, Backbone, CareerView, PagesView, ContactsView){
+  'pages/views/contactsView',
+  'posts/views/postView'
+], function(
+    $, config, utils, Backbone, CareerView, PagesView, ContactsView, PostView
+  ){
   'use strict';
 
   var Router = Backbone.Router.extend({
@@ -18,6 +21,7 @@ define([
       'contacts?no-fade=:fade': 'activateContacts',
       'contacts': 'activateContacts',
       'contacts/:id': 'showContact',
+      'posts': 'activatePosts',
       '': 'activatePages',
       ':page': 'activatePages',
       ':page/:id': 'activateCurrentPage'
@@ -69,6 +73,7 @@ define([
 
     var careerView = new CareerView();
     var contactsView = new ContactsView(resources.contacts);
+    var postView = new PostView();
     var pagesViews = [];
 
     for(var key in pages){
@@ -153,6 +158,14 @@ define([
 
       delay(function(){
         careerView.render();
+      });
+    });
+
+    router.on('route:activatePosts', function(){
+      switchTab($('#posts'));
+      router.trigger('route:routeStart');
+      delay(function(){
+        postView.render();
       });
     });
 

@@ -317,6 +317,30 @@
         <% if(image){ %><img src="/media/<%= image %>" alt="" class="hide"><% } %>
     </script>
 
+    <script id="posts-template" type="text/template">
+    <table class="posts">
+        <% for (var i = 0; i < data.length; i++) {
+            var post = data[i]; %>
+            <tr>
+                <td>
+                    <div>
+                        <a href="<%= post.link %>" target="_blank"><%= post.title %></a>
+                        <% if(post.author) {%><span class="author"> | <%= post.author %></span><% }; %>
+                    </div>
+                    <div class="gray">
+                        <%= post.pub_date %> | 
+                        <% if(post.post_type) {%><%= post.post_type %> | <% }; %>
+                        <% if(post.pub_place) {%><%= post.pub_place %><% }; %>
+                    </div>
+                </td>
+                <td width="42px">
+                    <span class="arrow">▶</span>
+                </td>
+            </tr>
+        <% }; %>
+    </table>
+    </script>
+
     <script> var _gaq = [['_setAccount', 'UA-42851848-1'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <!-- build:js scripts/amd-app.js -->

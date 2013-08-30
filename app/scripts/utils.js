@@ -87,11 +87,13 @@ define(['config', 'jquery', 'jquery.xdr'], function(config, $){
   res.pages.projects = res.json('pages/projects/');
   res.pages.home = res.json('pages/home/');
   res.pages.about = res.json('pages/about/');
-  res.pages.posts = res.json('pages/posts/');
   res.pages.notFound = res.json('pages/' + config.notFoundUrl + '/');
 
   res.contacts = res.json('pages/contacts/');
   res.contactsText = res.html('contacts/');
+
+  res.posts = res.json('posts/');
+  res.postsText = res.html('posts/');
 
   res.career = res.html('career/');
 
