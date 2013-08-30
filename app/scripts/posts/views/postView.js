@@ -12,8 +12,13 @@ define(['backbone', 'jquery', 'underscore',
 			$('#content').addClass('content__fullsize');
 
 			var data = new Posts(resources.posts).toJSON();
-			var tmpl = _.template(this.template);
-			var postListHtml = tmpl({data: data});
+
+			var postListHtml = '';
+
+			if(data[0]){
+				var tmpl = _.template(this.template);
+				postListHtml = tmpl({data: data});
+			}
 
 			this.$el.html('<div class="career-content">' +
 				resources.postsText + 

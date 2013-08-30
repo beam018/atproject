@@ -328,9 +328,9 @@
                         <% if(post.author) {%><span class="author"> | <%= post.author %></span><% }; %>
                     </div>
                     <div class="gray">
-                        <%= post.pub_date %> | 
-                        <% if(post.post_type) {%><%= post.post_type %> | <% }; %>
-                        <% if(post.pub_place) {%><%= post.pub_place %><% }; %>
+                        <%= post.pub_date %>
+                        <% if(post.post_type) {%> | <%= post.post_type %><% }; %>
+                        <% if(post.pub_place) {%> | <%= post.pub_place %><% }; %>
                     </div>
                 </td>
                 <td width="42px">
