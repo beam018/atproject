@@ -106,19 +106,16 @@ require(
     });
 
     // dropdown animation
-    dropdown.data('height', resources.jobCategories.length * 25);
-
     var showDropdown = function(){
-      dropdown.height(dropdown.data('height') + 50);
-      dropdown.slideDown(150);
+      dropdown.height(dropdown.data('height'));
       dropdown.children('li').map(function(index, item){
         // plus padding top
         $(item).css('margin-top', ($('a', item).data('index') + 1) * 25 + 'px');
+        $(item).css('z-index', 1000 - $('a', item).data('index'));
       });
     };
 
     var hideDropdown = function(){
-      dropdown.slideUp(150);
       dropdown.children('li').css('margin-top', 0);
     };
 

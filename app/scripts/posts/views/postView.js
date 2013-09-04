@@ -9,9 +9,25 @@ define(['backbone', 'jquery', 'underscore',
 		template: $('#posts-template').html(),
 
 		render: function(){
-			$('#content').addClass('content__fullsize');
+			$('#content-container').addClass('content__fullsize');
 
 			var data = new Posts(resources.posts).toJSON();
+
+			var months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 
+				'авг', 'сен', 'окт', 'ноя', 'дек'];
+
+			for (var i = 0; i < data.length; i++) {
+				if(!data[i].pub_date){
+					continue;
+				}
+
+				var splitedDate = data[i].pub_date.split('.');
+
+				if(splitedDate[2] == new Date().getFullYear()){
+					data[i].pub_date = splitedDate[0] +
+						' ' + months[parseInt(splitedDate[1], 10) - 1];
+				}
+			};
 
 			var postListHtml = '';
 
@@ -25,7 +41,7 @@ define(['backbone', 'jquery', 'underscore',
 				postListHtml +
 				'</div>');
 
-			this.$el.find('.posts td').each(function(){
+			this.$el.find('.posts tr').each(function(){
 				var $this = $(this);
 				$this.click(function(e) {
           e.preventDefault();

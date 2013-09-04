@@ -36,6 +36,8 @@
     padding: 0 0 0 1px
     background: $darkGray
     +background-image(linear-gradient($darkGray, $black))
+    position: relative
+    z-index: 2000
 
     &:hover
       +background-image(none)
@@ -43,6 +45,8 @@
 
     > a
       height: $headerHeight
+      position: relative
+      z-index: 2000
 
     &.active i
       display: none
@@ -76,15 +80,10 @@
   ul
     position: absolute
     z-index: 900
-    background: $darkGray
     color: $white
-    margin: 0 0 0 0
-    border: 1px solid #4b4b4b
+    margin: -26px 0 0 0
     border-top: none
     font-size: 100%
-    outline: 1px solid $black
-    display: none
-    overflow: hidden
     width: 181px
 
     height: 0
@@ -102,8 +101,10 @@
       position: absolute
       width: 100%
       +transition(margin-top 0.15s ease-in-out)
+      +transition-delay(0.4s)
       margin: 0 0 0 0
       cursor: pointer
+      background: $darkGray
 
       &:last-child
         border: none
