@@ -81,15 +81,19 @@
     position: absolute
     z-index: 900
     color: $white
-    margin: -26px 0 0 0
+    padding: 0
+    margin: 0
     border-top: none
     font-size: 100%
     width: 181px
+    overflow: hidden
+    display: none
 
-    height: 0
+    &:hover
+      display: block
 
     a
-      line-height: 1.7857
+      line-height: 2.3
       +text-shadow(0 0 3px $black)
       float: left
 
@@ -97,12 +101,8 @@
       border-bottom: 1px solid #383838
       padding: 0 0 0 18px
       overflow: hidden
-      height: 25px
-      position: absolute
-      width: 100%
-      +transition(margin-top 0.15s ease-in-out)
-      +transition-delay(0.4s)
-      margin: 0 0 0 0
+      height: 32px
+      margin: 0
       cursor: pointer
       background: $darkGray
 
@@ -123,4 +123,4 @@
       border: 1px solid #eb9610
       +border-radius(2px)
       float: right
-      margin: 2px 18px 0 0
+      margin: 6px 0 0 0

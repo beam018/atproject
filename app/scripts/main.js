@@ -105,18 +105,12 @@ require(
       $body.css('margin-left', leftOffset + 'px');
     });
 
-    // dropdown animation
     var showDropdown = function(){
-      dropdown.height(dropdown.data('height'));
-      dropdown.children('li').map(function(index, item){
-        // plus padding top
-        $(item).css('margin-top', ($('a', item).data('index') + 1) * 25 + 'px');
-        $(item).css('z-index', 1000 - $('a', item).data('index'));
-      });
+      dropdown.show();
     };
 
     var hideDropdown = function(){
-      dropdown.children('li').css('margin-top', 0);
+      dropdown.hide();
     };
 
     dropdown.parent('li').on('mouseenter', showDropdown);
