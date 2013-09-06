@@ -75,24 +75,6 @@ require(
       $('body .fancybox').click();
     }
 
-    // generate dropdown menu
-    var resources = utils.resources;
-    var dropdown = $('#dropdown');
-
-    var tmpl = _.template($('#dropdown-item-template').html());
-    var jobs = _.groupBy(resources.jobs, 'category');
-
-    _.each(resources.jobCategories, function(item, index){
-      var count = jobs[item.id] ? jobs[item.id].length : 0;
-
-      dropdown.append(tmpl({
-        item: item,
-        index: index,
-        count: count
-      }));
-    });
-    utils.debug.log('dropdown generated');
-
     // window resize handling
     var body = document.body;
     var $body = $(body);
@@ -103,22 +85,6 @@ require(
       $body.css('margin-left', 'auto');
       leftOffset = body.getBoundingClientRect().left;
       $body.css('margin-left', leftOffset + 'px');
-    });
-
-    var showDropdown = function(){
-      dropdown.show();
-    };
-
-    var hideDropdown = function(){
-      dropdown.hide();
-    };
-
-    dropdown.parent('li').on('mouseenter', showDropdown);
-    dropdown.parent('li').on('mouseleave', hideDropdown);
-    dropdown.parent('li').on('click', hideDropdown);
-
-    dropdown.children('li').on('click', function(){
-      window.location = $(this).find('a').attr('href');
     });
 
     if(!config.social){
