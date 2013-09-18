@@ -57,15 +57,7 @@
     outline: none
     z-index: 500
 
-.button
-  border: 1px solid $yellow
-  +border-radius(12px)
-  background: $yellow
-  line-height: 25px
-  font-size: 1.063em
-  color: $darkGray
-  padding: 0 15px 0 15px
-  cursor: pointer
+@mixin button-grad()
   +background-image(linear-gradient(#fed892, $yellow, $yellow, #ffb400))
 
   &:hover
@@ -76,6 +68,17 @@
 
   &[disabled]:hover
     +background-image(linear-gradient(#fed892, $yellow, $yellow, #ffb400))
+
+.button
+  border: 1px solid $yellow
+  +border-radius(12px)
+  background: $yellow
+  line-height: 25px
+  font-size: 1.063em
+  color: $darkGray
+  padding: 0 15px 0 15px
+  cursor: pointer
+  +button-grad()
 
 .tooltip
   border: 1px solid #f00

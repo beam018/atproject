@@ -25,8 +25,6 @@
         </p>
     <![endif]-->
 
-    <img src="/images/image_486242.gif" class="no-display">
-
     <header id="header" class="header">
         <a href="#" class="logo">
             <img src="/images/logo.png" alt="" width="139" height="52" class="logo-image">
@@ -54,10 +52,11 @@
     <div class="content-helper">
         <div id="content-container" class="content">
             <div class="container with-shadow">
-                <div id="content" class="single rounded loading">
+                <div id="content" class="single rounded">
                     <div class="seo-text">
                         Allods Team, Аллодс Тим, Аллоды Онлайн, Allods Online, Allods Adventure, Skyforge, Скайфорж, Разработка, Игры, Game Development
                     </div>
+                    <img src="/images/image_486242.gif" id="loading" class="loading">
                 </div>
             </div>
         </div>
@@ -125,6 +124,8 @@
                     <%= caption %>
                 </figcaption>
             </figure>
+
+            <% if(image){ %><img src="/media/<%= image %>" alt="" class="hide"><% } %>
         </a>
     </script>
 

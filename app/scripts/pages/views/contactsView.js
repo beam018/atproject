@@ -114,7 +114,7 @@ define([
         if(contact.image){
           page2.css(
             'background-image',
-            'url(' + config.mediaUrl + contact.image + ')'
+            'url(/media/' + contact.image + ')'
           );
         }
         this.$('#contacts-1').after(page2);

@@ -6,6 +6,8 @@
   overflow: hidden
   +transition(opacity $fadeTime ease-in-out)
   +opacity(1)
+  +filter-gradient(#fff, $lightestGray, horizontal)
+  +background-image(radial-gradient(color-stops(#fff, $lightestGray), center center))
 
 .content__fullsize
   height: auto
@@ -26,15 +28,10 @@
     color: $darkGray
 
 .loading
-  background: #FFF url('/images/image_486242.gif') no-repeat 50% 50% !important
-  background: rgb(255,255,255)
-  background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 14%, rgba(237,237,237,1) 100%)
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(14%,rgba(255,255,255,1)), color-stop(100%,rgba(237,237,237,1)))
-  background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 14%,rgba(237,237,237,1) 100%)
-  background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 14%,rgba(237,237,237,1) 100%)
-  background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 14%,rgba(237,237,237,1) 100%)
-  background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 14%,rgba(237,237,237,1) 100%)
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=1 )
+  position: absolute
+  left: 50%
+  top: 50%
+  margin: -24px 0 0 -24px
 
 .ie .fancybox-close
   display: none
