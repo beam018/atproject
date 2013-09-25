@@ -16,9 +16,6 @@ require.config({
       deps: ['jquery', 'underscore'],
       exports: 'Backbone'
     },
-    'jquery.xdr': {
-      deps: ['jquery']
-    },
     'jquery.mousewheel': {
       deps: ['jquery']
     },
@@ -35,7 +32,6 @@ require.config({
 
   paths: {
     'jquery': '../components/jquery/jquery',
-    'jquery.xdr': '../components/jquery.xdomainrequest/jQuery.XDomainRequest',
     'jquery.mousewheel': 'vendor/jquery.mousewheel-3.0.6.pack',
     'underscore': '../components/underscore/underscore',
     'backbone': '../components/backbone-amd/backbone',

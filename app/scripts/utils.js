@@ -1,4 +1,4 @@
-define(['config', 'jquery', 'jquery.xdr'], function(config, $){
+define(['config', 'jquery'], function(config, $){
   'use strict';
 
   $.support.cors = true;

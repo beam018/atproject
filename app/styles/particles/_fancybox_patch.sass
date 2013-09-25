@@ -31,6 +31,9 @@
 		color: $darkGray
 
 .fancybox-close
+	opacity: 0
+
+.fancybox-fixed-close
 	top: 5px
 	right: 10px
 	background: $yellow
@@ -38,13 +41,18 @@
 	height: 25px
 	border: 1px solid $darkGray
 	+border-radius(2px)
-	content: 'X'
 	line-height: 27px
 	text-align: center
 	font-size: 1.3em
 	+button-grad()
+	position: absolute
+	cursor: pointer
 
-.fancybox-nav
+.fancybox-fixed-next, .fancybox-fixed-prev, .fancybox-fixed-close
+	opacity: 0
+	z-index: 9000
+
+.fancybox-nav, .fancybox-fixed-prev, .fancybox-fixed-next
 	span 
 		visibility: visible
 		opacity: 0.7
@@ -52,3 +60,6 @@
 
 		&:hover
 			opacity: 0.9
+
+.fancybox-prev, .fancybox-next
+	opacity: 0
