@@ -7,7 +7,6 @@
   +transition(opacity $fadeTime ease-in-out)
   +opacity(1)
   +filter-gradient(#fff, $lightestGray, horizontal)
-  +background-image(radial-gradient(color-stops(#fff, $lightestGray), center center))
 
 .content__fullsize
   height: auto
@@ -26,6 +25,12 @@
 .darkText
   *
     color: $darkGray
+
+.loading-bg
+  +background-image(radial-gradient(color-stops(#fff, $lightestGray), center center))
+  position: relative
+  height: 100%
+  width: 100%
 
 .loading
   position: absolute

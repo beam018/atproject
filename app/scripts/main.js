@@ -114,7 +114,7 @@ require(
         }
       }).click();
       $(document).one('click', '.fancybox-thumb', fbThumbHelper);
-    }
+    };
 
     $(document).one('click', '.fancybox', fbImageHandler);
     $(document).one('click', '.fancybox-media', fbVideoHandler);
