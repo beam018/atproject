@@ -1,65 +1,54 @@
 .fancybox-wrap
-	border: 1px solid $darkGray
-	+border-radius(2px)
+  border: 1px solid $darkGray
+  +border-radius(2px)
 
 .fancybox-skin
-	+border-radius(2px)
-	+box-shadow(none)
-	background: #f0f0f0
+  +border-radius(2px)
+  +box-shadow(none)
+  background: #f0f0f0
 
 .fancybox-overlay
-	background: rgba(255, 255, 255, 0.7)
+  background: rgba(255, 255, 255, 0.7)
 
 .fancybox-title
-	bottom: auto
-	right: auto
-	margin-bottom: auto
-	text-align: left
-	top: 0
-	color: $darkGray
-	position: absolute
-	left: 6px
-	font-size: 1.25em
+  bottom: auto
+  right: auto
+  margin-bottom: auto
+  text-align: left
+  top: 0
+  color: $darkGray
+  position: absolute
+  left: 6px
+  font-size: 1.25em
 
-	.child
-		padding: 0 0 0 0
-		line-height: 36px
-		+border-radius(0)
-		background: transparent
-		text-shadow: none
-		font-weight: normal
-		color: $darkGray
+  .child
+    padding: 0 0 0 0
+    line-height: 36px
+    +border-radius(0)
+    background: transparent
+    text-shadow: none
+    font-weight: normal
+    color: $darkGray
 
 .fancybox-close
-	opacity: 0
+  top: 5px
+  right: 10px
+  background: $yellow
+  width: 25px
+  height: 25px
+  border: 1px solid $darkGray
+  +border-radius(2px)
+  content: 'X'
+  line-height: 27px
+  text-align: center
+  font-size: 1.3em
+  +button-grad()
 
-.fancybox-fixed-close
-	top: 5px
-	right: 10px
-	background: $yellow
-	width: 25px
-	height: 25px
-	border: 1px solid $darkGray
-	+border-radius(2px)
-	line-height: 27px
-	text-align: center
-	font-size: 1.3em
-	+button-grad()
-	position: absolute
-	cursor: pointer
+.fancybox-nav
+  span 
+    visibility: visible
+    opacity: 0.7
+    +transition(opacity $fadeTime ease-in-out)
 
-.fancybox-fixed-next, .fancybox-fixed-prev, .fancybox-fixed-close
-	opacity: 0
-	z-index: 9000
-
-.fancybox-nav, .fancybox-fixed-prev, .fancybox-fixed-next
-	span 
-		visibility: visible
-		opacity: 0.7
-		+transition(opacity $fadeTime ease-in-out)
-
-		&:hover
-			opacity: 0.9
-
-.fancybox-prev, .fancybox-next
-	opacity: 0
+    &:hover
+      opacity: 0.9

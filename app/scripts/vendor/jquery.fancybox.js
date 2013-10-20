@@ -149,14 +149,14 @@
 			// Properties for each animation type
 			// Opening fancyBox
 			openEffect  : 'fade', // 'elastic', 'fade' or 'none'
-			openSpeed   : 500,
+			openSpeed   : 250,
 			openEasing  : 'swing',
 			openOpacity : true,
 			openMethod  : 'zoomIn',
 
 			// Closing fancyBox
 			closeEffect  : 'fade', // 'elastic', 'fade' or 'none'
-			closeSpeed   : 500,
+			closeSpeed   : 250,
 			closeEasing  : 'swing',
 			closeOpacity : true,
 			closeMethod  : 'zoomOut',
@@ -1461,72 +1461,6 @@
 				}
 			}
 
-
-			var $fixedNext = $('.fancybox-fixed-next');
-			var $fixedPrev = $('.fancybox-fixed-prev');
-			var $fixedClose = $('.fancybox-fixed-close');
-
-			if($fixedNext[0])
-				$fixedNext.bind('click.fb', F.next);
-			 
-			if($fixedPrev[0])
-				$fixedPrev.bind('click.fb', F.prev);
-
-			if($fixedClose[0])
-				$fixedClose.bind('click.fb', F.close);
-
-
-			$(document).on('afterShow', function(){
-				var $originalClose = $('.fancybox-close');
-
-				if($originalClose[0]){
-					// $fixedClose.width($originalClose.width());
-					// $fixedClose.height($originalClose.height());
-					$fixedClose.offset({
-						top: $originalClose.offset().top + 22,
-						left: $originalClose.offset().left - 13
-					});
-
-					$fixedClose.appendTo($(document.body));
-
-					$fixedClose.css('opacity', 1);
-				}
-			});
-
-			$(document).on('afterShow', function(){
-				var $originalNext = $('.fancybox-next');
-
-				if($originalNext[0]){
-					$fixedNext.width($originalNext.width());
-					$fixedNext.height($originalNext.height());
-					$fixedNext.offset($originalNext.offset());
-
-					$fixedNext.appendTo($(document.body));					
-
-					$fixedNext.css('opacity', 1);
-				}
-			});
-
-			$(document).on('afterShow', function(){
-				var $originalPrev = $('.fancybox-prev');
-
-				if($originalPrev[0]){
-					$fixedPrev.width($originalPrev.width());
-					$fixedPrev.height($originalPrev.height());
-					$fixedPrev.offset($originalPrev.offset());
-
-					$fixedPrev.appendTo($(document.body));
-
-					$fixedPrev.css('opacity', 1);
-				}
-			});
-
-			$(document).on('beforeClose', function(){
-				$fixedNext.remove();
-				$fixedPrev.remove();
-				$fixedClose.remove();
-			});
-
 			F.trigger('afterShow');
 
 			// Stop the slideshow if this is the last item
@@ -1775,9 +1709,7 @@
 				this.close();
 			}
 
-			this.overlay = $(
-				'<div class="fancybox-overlay"><a class="fancybox-fixed-next"><span></span></a><a class="fancybox-fixed-prev"><span></span></a><div title="Close" class="fancybox-fixed-close">X</div></div>'
-			).appendTo( F.coming ? F.coming.parent : opts.parent );
+			this.overlay = $('<div class="fancybox-overlay"></div>').appendTo( F.coming ? F.coming.parent : opts.parent );
 			this.fixed   = false;
 
 			if (opts.fixed && F.defaults.fixed) {
