@@ -108,7 +108,7 @@ define([
         var tooltipErrorTmpl = _.template(tooltipErrorTmplSrc);
 
         var targetId = $target.attr('id');
-        if(!msg && (targetId === 'phone-field' || targetId === 'email-field')){
+        if(!msg && (targetId === 'phone-field' || targetId === 'email-field' || targetId === 'attachment-link-field')){
           var regexp = /^[а-яА-Яa-zA-Z]+/;
           var nameSource = $fieldContainer.find('label').html();
           var name = regexp.exec(nameSource)[0];
@@ -178,6 +178,14 @@ define([
           // var emailRegexp = /([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/;
           var emailRegexp = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
           if(!emailRegexp.test($target.val())){
+            this.showErrorTooltip($target);
+            return false;
+          }
+        }
+
+        if($target.attr('id') === 'attachment-link-field'){
+          var attachmentLinkRegexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+          if(!attachmentLinkRegexp.test($target.val())){
             this.showErrorTooltip($target);
             return false;
           }

@@ -234,14 +234,9 @@
                 <input type="text" name="email" id="email-field" placeholder="Email">
             </div>
 
-            <div class="file-block">
-                <label for="resume-field" class="file-input" id="file-input"><span>Вложить резюме:</span>
-                    <div>
-                        <input id="brows-field" type="text" placeholder="Файл" disabled="disabled">
-                        <div id="brows" class="button">Обзор...</div>
-                    </div>
-                </label>
-                <input type="file" name="attachment" id="resume-field" placeholder="Вложить резюме" class="hide" accept="text/plain, application/pdf, application/zip, application/x-rar-compressed, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.oasis.opendocument.text, application/rtf">
+            <div>
+                <label for="attachment-link-field">Ссылка на резюме:</label>
+                <input type="text" name="attachment-link" id="attachment-link-field" placeholder="Ссылка на резюме">
             </div>
 
             <div>
@@ -295,7 +290,7 @@
             <% if(count){ %><div><%= count %></div><% }; %>
         </li>
     </script>
-        
+
     <script id="tooltip-error-template" type="text/template">
         <div class="tooltip error-tip" style="display: none;">
             <div></div>
