@@ -56,9 +56,7 @@
                     <div class="seo-text">
                         Allods Team, Аллодс Тим, Аллоды Онлайн, Allods Online, Allods Adventure, Skyforge, Скайфорж, Разработка, Игры, Game Development
                     </div>
-                    <div class="loading-bg">
-                        <img src="/images/image_486242.gif" id="loading" class="loading">
-                    </div>
+                    <img src="/images/image_486242.gif" id="loading" class="loading">
                 </div>
             </div>
         </div>
@@ -83,6 +81,8 @@
 
         <div class="pages pages__translate-0 <% if(smooth){ %>pages__transition<% } %>" id="pages">
             <div class="career-content" id="page-1"></div>
+        </div>
+    </script>
         </div>
     </script>
 
@@ -279,6 +279,9 @@
             <div id="slider-control-layer" class="slider-control-layer">
                 <a href="#<%= pageName %>/<%= prev.id %>" id="left-arrow" class="slider-control slider-control__left"></a>
                 <a href="#<%= pageName %>/<%= next.id %>" id="right-arrow" class="slider-control slider-control__right"></a>
+            <div id="slider-control-layer" class="slider-control-layer">
+                <a href="#<%= pageName %>/<%= prev.id %>" id="left-arrow" class="slider-control slider-control__left"></a>
+                <a href="#<%= pageName %>/<%= next.id %>" id="right-arrow" class="slider-control slider-control__right"></a>
             </div>
         </div>
     </script>
@@ -290,7 +293,7 @@
             <% if(count){ %><div><%= count %></div><% }; %>
         </li>
     </script>
-
+        
     <script id="tooltip-error-template" type="text/template">
         <div class="tooltip error-tip" style="display: none;">
             <div></div>
@@ -335,6 +338,7 @@
 
     <script> var _gaq = [['_setAccount', 'UA-42851848-1'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://ad.mail.ru/adj/5699?rnd=[randnum]" charset="utf-8"></script>
     <!-- build:js scripts/amd-app.js -->
     <script data-main="scripts/main" src="components/requirejs/require.js"></script>
     <!-- endbuild -->
