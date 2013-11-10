@@ -47,6 +47,8 @@ define([
           this.jobsCollection
         );
 
+        this.elemHtml = this.jobListView.el.outerHTML;
+
         utils.debug.log('career view initialized');
       },
 
@@ -82,7 +84,7 @@ define([
           this._movePages(0);
           setTimeout(function(){
             self.removeCrumbs(self.$crumbs.children().first());
-          }, config.animationTime)
+          }, config.animationTime);
 
           return;
         }
@@ -94,7 +96,9 @@ define([
           this.$el.append($iframe);
         }
         var page = this.$el.find('#page-1');
-        page.html(this.jobListView.el).prepend(resources.career || '<p></p>');
+        page.html(this.elemHtml).prepend(
+          resources.career || '<p></p>'
+        );
 
         this.pageWidth = page.outerWidth();
 
