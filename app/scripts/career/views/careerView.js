@@ -6,7 +6,6 @@ define([
     'config',
     'career/collections/jobsList',
     'career/collections/jobCategories',
-    'career/collections/cities',
     'career/views/jobsListView',
     'career/views/jobsView',
     'career/views/jobView',
@@ -19,7 +18,6 @@ define([
       config,
       JobsList,
       JobCategories,
-      Cities,
       JobsListView,
       JobsView,
       JobView,
@@ -37,15 +35,13 @@ define([
       initialize: function(){
         this.jobsCollection = new JobsList(resources.jobs);
         this.jobCategoriesCollection = new JobCategories(resources.jobCategories);
-        this.citiesCollection = new Cities(resources.cities);
 
         this.jobsView = new JobsView();
         this.jobView = new JobView();
 
-        this.jobListView = new JobsListView(
-          this.jobCategoriesCollection,
-          this.jobsCollection
-        );
+        this.jobListView = new JobsListView({
+            collection: this.jobCategoriesCollection
+        });
 
         this.elemHtml = this.jobListView.el.outerHTML;
 
@@ -255,19 +251,18 @@ define([
 
         $('#content-container').addClass('content__fullsize');
 
-        var jobs = _.map(this.jobsCollection.where({category: id}), function(item){
-          return item.toJSON();
-        });
+        var jobs = [];
+        for( var i = 0; i < this.jobsCollection.toJSON().length; i++ ){
+          if( this.jobsCollection.toJSON()[i].category.id === id ){
+            jobs.push(this.jobsCollection.toJSON()[i]);
+          }
+        }
+
         var category = this.jobCategoriesCollection.get(id).toJSON();
-        var cities = [];
-        _.map(this.citiesCollection.toJSON(), function(item){
-          cities[item.id] = item.city_name;
-        });
 
         var data = {
           jobs: jobs,
-          category: category,
-          cities: cities
+          category: category
         };
 
         this.jobsView.render(data);
@@ -282,7 +277,7 @@ define([
         this._movePages(1);
         setTimeout(function(){
           // bug
-          
+
           if(!saveNextPage){
             $('#page-3').remove();
           }

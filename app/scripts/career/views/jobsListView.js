@@ -10,9 +10,7 @@ define([
       className: 'career-category',
       template: $('#job-category-template').html(),
 
-      initialize: function(jobCategories, jobCollection){
-        this.collection = jobCategories;
-        this.jobCollection = jobCollection;
+      initialize: function(jobCategories){
         this.render();
       },
 
@@ -21,10 +19,8 @@ define([
         _.each(this.collection.models, function(item){
 
           var category = item.toJSON();
-          category.jobsCount = self.jobCollection.where({category: item.id}).length;
-
           var tmpl = _.template(this.template);
-          this.$el.append(tmpl(category));
+          this.$el.append(tmpl(item.toJSON()));
         }, this);
 
         return this;

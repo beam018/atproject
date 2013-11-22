@@ -7,6 +7,7 @@ define(['backbone'], function(Backbone){
     background: '',
     content: '',
     no_jobs_text: '',
+    count: 0,
     idAttribute: 'id'
   });
 

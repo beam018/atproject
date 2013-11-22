@@ -79,9 +79,29 @@ define(['config', 'jquery'], function(config, $){
 
   dbg.log('utils created');
 
-  res.cities = res.json('jobs/cities/');
-  res.jobCategories = res.json('jobs/categories/');
   res.jobs = res.json('jobs/');
+
+  // var jobCategories = [];
+  // for( var i = 0; i < res.jobs.length; i++ ){
+  //   var category = res.jobs[i].category;
+
+  //   var found = false;
+  //   for( var j = 0; j < jobCategories.length; j++ ){
+  //     if(category.id === jobCategories[j].id){
+  //       found = true;
+  //       break;
+  //     }
+  //   }
+
+  //   if(!found){
+  //     jobCategories.push(category);
+  //   }
+  // };
+
+  // console.log(jobCategories);
+
+  res.jobCategories = res.json('jobs/categories/');
+  // res.cities = res.json('jobs/cities/');
 
   res.pages = [];
   res.pages.projects = res.json('pages/projects/');

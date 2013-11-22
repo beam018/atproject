@@ -18,6 +18,7 @@ define([
       'career': 'activateCareer',
       'career/type=:id': 'showJobsByID',
       'career/job=:id': 'showJob',
+      // 'career/city=:id': 'showJob',
       'contacts?no-fade=:fade': 'activateContacts',
       'contacts': 'activateContacts',
       'contacts/:id': 'showContact',

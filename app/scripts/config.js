@@ -3,8 +3,8 @@ define([], function(){
 
   var config = {};
 
-  // config.serverUrl = 'http://127.0.0.1:8000/';
-  config.serverUrl = 'http://api.allodsteam.ru/';
+  config.serverUrl = 'http://127.0.0.1:8000/';
+  // config.serverUrl = 'http://api.allodsteam.ru/';
 
   config.apiUrl = config.serverUrl + 'v1/';
   config.staticUrl = config.serverUrl + 'static/';
@@ -14,8 +14,8 @@ define([], function(){
 
   config.notFoundUrl = '404';
 
-  // config.debug = true;
-  config.debug = false;
+  config.debug = true;
+  // config.debug = false;
 
   config.fadeTime = 400;
   config.animationTime = 300;
