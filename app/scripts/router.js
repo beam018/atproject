@@ -18,7 +18,7 @@ define([
       'career': 'activateCareer',
       'career/type=:id': 'showJobsByID',
       'career/job=:id': 'showJob',
-      // 'career/city=:id': 'showJob',
+      'career/city=:name': 'showJobsByCity',
       'contacts?no-fade=:fade': 'activateContacts',
       'contacts': 'activateContacts',
       'contacts/:id': 'showContact',
@@ -43,6 +43,8 @@ define([
       setTimeout(callback, time || config.fadeTime);
     }
 
+    var defaultTitle = $( 'title' ).html();
+
     var clearBase = function(){
       // clear micro UI changes on page
       if(!_.find(arguments, function(item){return item == 'pages';})){
@@ -56,6 +58,8 @@ define([
       if(!_.find(arguments, function(item){return item == 'career';})){
         $contentContainer.removeClass('rounded__crumbs');
       }
+
+      document.title = defaultTitle;
     };
 
     var switchTab = function(target){
@@ -196,6 +200,12 @@ define([
       switchTab($('#career'));
       clearBase('career');
       careerView.showJobs(id);
+    });
+
+    router.on('route:showJobsByCity', function(name){
+      switchTab($('#career'));
+      clearBase('career');
+      careerView.showCity(name);
     });
 
     router.on('route:showJob', function(id){

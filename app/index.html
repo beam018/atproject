@@ -170,7 +170,7 @@
     </script>
 
     <script id="job-template" type="text/templates">
-        <h1><%= job.name %> | <%= job.project %> | <%= city.city_name %></h1>
+        <h1><%= job.name %> | <%= job.project %> | <%= job.city %></h1>
 
         <% if(job.top_content){ %>
             <%= job.top_content %>
@@ -242,6 +242,11 @@
             <div>
                 <label for="extra-field">Дополнительно:</label>
                 <textarea name="extra" id="extra-field" placeholder="Дополнительно"></textarea>
+            </div>
+
+            <div>
+                <label for="test-field">Тестовое задание:</label>
+                <input type="text" name="test" id="test-field" placeholder="Ссылка на тестовое задание">
             </div>
 
             <div id="alert" class="alert" style="display: none;">

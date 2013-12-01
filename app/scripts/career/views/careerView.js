@@ -308,6 +308,82 @@ define([
         utils.debug.log('jobs page generated');
       },
 
+      showCity: function(name, saveNextPage){
+        var id = parseInt(name, 10);
+        // if(isNaN(id)){
+        //   utils.debug.error('bad id');
+
+        //   this.$el.html('');
+        //   return;
+        // }
+
+        var $pages = $('#pages');
+        if(!$pages[0]){
+          // this.render(false);
+          // this.showCity(name);
+          // $('#pages').addClass('pages__transition');
+          // return;
+        }
+
+        $('#content-container').addClass('content__fullsize');
+
+        var jobs = [];
+        for( var i = 0; i < this.jobsCollection.toJSON().length; i++ ){
+          if( this.jobsCollection.toJSON()[i].city === name ){
+            jobs.push(this.jobsCollection.toJSON()[i]);
+          }
+        }
+        console.log(jobs);
+
+        var data = {
+          jobs: jobs,
+          // category: category
+          city: name
+        };
+
+        this.jobsView.render(data);
+        if(data.category.background){
+          this.jobsView.$el.css(
+            'background-image',
+            'url(' + config.mediaUrl + data.category.background + ')'
+          );
+        }
+        this.$('#page-1').after(this.jobsView.el);
+
+        this._movePages(1);
+        setTimeout(function(){
+          // bug
+
+          if(!saveNextPage){
+            $('#page-3').remove();
+          }
+        }, config.animationTime)
+
+        var urn = '#career/type=' + id;
+
+        var readyCrumb = _.find($('.crumb a'), function(item){
+          return $(item).attr('href') === urn;
+        });
+
+        // TODO: refact
+        // if crumbs cildren length == 2
+        // then change crumb value and url
+        if(!readyCrumb){
+          this.removeCrumbs(this.$crumbs.children().first());
+          this.addCrumb(urn, category.name);
+        }
+        if($('#page-3')[0]){
+          // TODO: refact
+          this.removeCrumbs(this.$crumbs.children().first().next());
+        }
+
+        $('.career-table tbody tr').on('click', function(){
+          window.location = $(this).find('a').attr('href');
+        });
+
+        utils.debug.log('jobs page generated');
+      },
+
       showJob: function(id){
         id = parseInt(id, 10);
         if(isNaN(id)){
@@ -318,15 +394,10 @@ define([
         // collect page data
         var job = this.jobsCollection.get(id).toJSON();
         var category = this.jobCategoriesCollection.get(job.category).toJSON();
-        var city = {};
-        if(this.citiesCollection.get(job.city)){
-          city = this.citiesCollection.get(job.city).toJSON();
-        }
 
         var data = {
           job: job,
           category: category,
-          city: city,
           social: config.social
         };
 
