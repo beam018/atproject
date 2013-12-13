@@ -17,8 +17,6 @@ define([
       render: function(){
         var self = this;
         _.each(this.collection.models, function(item){
-
-          var category = item.toJSON();
           var tmpl = _.template(this.template);
           this.$el.append(tmpl(item.toJSON()));
         }, this);
