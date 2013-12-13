@@ -31,22 +31,7 @@ define([
     var CareerView = Backbone.View.extend({
       el: $('#content'),
       template: $('#career-template').html(),
-
-      initialize: function(){
-        this.jobsCollection = new JobsList(resources.jobs);
-        this.jobCategoriesCollection = new JobCategories(resources.jobCategories);
-
-        this.jobsView = new JobsView();
-        this.jobView = new JobView();
-
-        this.jobListView = new JobsListView({
-            collection: this.jobCategoriesCollection
-        });
-
-        this.elemHtml = this.jobListView.el.outerHTML;
-
-        utils.debug.log('career view initialized');
-      },
+      jobsListTemplate: _.template($('#jobs-list-template').html()),
 
       addCrumb: CrumbView.addCrumb,
       removeCrumbs: CrumbView.removeCrumbs,
@@ -61,6 +46,158 @@ define([
             .attr('class')
             .replace(/pages__translate-\d+/g, 'pages__translate-' + pos)
         );
+      },
+
+      _showErrorTooltip: function($target, msg){
+        var $fieldContainer = $target.parent('div');
+
+        var tooltipErrorTmplSrc = $('#tooltip-error-template').html();
+        var tooltipErrorTmpl = _.template(tooltipErrorTmplSrc);
+
+        var targetId = $target.attr('id');
+        if(!msg && (targetId === 'phone-field' || targetId === 'email-field' || targetId === 'attachment-link-field' || targetId === 'test-field')){
+          var name = $fieldContainer.find('label').html();
+          msg = 'Неверно заполнили поле "' + name.replace(':', '') + '"';
+        }
+
+        if(!msg || !_.isString(msg)){
+          msg = 'Не заполнили';
+        }
+
+        var oldTooltip = $fieldContainer.find('.tooltip');
+        if(oldTooltip[0]){
+          oldTooltip.find('p').html(msg);
+          return;
+        }
+
+        var tooltip = tooltipErrorTmpl({msg: msg});
+        $fieldContainer.append(tooltip);
+        $fieldContainer.find('.tooltip').fadeIn(config.fadeTime);
+
+        $target.addClass('error');
+      },
+
+      _removeErrorTooltip: function($target){
+        $target.parent('div')
+          .find('.tooltip')
+          .fadeOut(config.fadeTime, function(){
+            $(this).remove();
+          });
+        $target.removeClass('error');
+      },
+
+      _isFieldEmpty: function($target){
+        return !$target.val();
+      },
+
+      _isAnyEmpty: function(){
+        var errors = 0;
+        $('input').each(function(index, field){
+          if(!$(field).val()){
+            errors++;
+          }
+        });
+
+        return !!errors;
+      },
+
+      _validateField: function($target){
+        $target.removeClass('valid');
+
+        if(this._isFieldEmpty($target)){
+          var msg = 'Не заполнили';
+          this._showErrorTooltip($target, msg);
+          return false;
+        }
+
+        if($target.attr('id') === 'phone-field'){
+          var phoneRegexp = /^\+?[0-9]{1,3}[-. (]?\(?([0-9]{3})\)?[)-. ]?([0-9]{3})[-. ]?([0-9]{2,3})[-. ]?([0-9]{0,2})$/;
+          if(!phoneRegexp.test($target.val())){
+            this._showErrorTooltip($target);
+            return false;
+          }
+        }
+
+        if($target.attr('id') === 'email-field'){
+          // var emailRegexp = /([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/;
+          var emailRegexp = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+          if(!emailRegexp.test($target.val())){
+            this._showErrorTooltip($target);
+            return false;
+          }
+        }
+
+        if($target.attr('id') === 'attachment-link-field'){
+          var attachmentLinkRegexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+          if(!attachmentLinkRegexp.test($target.val())){
+            this._showErrorTooltip($target);
+            return false;
+          }
+        }
+
+        if($target.attr('id') === 'test-field'){
+          var linkRegexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+          if(!linkRegexp.test($target.val())){
+            this._showErrorTooltip($target);
+            return false;
+          }
+        }
+
+        if(!this._isFieldEmpty($target)){
+          this._removeErrorTooltip($target);
+        }
+
+        $target.addClass('valid');
+        return true;
+      },
+
+      _validateAll: function(){
+        var $fields = $('input');
+        var errors = false;
+
+        for(var i=0; i<$fields.length; i++){
+          if(!this._validateField($($fields[i]))){
+            errors = true;
+          }
+        }
+
+        return !errors;
+      },
+
+      _showAlert: function(){
+        var $form = $('#contact-form');
+
+        var $alert = $form.find('#alert');
+        $alert.fadeIn(config.fadeTime);
+
+        setTimeout(function(){
+          $alert.fadeOut(config.fadeTime);
+        }, 7000);
+
+        var $fields = $('input');
+        var $submitBtn = $('#submit');
+
+        $submitBtn.hide();
+        $fields.each(function(index, field){
+          $(field).val('');
+        });
+        $('textarea').val('');
+      },
+
+      initialize: function(){
+        this.jobsCollection = new JobsList(resources.jobs);
+        this.jobCategoriesCollection = new JobCategories(resources.jobCategories);
+
+        this.jobsView = new JobsView();
+        this.jobView = new JobView();
+
+        this.jobListView = new JobsListView({
+          collection: this.jobCategoriesCollection
+        });
+
+        this.elemHtml = this.jobListView.el.outerHTML;
+
+        utils.debug.log('career view initialized');
       },
 
       render: function(smooth){
@@ -101,135 +238,68 @@ define([
         utils.debug.log('career view rendered');
       },
 
-      showErrorTooltip: function($target, msg){
-        var $fieldContainer = $target.parent('div');
-
-        var tooltipErrorTmplSrc = $('#tooltip-error-template').html();
-        var tooltipErrorTmpl = _.template(tooltipErrorTmplSrc);
-
-        var targetId = $target.attr('id');
-        if(!msg && (targetId === 'phone-field' || targetId === 'email-field' || targetId === 'attachment-link-field')){
-          var regexp = /^[а-яА-Яa-zA-Z]+/;
-          var nameSource = $fieldContainer.find('label').html();
-          var name = regexp.exec(nameSource)[0];
-
-          msg = 'Неверно заполнили поле "' + name + '"';
-        }
-
-        if(!msg || !_.isString(msg)){
-          msg = 'Не заполнили';
-        }
-
-        var oldTooltip = $fieldContainer.find('.tooltip');
-        if(oldTooltip[0]){
-          oldTooltip.find('p').html(msg);
-          return;
-        }
-
-        var tooltip = tooltipErrorTmpl({msg: msg});
-        $fieldContainer.append(tooltip);
-        $fieldContainer.find('.tooltip').fadeIn(config.fadeTime);
-
-        $target.addClass('error');
+      /**
+       * Parse params from query string
+       *
+       * @param {String} queryStr
+       * @returns {Object}
+       * @private
+       */
+      _parseQuery: function(queryStr) {
+        return _.reduce(queryStr.split('&'), function(memo, iter){
+            var f = iter.split('=');
+            memo[f[0]] = f[1];
+            return memo;
+        }, {});
       },
 
-      removeErrorTooltip: function($target){
-        $target.parent('div')
-          .find('.tooltip')
-          .fadeOut(config.fadeTime, function(){
-            $(this).remove();
-          });
-        $target.removeClass('error');
-      },
+      /**
+       * Filter jobs by query
+       *
+       * @param {Object} query Objects of query params
+       * @returns {Array}
+       * @private
+       */
+      _getJobsByQuery: function(query) {
+        // TODO: refact
+        var jobs = _.map(this.jobsCollection.toJSON(), function(item){
 
-      isFieldEmpty: function($target){
-        return !$target.val();
-      },
-
-      isAnyEmpty: function(){
-        var errors = 0;
-        $('input').each(function(index, field){
-          if(!$(field).val()){
-            errors++;
+          for (var key in item.category){
+            item['category__' + key] = item.category[key];
           }
+
+          return item;
         });
 
-        return !!errors;
+        if (+query.filter) {
+          delete query.filter;
+          return _.where(jobs, query);
+        }
+
+        return jobs;
       },
 
-      validateField: function($target){
-        $target.removeClass('valid');
+      /**
+       * @param query
+       * @returns {CareerView} this
+       */
+      showJobsByQuery: function(queryStr) {
+        // http://localhost:9000/#career/filter=1&city=Москва&category__name=Дизайн
+        var query = this._parseQuery(queryStr),
+            jobs = this._getJobsByQuery(query),
 
-        if(this.isFieldEmpty($target)){
-          var msg = 'Не заполнили';
-          this.showErrorTooltip($target, msg);
-          return false;
-        }
+            tmpl = this.jobsListTemplate({ jobs: jobs }),
 
-        if($target.attr('id') === 'phone-field'){
-          var phoneRegexp = /^\+?[0-9]{1,3}[-. (]?\(?([0-9]{3})\)?[)-. ]?([0-9]{3})[-. ]?([0-9]{2})[-. ]?([0-9]{2})$/;
-          if(!phoneRegexp.test($target.val())){
-            this.showErrorTooltip($target);
-            return false;
-          }
-        }
+            $page = $('#page-2'),
+            page = $page.length
+              ? $page
+              : $('<div id="page-2" class="career-content"></div>'),
 
-        if($target.attr('id') === 'email-field'){
-          // var emailRegexp = /([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/;
-          var emailRegexp = /[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
-          if(!emailRegexp.test($target.val())){
-            this.showErrorTooltip($target);
-            return false;
-          }
-        }
+            content = page.html(tmpl);
 
-        if($target.attr('id') === 'attachment-link-field'){
-          var attachmentLinkRegexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-          if(!attachmentLinkRegexp.test($target.val())){
-            this.showErrorTooltip($target);
-            return false;
-          }
-        }
+        this.$el.html(content);
 
-        if(!this.isFieldEmpty($target)){
-          this.removeErrorTooltip($target);
-        }
-
-        $target.addClass('valid');
-        return true;
-      },
-
-      validateAll: function(){
-        var $fields = $('input');
-        var errors = false;
-
-        for(var i=0; i<$fields.length; i++){
-          if(!this.validateField($($fields[i]))){
-            errors = true;
-          }
-        }
-
-        return !errors;
-      },
-
-      _showAlert: function(){
-        var $form = $('#contact-form');
-
-        var $alert = $form.find('#alert');
-        $alert.fadeIn(config.fadeTime);
-
-        setTimeout(function(){
-          $alert.fadeOut(config.fadeTime);
-        }, 7000);
-
-        var $fields = $('input');
-        var $submitBtn = $('#submit');
-
-        $submitBtn.hide();
-        $fields.each(function(index, field){
-          $(field).val('');
-        });
-        $('textarea').val('');
+        return this;
       },
 
       showJobs: function(id, saveNextPage){
@@ -317,16 +387,13 @@ define([
 
         // collect page data
         var job = this.jobsCollection.get(id).toJSON();
-        var category = this.jobCategoriesCollection.get(job.category).toJSON();
-        var city = {};
-        if(this.citiesCollection.get(job.city)){
-          city = this.citiesCollection.get(job.city).toJSON();
-        }
+        var category = job.category;
+
+        document.title = job.name + ' | ' + job.project + ' | ' + job.city + ' - ' + $( 'title' ).html();
 
         var data = {
           job: job,
           category: category,
-          city: city,
           social: config.social
         };
 
@@ -389,14 +456,14 @@ define([
             return;
           }
 
-          if(!self.validateField($target)){
-            self.showErrorTooltip($target);
+          if(!self._validateField($target)){
+            self._showErrorTooltip($target);
           }
           else {
-            self.removeErrorTooltip($target);
+            self._removeErrorTooltip($target);
           }
 
-          if(!self.isAnyEmpty()){
+          if(!self._isAnyEmpty()){
             $submitBtn.attr('disabled', false);
           }
         });
@@ -413,7 +480,7 @@ define([
         }
 
         $submitBtn.on('click', function(e){
-          if(self.validateAll()){
+          if(self._validateAll()){
             if(FormData){
               e.preventDefault();
 

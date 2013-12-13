@@ -14,6 +14,8 @@
 
     <link rel="icon" href="/favicon.gif?v=1" type="image/gif">
     <link rel="shortcut icon" href="/favicon.gif?v=1" type="image/gif">
+
+    <link rel="image_src" href="http://allodsteam.ru/images/vk-logo.png">
 </head>
 <!--[if IE]><body class="ie"><![endif]<!-->
 <!--[if !IE]><!-->
@@ -131,6 +133,39 @@
         </a>
     </script>
 
+<script id="jobs-list-template" type="text/tempalte">
+        <table class="career-table">
+            <thead>
+            <tr>
+                <td width="367">Название должности
+                </td>
+                <td width="270">Проект
+                </td>
+                <td>Город
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i = 0; i < jobs.length; i++){ %>
+            <% var job = jobs[i]; %>
+            <tr>
+                <td>
+                    <a href="#career/job=<%= job.id %>">
+                        <span class="dot"></span><%= job.name %>
+                    </a>
+                </td>
+                <td><%= job.project %></td>
+                <td><%= job.city %></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+        <div class="back">
+            <span>◀ </span>
+            <a href="#career?no-fade=true">Вернуться назад</a>
+        </div>
+    </script>
+
     <script id="jobs-table-template" type="text/tempalte"><h1><%= category.name %></h1>
         <%= category.content %>
         <% if(jobs.length){ %>
@@ -170,7 +205,7 @@
     </script>
 
     <script id="job-template" type="text/templates">
-        <h1><%= job.name %> | <%= job.project %> | <%= city.city_name %></h1>
+        <h1><%= job.name %> | <%= job.project %> | <%= job.city %></h1>
 
         <% if(job.top_content){ %>
             <%= job.top_content %>
@@ -242,6 +277,11 @@
             <div>
                 <label for="extra-field">Дополнительно:</label>
                 <textarea name="extra" id="extra-field" placeholder="Дополнительно"></textarea>
+            </div>
+
+            <div>
+                <label for="test-field">Тестовое задание:</label>
+                <input type="text" name="test" id="test-field" placeholder="Ссылка на тестовое задание">
             </div>
 
             <div id="alert" class="alert" style="display: none;">
@@ -333,9 +373,9 @@
     </table>
     </script>
 
-    <script> var _gaq = [['_setAccount', 'UA-42851848-1'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript" src="http://ad.mail.ru/adj/5699?rnd=[randnum]" charset="utf-8"></script>
+    <!-- <script> var _gaq = [['_setAccount', 'UA&#45;42851848&#45;1'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google&#45;analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script> -->
+    <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+    <!-- <script type="text/javascript" src="http://ad.mail.ru/adj/5699?rnd=[randnum]" charset="utf&#45;8"></script> -->
     <!-- build:js scripts/amd-app.js -->
     <script data-main="scripts/main" src="components/requirejs/require.js"></script>
     <!-- endbuild -->
