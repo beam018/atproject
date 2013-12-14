@@ -184,6 +184,47 @@ define([
         $('textarea').val('');
       },
 
+      /**
+       * Parse params from query string
+       *
+       * @param {String} queryStr
+       * @returns {Object}
+       * @private
+       */
+      _parseQuery: function(queryStr) {
+        return _.reduce(queryStr.split('&'), function(memo, iter){
+            var f = iter.split('=');
+            memo[f[0]] = _.isNaN(+f[1]) ? f[1] : +f[1];
+            return memo;
+        }, {});
+      },
+
+      /**
+       * Filter jobs by query
+       *
+       * @param {Object} query Objects of query params
+       * @returns {Array}
+       * @private
+       */
+      _getJobsByQuery: function(query) {
+        // TODO: refact
+        var jobs = _.map(this.jobsCollection.toJSON(), function(item){
+
+          for (var key in item.category){
+            item['category__' + key] = item.category[key];
+          }
+
+          return item;
+        });
+
+        if (+query.filter) {
+          delete query.filter;
+          return _.where(jobs, query);
+        }
+
+        return jobs;
+      },
+
       initialize: function(){
         this.jobsCollection = new JobsList(resources.jobs);
         this.jobCategoriesCollection = new JobCategories(resources.jobCategories);
@@ -239,47 +280,6 @@ define([
       },
 
       /**
-       * Parse params from query string
-       *
-       * @param {String} queryStr
-       * @returns {Object}
-       * @private
-       */
-      _parseQuery: function(queryStr) {
-        return _.reduce(queryStr.split('&'), function(memo, iter){
-            var f = iter.split('=');
-            memo[f[0]] = f[1];
-            return memo;
-        }, {});
-      },
-
-      /**
-       * Filter jobs by query
-       *
-       * @param {Object} query Objects of query params
-       * @returns {Array}
-       * @private
-       */
-      _getJobsByQuery: function(query) {
-        // TODO: refact
-        var jobs = _.map(this.jobsCollection.toJSON(), function(item){
-
-          for (var key in item.category){
-            item['category__' + key] = item.category[key];
-          }
-
-          return item;
-        });
-
-        if (+query.filter) {
-          delete query.filter;
-          return _.where(jobs, query);
-        }
-
-        return jobs;
-      },
-
-      /**
        * @param query
        * @returns {CareerView} this
        */
@@ -321,94 +321,14 @@ define([
 
         $('#content-container').addClass('content__fullsize');
 
-        var jobs = [];
-        for( var i = 0; i < this.jobsCollection.toJSON().length; i++ ){
-          if( this.jobsCollection.toJSON()[i].category.id === id ){
-            jobs.push(this.jobsCollection.toJSON()[i]);
-          }
-        }
+        var query = this._parseQuery('filter=1&category__id=' + id);
+        var jobs = this._getJobsByQuery(query);
 
         var category = this.jobCategoriesCollection.get(id).toJSON();
 
         var data = {
           jobs: jobs,
           category: category
-        };
-
-        this.jobsView.render(data);
-        if(data.category.background){
-          this.jobsView.$el.css(
-            'background-image',
-            'url(' + config.mediaUrl + data.category.background + ')'
-          );
-        }
-        this.$('#page-1').after(this.jobsView.el);
-
-        this._movePages(1);
-        setTimeout(function(){
-          // bug
-
-          if(!saveNextPage){
-            $('#page-3').remove();
-          }
-        }, config.animationTime)
-
-        var urn = '#career/type=' + id;
-
-        var readyCrumb = _.find($('.crumb a'), function(item){
-          return $(item).attr('href') === urn;
-        });
-
-        // TODO: refact
-        // if crumbs cildren length == 2
-        // then change crumb value and url
-        if(!readyCrumb){
-          this.removeCrumbs(this.$crumbs.children().first());
-          this.addCrumb(urn, category.name);
-        }
-        if($('#page-3')[0]){
-          // TODO: refact
-          this.removeCrumbs(this.$crumbs.children().first().next());
-        }
-
-        $('.career-table tbody tr').on('click', function(){
-          window.location = $(this).find('a').attr('href');
-        });
-
-        utils.debug.log('jobs page generated');
-      },
-
-      showCity: function(name, saveNextPage){
-        var id = parseInt(name, 10);
-        // if(isNaN(id)){
-        //   utils.debug.error('bad id');
-
-        //   this.$el.html('');
-        //   return;
-        // }
-
-        var $pages = $('#pages');
-        if(!$pages[0]){
-          // this.render(false);
-          // this.showCity(name);
-          // $('#pages').addClass('pages__transition');
-          // return;
-        }
-
-        $('#content-container').addClass('content__fullsize');
-
-        var jobs = [];
-        for( var i = 0; i < this.jobsCollection.toJSON().length; i++ ){
-          if( this.jobsCollection.toJSON()[i].city === name ){
-            jobs.push(this.jobsCollection.toJSON()[i]);
-          }
-        }
-        console.log(jobs);
-
-        var data = {
-          jobs: jobs,
-          // category: category
-          city: name
         };
 
         this.jobsView.render(data);
