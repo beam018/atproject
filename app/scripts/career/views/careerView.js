@@ -25,13 +25,17 @@ define([
   ){
     'use strict';
 
-    var resources = utils.resources,
-        pages = resources.pages;
+    var r = utils.resources,
+        pages = r.pages;
 
     var CareerView = Backbone.View.extend({
       el: $('#content'),
-      template: $('#career-template').html(),
+      contentBaseHtml: _.template($('#career-template').html()).call(null),
       jobsListTemplate: _.template($('#jobs-list-template').html()),
+      jobsCollection: new JobsList(r.jobs),
+      jobCategoriesCollection: new JobCategories(r.jobCategories),
+      jobsView: new JobsView(),
+      jobView: new JobView(),
 
       addCrumb: CrumbView.addCrumb,
       removeCrumbs: CrumbView.removeCrumbs,
@@ -192,11 +196,17 @@ define([
        * @private
        */
       _parseQuery: function(queryStr) {
-        return _.reduce(queryStr.split('&'), function(memo, iter){
+
+        return _.reduce(queryStr.split('&'), function(memo, iter) {
+
             var f = iter.split('=');
+
             memo[f[0]] = _.isNaN(+f[1]) ? f[1] : +f[1];
+
             return memo;
+
         }, {});
+
       },
 
       /**
@@ -207,99 +217,165 @@ define([
        * @private
        */
       _getJobsByQuery: function(query) {
-        // TODO: refact
-        var jobs = _.map(this.jobsCollection.toJSON(), function(item){
 
-          for (var key in item.category){
+        // TODO: refact
+        var jobs = _.map(this.jobsCollection.toJSON(), function(item) {
+
+          var key;
+
+          for (key in item.category)
             item['category__' + key] = item.category[key];
-          }
 
           return item;
+
         });
 
-        if (+query.filter) {
+        if (!!query.filter) {
+
           delete query.filter;
+
           return _.where(jobs, query);
+
         }
 
         return jobs;
-      },
 
-      initialize: function(){
-        this.jobsCollection = new JobsList(resources.jobs);
-        this.jobCategoriesCollection = new JobCategories(resources.jobCategories);
-
-        this.jobsView = new JobsView();
-        this.jobView = new JobView();
-
-        this.jobListView = new JobsListView({
-          collection: this.jobCategoriesCollection
-        });
-
-        this.elemHtml = this.jobListView.el.outerHTML;
-
-        utils.debug.log('career view initialized');
-      },
-
-      render: function(smooth){
-        if(smooth !== false){
-          smooth = true;
-        }
-
-        var $page1 = $('#page-1');
-
-        this.$el.addClass('rounded__crumbs');
-        // this.$el.addClass('light-border');
-
-        this.$crumbs = $('#crumbs');
-
-        var self = this;
-        if($page1[0]){
-          this._movePages(0);
-          setTimeout(function(){
-            self.removeCrumbs(self.$crumbs.children().first());
-          }, config.animationTime);
-
-          return;
-        }
-
-        var tmpl = _.template(this.template);
-        this.$el.html(tmpl({smooth: smooth}));
-        if(!FormData){
-          var $iframe = $('<iframe id="upload-target" name="upload-target" src="/frame.html" style="display:none;"></iframe>');
-          this.$el.append($iframe);
-        }
-        var page = this.$el.find('#page-1');
-        page.html(this.elemHtml).prepend(
-          resources.career || '<p></p>'
-        );
-
-        this.pageWidth = page.outerWidth();
-
-        utils.debug.log('career view rendered');
       },
 
       /**
+       * Generate content of the page (without breadcrumbs)
+       *
+       * @param {String} queryStr
+       * @param {Boolean} [wrapped]
+       * @returns {String} HTML content of the page
+       * @private
+       */
+      _renderJobsByQuery: function(queryStr, wrapped) {
+
+        var queryStr = queryStr || '',
+          jobs = this._getJobsByQuery(
+            this._parseQuery(queryStr)
+          ),
+          tmpl = this.jobsListTemplate({ jobs: jobs }),
+          wrapped = (wrapped !== undefined
+              ? wrapped
+              : true
+            ),
+          $page = $('#page-2'),
+          page = $page.length
+            ? $page
+            : $('<div id="page-2" class="career-content"></div>');
+
+        return wrapped
+          ? page.html(tmpl)
+          : tmpl;
+
+      },
+
+      /**
+       * @returns {HTMLElement}
+       * @private
+       */
+      _$pages: function() {
+
+        this.$pages && this.$pages.length || ( this.$pages = $('#pages') );
+
+        return this.$pages
+
+      },
+
+      /**
+       * @returns {CareerView}
+       */
+      initialize: function() {
+
+        this.jobListView = new JobsListView({
+
+          collection: this.jobCategoriesCollection
+
+        });
+
+        this.categoryThumbsHtml = this.jobListView.el.outerHTML;
+
+        utils.debug.log('career view initialized');
+
+        return this;
+
+      },
+
+      /**
+       * Render main page of view
+       *
+       * @returns {CareerView}
+       */
+      render: function(){
+
+        var $page = this.$el.find('#page-1');
+
+        if (!$page.length) {
+
+          this.$el
+            .addClass('rounded__crumbs')
+            .html(this.contentBaseHtml);
+
+          this.$crumbs = $('#crumbs');
+
+          $page = this.$el.find('#page-1');
+
+          $page.html(r.career + this.categoryThumbsHtml);
+
+        }
+        else {
+
+          this._movePages(0);
+
+          this.removeCrumbs(this.$crumbs.children().first());
+
+        }
+
+        utils.debug.log('career view rendered');
+
+        return this;
+
+      },
+
+      /**
+       * Draw jobs page by params
+       *
        * @param query
        * @returns {CareerView} this
        */
       showJobsByQuery: function(queryStr) {
-        // http://localhost:9000/#career/filter=1&city=Москва&category__name=Дизайн
-        var query = this._parseQuery(queryStr),
-            jobs = this._getJobsByQuery(query),
 
-            tmpl = this.jobsListTemplate({ jobs: jobs }),
+        var $page = $('#page-2');
 
-            $page = $('#page-2'),
-            page = $page.length
-              ? $page
-              : $('<div id="page-2" class="career-content"></div>'),
+        $('#content-container').addClass('content__fullsize');
 
-            content = page.html(tmpl);
+        !this._$pages().length && ( this.render() );
 
-        this.$el.html(content);
+        if (!$page.length) {
+
+          this._$pages().append(this._renderJobsByQuery(queryStr));
+
+        }
+        else {
+
+          $page.html(this._renderJobsByQuery(queryStr, false));
+
+        }
+
+        // TODO: refact crumb API!!!!! D:
+        this.removeCrumbs(this.$crumbs.children().first());
+
+        this.addCrumb(window.location.hash, 'Query page');
+        // --
+
+        this._movePages(1);
+
+        utils.debug.log('Query page rendered.');
 
         return this;
+
       },
 
       showJobs: function(id, saveNextPage){

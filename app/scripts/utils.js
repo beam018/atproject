@@ -115,7 +115,7 @@ define(['config', 'jquery'], function(config, $){
   res.posts = res.json('posts/');
   res.postsText = res.html('posts/');
 
-  res.career = res.html('career/');
+  res.career = res.html('career/') || '<p></p>';
 
   dbg.log('remote resourses loaded');
 
