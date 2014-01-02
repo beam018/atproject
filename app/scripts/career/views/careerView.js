@@ -40,6 +40,7 @@ define([
       addCrumb: CrumbView.addCrumb,
       removeCrumbs: CrumbView.removeCrumbs,
       activateLastCrumb: CrumbView.activateLastCrumb,
+      removeAllCrumbs: CrumbView.removeAll,
 
       _movePages: function(pos){
         var $pages = $('#pages');
@@ -342,16 +343,19 @@ define([
       /**
        * Draw jobs page by params
        *
-       * @param query
+       * @param query Query String
+       * @param [label] Text in crumb
        * @returns {CareerView} this
        */
-      showJobsByQuery: function(queryStr) {
+      showJobsByQuery: function(queryStr, label) {
 
         var $page = $('#page-2');
 
+        label || ( label = 'Query page' );
+
         $('#content-container').addClass('content__fullsize');
 
-        !this._$pages().length && ( this.render() );
+        !this._$pages().length && this.render();
 
         if (!$page.length) {
 
@@ -367,12 +371,26 @@ define([
         // TODO: refact crumb API!!!!! D:
         this.removeCrumbs(this.$crumbs.children().first());
 
-        this.addCrumb(window.location.hash, 'Query page');
+        this.addCrumb(window.location.hash, label);
         // --
 
         this._movePages(1);
 
         utils.debug.log('Query page rendered.');
+
+        return this;
+
+      },
+
+      /**
+       * Render table with jobs, filtered by city
+       *
+       * @param city City name
+       * @returns {CareerView}
+       */
+      jobsByCity: function(city) {
+
+        this.showJobsByQuery('filter=1&city=' + city, 'Вакансии: ' + city);
 
         return this;
 
