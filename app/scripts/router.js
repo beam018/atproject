@@ -22,6 +22,8 @@ define([
       'career/:query': 'showJobsByQuery',
       'contacts?no-fade=:fade': 'activateContacts',
       'contacts': 'activateContacts',
+      'contacts/:id/jobs/:jobId': 'showContactsJob',
+      'contacts/:id/jobs': 'showContactsJobs',
       'contacts/:id': 'showContact',
       'posts': 'activatePosts',
       '': 'activatePages',
@@ -220,6 +222,26 @@ define([
       clearBase('career');
 
       careerView.showJobsByQuery(query);
+
+    });
+
+    router.on('route:showContactsJobs', function(id){
+
+      switchTab($('#contacts'));
+
+      clearBase('career');
+
+      contactsView.jobsByCity(id);
+      
+    });
+
+    router.on('route:showContactsJob', function(id, jobId){
+
+      switchTab($('#contacts'));
+
+      clearBase('career');
+
+      contactsView.showJob(jobId, id);
 
     });
 

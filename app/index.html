@@ -91,7 +91,7 @@
     <script id="contacts-template" type="text/template">
         <div class="crumbs" id="crumbs">
             <div class="crumb active">
-                <a href="#contacts?no-fade=true">Все контакты<span></span></a>
+                <a href="#contacts?no-fade=true">Контакты<span></span></a>
             </div>
         </div>
 
@@ -133,7 +133,7 @@
         </a>
     </script>
 
-<script id="jobs-list-template" type="text/tempalte">
+    <script id="jobs-list-template" type="text/tempalte">
         <table class="career-table job-list__filtered_yes">
             <thead>
             <tr>
@@ -163,18 +163,45 @@
         </div>
     </script>
 
+    <script id="contacts-jobs-list-template" type="text/tempalte">
+        <table class="career-table job-list__filtered_yes">
+            <thead>
+            <tr>
+                <td width="367">Название должности</td>
+                <td width="270">Проект</td>
+                <td>Город</td>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i = 0; i < jobs.length; i++){ %>
+            <% var job = jobs[i]; %>
+            <tr>
+                <td>
+                    <a href="#contacts/<%= contactId %>/jobs/<%= job.id %>">
+                        <span class="dot"></span><%= job.name %>
+                    </a>
+                </td>
+                <td><%= job.project %></td>
+                <td><%= job.city %></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+        <div class="back">
+            <span>◀ </span>
+            <a href="#career?no-fade=true">Вернуться назад</a>
+        </div>
+    </script>
+
     <script id="jobs-table-template" type="text/tempalte"><h1><%= category.name %></h1>
         <%= category.content %>
         <% if(jobs.length){ %>
         <table class="career-table">
             <thead>
             <tr>
-                <td width="367">Название должности
-                </td>
-                <td width="270">Проект
-                </td>
-                <td>Город
-                </td>
+                <td width="367">Название должности</td>
+                <td width="270">Проект</td>
+                <td>Город</td>
             </tr>
             </thead>
             <tbody>
@@ -370,9 +397,9 @@
     </table>
     </script>
 
-    <!-- <script> var _gaq = [['_setAccount', 'UA&#45;42851848&#45;1'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google&#45;analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script> -->
-    <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-    <!-- <script type="text/javascript" src="http://ad.mail.ru/adj/5699?rnd=[randnum]" charset="utf&#45;8"></script> -->
+     <script> var _gaq = [['_setAccount', 'UA-42851848-1'], ['_trackPageview'] ]; (function (d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s) }(document, 'script')); </script>
+     <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+     <script type="text/javascript" src="http://ad.mail.ru/adj/5699?rnd=[randnum]" charset="utf-8"></script>
     <!-- build:js scripts/amd-app.js -->
     <script data-main="scripts/main" src="components/requirejs/require.js"></script>
     <!-- endbuild -->
