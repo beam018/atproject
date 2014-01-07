@@ -5,11 +5,13 @@ define(['backbone'], function(Backbone){
     name: '',
     city: '',
     top_content: '',
+    requirements: '',
     skills: '',
     desired_skills: '',
     bottom_content: '',
     category: '',
     project: '',
+    test_task: '',
     idAttribute: 'id'
   });
 
