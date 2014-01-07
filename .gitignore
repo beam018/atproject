@@ -12,3 +12,4 @@ media
 *.swo
 *.swn
 libpeerconnection.log
+app/scripts/config.js
