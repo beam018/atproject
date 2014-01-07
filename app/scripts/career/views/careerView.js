@@ -258,10 +258,7 @@ define([
             this._parseQuery(queryStr)
           ),
           tmpl = this.jobsListTemplate({ jobs: jobs }),
-          wrapped = (wrapped !== undefined
-              ? wrapped
-              : true
-            ),
+          wrapped = wrapped || wrapped === undefined,
           $page = $('#page-2'),
           page = $page.length
             ? $page
@@ -349,7 +346,8 @@ define([
        */
       showJobsByQuery: function(queryStr, label) {
 
-        var $page = $('#page-2');
+        var $page = $('#page-2'),
+            urn = window.location.hash;
 
         label || ( label = 'Query page' );
 
@@ -369,10 +367,20 @@ define([
         }
 
         // TODO: refact crumb API!!!!! D:
-        this.removeCrumbs(this.$crumbs.children().first());
+        if (!_.find($('.crumbs a'), function (item) {
 
-        this.addCrumb(window.location.hash, label);
+            return $(item).attr('href') === urn;
+
+          })) {
+
+          this.addCrumb(urn, label);
+
+        }
+
+        this.removeCrumbs(this.$crumbs.children().first().next());
         // --
+
+        $page.nextAll().remove();
 
         this._movePages(1);
 
