@@ -255,6 +255,10 @@
             <%= job.desired_skills %>
         <% } %>
 
+        <% if(job.test_task){ %>
+            <p><a class="button button-test" href="/media/<%= job.test_task %>">Тестовое задание</a></p>
+        <% } %>
+
         <% if(social){ %>
         <div class="share">
             <p>Рассказать о вакансии друзьям</p>
