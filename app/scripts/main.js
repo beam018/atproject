@@ -49,6 +49,8 @@ require(
 
     $('html').removeClass('no-js');
 
+    $('#last-year').html(new Date().getFullYear());
+
     // fancybox
     var fbImageHandler = function(e){
       e.preventDefault();
