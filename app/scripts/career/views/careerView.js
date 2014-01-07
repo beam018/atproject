@@ -340,8 +340,8 @@ define([
       /**
        * Draw jobs page by params
        *
-       * @param query Query String
-       * @param [label] Text in crumb
+       * @param {String} query Query String
+       * @param {String} [label] Text in crumb
        * @returns {CareerView} this
        */
       showJobsByQuery: function(queryStr, label) {
@@ -393,7 +393,7 @@ define([
       /**
        * Render table with jobs, filtered by city
        *
-       * @param city City name
+       * @param {String} city City name
        * @returns {CareerView}
        */
       jobsByCity: function(city) {
@@ -602,21 +602,6 @@ define([
             $submitBtn.attr('disabled', true);
           }
         });
-
-        /*new Ya.share({
-          element: 'yashare',
-          elementStyle: {
-            type: 'none',
-            quickServices: [
-              'vkontakte',
-              'facebook',
-              'twitter',
-              'odnoklassniki',
-              'moimir',
-              'gplus'
-            ]
-          }
-        });*/
 
         $('#contact-form').attr('action', config.mailUrl);
 
