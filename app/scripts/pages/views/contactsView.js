@@ -414,6 +414,8 @@ define([
 
         }
 
+        this._movePages(2);
+
         // TODO: refact crumb API!!!!! D:
 
         if (!_.find($('.crumbs a'), function (item) {
@@ -430,8 +432,6 @@ define([
         // --
 
         $page.nextAll().remove();
-
-        this._movePages(2);
 
         utils.debug.log('Query page rendered.');
 
