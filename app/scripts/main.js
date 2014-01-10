@@ -48,6 +48,7 @@ require(
     'use strict';
 
     $('html').removeClass('no-js');
+    /(iPad|iPhone|iPod)/g.test(navigator.userAgent) && $('html').addClass('ios');
 
     $('#last-year').html(new Date().getFullYear());
 
