@@ -307,10 +307,12 @@
                 <textarea name="extra" id="extra-field" placeholder="Дополнительно"></textarea>
             </div>
 
+            <% if(job.test_task){ %>
             <div>
                 <label for="test-field">Тестовое задание:</label>
                 <input type="text" name="test" id="test-field" placeholder="Ссылка на тестовое задание">
             </div>
+            <% } %>
 
             <div id="alert" class="alert" style="display: none;">
               Ваша заявка отправлена. Мы отправили подтверждение на вашу почту.

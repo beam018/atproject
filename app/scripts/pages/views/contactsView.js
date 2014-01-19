@@ -279,8 +279,14 @@ define([
         if($('#contacts-3')[0]){
           // TODO: refact
           this.removeCrumbs(this.$crumbs.children().first().next());
-          $('#contacts-3').remove();
+          setTimeout(function(){
+
+            $('#contacts-3').remove();
+
+          }, config.animationTime);
         }
+
+
 
         utils.debug.log('contact page generated');
       },
@@ -431,7 +437,11 @@ define([
         this.removeCrumbs(this.$crumbs.children().first().next().next());
         // --
 
-        $page.nextAll().remove();
+        setTimeout(function(){
+
+          $page.nextAll().remove();
+
+        }, config.animationTime);
 
         utils.debug.log('Query page rendered.');
 
