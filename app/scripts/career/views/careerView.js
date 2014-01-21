@@ -213,25 +213,26 @@ define([
       /**
        * Filter jobs by query
        *
-       * @param {Object} query Objects of query params
+       * @param {Object} query Object of query params
+       * @param {String} sortField
        * @returns {Array}
        * @private
        */
-      _getJobsByQuery: function(query) {
+      _getJobsByQuery: function(query, sortField) {
+
+        sortField = sortField || 'city';
 
         // TODO: refact
-        var jobs = _.map(this.jobsCollection.toJSON(), function(item) {
+        var jobs = _.sortBy(_.map(this.jobsCollection.toJSON(), function(item) {
 
-          var key;
-
-          for (key in item.category)
+          for (var key in item.category)
             item['category__' + key] = item.category[key];
 
           return item;
 
-        });
+        }), sortField);
 
-        if (!!query.filter) {
+        if (query.filter) {
 
           delete query.filter;
 
