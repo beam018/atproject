@@ -60,6 +60,8 @@ define([
 
       if(!_.find(arguments, function(item){return item == 'career';})){
         $contentContainer.removeClass('rounded__crumbs');
+        $('#pages').remove();
+        $('#contacts-pages').remove();
       }
 
       document.title = defaultTitle;

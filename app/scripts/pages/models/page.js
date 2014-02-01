@@ -2,12 +2,13 @@ define(['backbone'], function(Backbone){
   'use strict';
 
   var Page = Backbone.Model.extend({
-  	idAttribute: 'id',
+    idAttribute: 'id',
     caption: '',
     content: '',
     thumb: '',
     image: '',
-    type: ''
+    type: '',
+    no_job_text: ''
   });
 
   return Page;

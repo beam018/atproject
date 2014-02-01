@@ -350,6 +350,7 @@ define([
        * Generate content of the page (without breadcrumbs)
        *
        * @param {String} queryStr
+       * @param {Number} contactId
        * @param {Boolean} [wrapped]
        * @returns {String} HTML content of the page
        * @private
@@ -361,10 +362,12 @@ define([
             this._parseQuery(queryStr),
             'project'
           ),
-          tmpl = this.jobsListTemplate({
-            jobs: jobs,
-            contactId: contactId
-          }),
+          tmpl = jobs.length
+              ? this.jobsListTemplate({
+                jobs: jobs,
+                contactId: contactId
+              })
+              : this.collection.get(contactId).toJSON().no_jobs_text,
           wrapped = wrapped || wrapped === undefined,
           $page = $('contacts-3'),
           page = $page.length
@@ -383,7 +386,8 @@ define([
        */
       _$pages: function() {
 
-        this.$pages && this.$pages.length || ( this.$pages = $('#contacts-pages') );
+//        this.$pages && this.$pages.length || ( this.$pages = $('#contacts-pages') );
+        this.$pages = $('#contacts-pages');
 
         return this.$pages
 
@@ -399,7 +403,7 @@ define([
        */
       showJobsByQuery: function(queryStr, contactId, label) {
 
-        var $page = $('#contacts-3'),
+        var $page = this._$pages().find('#contacts-3'),
             urn = '#contacts/' + contactId + '/jobs';
 
         label || ( label = 'Query page' );
@@ -407,8 +411,11 @@ define([
         $('#content-container').addClass('content__fullsize');
 
         if (!this._$pages().length) {
+
           this.render()
+
           this.showContact(contactId);
+
         };
 
         if (!$page.length) {

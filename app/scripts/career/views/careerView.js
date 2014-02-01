@@ -350,7 +350,7 @@ define([
         var $page = $('#page-2'),
             urn = window.location.hash;
 
-        label || ( label = 'Query page' );
+        label || ( label = 'Результаты поиска' );
 
         $('#content-container').addClass('content__fullsize');
 
